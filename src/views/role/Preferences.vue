@@ -58,7 +58,7 @@
               <div class="flex justify-between">
                 <p class="self-center">Is the role a default user role?</p>
                 <p class="focus:text-indigo-800 focus:outline-none text-sm leading-normal cursor-pointer text-right self-justify-end">
-                  <input class="form-check-switch self-center" type="checkbox" v-model="role.is_default">
+                  <input class="form-check-switch self-center" type="checkbox" v-model="role.is_default" :checked="role.is_default">
                 </p>
               </div>
             </div>
@@ -118,7 +118,8 @@ export default defineComponent({
       axios.put('roles/' + this.role.id, {
         name: this.role.name,
         description: this.role.description,
-        color: this.role.color
+        color: this.role.color,
+        is_default: this.role.is_default
       })
         .then(response => {
           toast.success('Role edited successfully')
@@ -135,6 +136,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.get('roles/' + id)
         .then(response => {
+          console.error(response)
           this.role = response.data.data
           loader.hide()
         })

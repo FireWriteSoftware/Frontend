@@ -54,7 +54,7 @@
                       </div>
                     </div>
                     <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
-                      <div class="border-2 border-dashed shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
+                      <div class="shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
                         <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
                           <img
                             class="rounded-md"
