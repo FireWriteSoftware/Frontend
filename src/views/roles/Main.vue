@@ -342,14 +342,14 @@ export default defineComponent({
     },
     editRole() {
       const loader = this.$loading.show()
+
       axios.put('roles/' + this.edit_role.id, {
         name: this.edit_role.name,
         description: this.edit_role.description,
         color: this.edit_role.color,
-        is_default: this.edit_role.is_default
+        is_default: !!this.edit_role.is_default
       })
         .then(response => {
-          console.error(response)
           toast.success('Role was successfully edited')
           loader.hide()
           this.modalState.edit = false
