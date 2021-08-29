@@ -17,10 +17,12 @@
           <div class="mr-auto text-sm text-gray-700 dark:text-gray-500">Here you can make general settings of the role</div>
         </div>
       </router-link>
-      <div class="py-3 px-5 rounded-lg border dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-dark-5 transition duration-500">
-        <h2 class="text-lg font-medium mr-auto">Members</h2>
-        <div class="mr-auto text-sm text-gray-700 dark:text-gray-500">Here you can make general settings of the role</div>
-      </div>
+      <router-link :to="{ name: 'admin.role.view.members', params: { id: role?.id } }">
+        <div :class="'py-3 px-5 rounded-lg hover:bg-gray-200 dark:hover:bg-dark-5 transition duration-500 ' + (this.$route.name === 'admin.role.view.members' ? 'border-2 border-theme-1 dark:border-theme-1' : 'border dark:border-gray-600')">
+          <h2 class="text-lg font-medium mr-auto">Members</h2>
+          <div class="mr-auto text-sm text-gray-700 dark:text-gray-500">Here you can manage members of this role</div>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>

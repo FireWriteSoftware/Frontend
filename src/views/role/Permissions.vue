@@ -1,25 +1,5 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Edit Role</h2>
-      <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-        <div class="dropdown">
-          <button
-            class="dropdown-toggle btn btn-primary shadow-md flex items-center"
-            aria-expanded="false"
-          >
-            <SettingsIcon class="w-4 h-4 mr-2"></SettingsIcon> Settings <ChevronDownIcon class="w-4 h-4 ml-2" />
-          </button>
-          <div class="dropdown-menu w-40">
-            <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-              <a href="#" @click="deleteRole" aria-expanded="false" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                <Trash2Icon class="w-4 h-4 mr-2"/> Delete Role
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- BEGIN: Header -->
     <Header :role="this.role"></Header>
     <!-- END: Header -->
@@ -60,7 +40,6 @@
                     <tr>
                       <th class="border-b-2 dark:border-dark-5 whitespace-nowrap"></th>
                       <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Permission Name</th>
-                      <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Creator</th>
                       <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Last update</th>
                       <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Created at</th>
                     </tr>
@@ -69,7 +48,6 @@
                     <tr v-for="(permission, index) in group" v-bind:key="index">
                       <td class="border-b dark:border-dark-5"><input class="form-check-switch self-center" type="checkbox" @change="togglePermission(permission)" v-model="permission.active" :checked="permission?.active"></td>
                       <td class="border-b dark:border-dark-5">{{ permission?.name }}</td>
-                      <td class="border-b dark:border-dark-5">{{ permission?.user?.name }}</td>
                       <td class="border-b dark:border-dark-5">{{ formatDate(permission?.updated_at) }}</td>
                       <td class="border-b dark:border-dark-5">{{ formatDate(permission?.created_at) }}</td>
                     </tr>
@@ -93,7 +71,7 @@
               <input id="form-role-color" type="text" class="form-control h-10 mt-2" placeholder="Search..." v-model="search_keyword"/>
             </div>
           </div>
-          <div v-for="result in searchResults" v-bind:key="result" class="bg-gray-200 p-2 rounded-lg mt-2 hover:bg-gray-400 flex justify-between" @click="togglePermission(result)">
+          <div v-for="result in searchResults" v-bind:key="result" class="p-2 rounded-lg mt-2 flex justify-between dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 transition duration-100" @click="togglePermission(result)">
             <div>{{ result.name }}</div>
             <input class="form-check-switch self-center" type="checkbox" @change="togglePermission(result)" v-model="result.active" :checked="result?.active">
           </div>
