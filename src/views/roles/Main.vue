@@ -8,7 +8,8 @@
             type="text"
             class="form-control w-56 box pr-10 placeholder-theme-13"
             placeholder="Search..."
-            v-model="this.search.role"
+            v-model="search.role"
+            @change="this.fetchRoles(this.search.role ? 'roles?search=' + this.search.role : 'roles')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
@@ -165,7 +166,7 @@
         </thead>
         <tbody>
         <tr
-          v-for="role in this.filteredRoles"
+          v-for="role in this.roles"
           v-bind:key="role.id"
           class="intro-x"
         >
@@ -213,12 +214,12 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchRoles(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.role ? fetchRoles(pagination.first_page_url + '&search=' + this.search.role) : fetchRoles(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchRoles(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.role ? fetchRoles(pagination.prev_page_url + '&search=' + this.search.role) : fetchRoles(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
@@ -226,12 +227,12 @@
           <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchRoles(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.role ? fetchRoles(pagination.next_page_url + '&search=' + this.search.role) : fetchRoles(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchRoles(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.role ? fetchRoles(pagination.last_page_url + '&search=' + this.search.role) : fetchRoles(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -272,13 +273,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchRoles('roles')
-  },
-  computed: {
-    filteredRoles: function () {
-      return this.roles.filter((role) => {
-        return role?.name?.toLowerCase().match(this.search.role.toLowerCase()) || role?.color?.toLowerCase().match(this.search.role.toLowerCase()) || role?.description?.toLowerCase().match(this.search.role.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchRoles(page) {

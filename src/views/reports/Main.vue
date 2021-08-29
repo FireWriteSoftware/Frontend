@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="intro-y text-lg font-medium mt-10">Wiki Reports</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">Reports overview</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
       <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="javascript:;" @click="fetchReports('posts/reports?page=' + pagination.current_page)" class="btn btn-primary btn-sm"><RepeatIcon class="w-4 h-4"></RepeatIcon></a>
@@ -14,6 +14,7 @@
               class="form-control w-56 box pr-10 placeholder-theme-13"
               placeholder="Search..."
               v-model="this.search.report"
+              @change="this.fetchReports(this.search.report ? 'posts/reports?search=' + this.search.report : 'posts/reports')"
             />
             <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
           </div>
@@ -21,7 +22,7 @@
       </div>
       <!-- BEGIN: Report Layout -->
       <div
-        v-for="report in this.filteredReports"
+        v-for="report in this.reports"
         v-bind:key="report.id"
         class="intro-y col-span-12 md:col-span-6 xl:col-span-4 box"
       >
@@ -93,12 +94,12 @@
         <div class="flex flex-col items-center mt-5">
           <ul class="flex">
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchReports(pagination.first_page_url)">
+              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.report ? fetchReports(pagination.first_page_url + '&search=' + this.search.report) : fetchReports(pagination.first_page_url)">
                 <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchReports(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+              <button class="flex items-center font-bold" @click="this.search.report ? fetchReports(pagination.prev_page_url + '&search=' + this.search.report) : fetchReports(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
                 <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
               </button>
             </li>
@@ -106,12 +107,12 @@
               <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchReports(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+              <button class="flex items-center font-bold" @click="this.search.report ? fetchReports(pagination.next_page_url + '&search=' + this.search.report) : fetchReports(pagination.next_page_url)" :disabled="!pagination.next_page_url">
                 <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchReports(pagination.last_page_url)">
+              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.report ? fetchReports(pagination.last_page_url + '&search=' + this.search.report) : fetchReports(pagination.last_page_url)">
                 <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
               </button>
             </li>
@@ -142,13 +143,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchReports('posts/reports')
-  },
-  computed: {
-    filteredReports: function () {
-      return this.reports.filter((report) => {
-        return report?.content.toLowerCase().match(this.search.report.toLowerCase()) || report?.user?.name.toLowerCase().match(this.search.report.toLowerCase()) || report?.updated_at.toLowerCase().match(this.search.report.toLowerCase()) || report?.created_at.toLowerCase().match(this.search.report.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchReports(url) {
