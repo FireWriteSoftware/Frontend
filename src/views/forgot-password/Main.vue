@@ -17,7 +17,7 @@
           </a>
           <div class="my-auto">
             <img
-              alt="Icewall Tailwind HTML Admin Template"
+              alt=""
               class="-intro-x w-1/2 -mt-16"
               :src="require(`@/assets/images/forgot-password-illustration.svg`)"
             />

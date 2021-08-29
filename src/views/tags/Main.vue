@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Wiki Tags</h2>
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8 mb-4">
+      <h2 class="text-lg font-medium mr-auto">Tags Overview</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
           <input
@@ -9,6 +9,7 @@
             class="form-control w-56 box pr-10 placeholder-theme-13"
             placeholder="Search..."
             v-model="this.search.tag"
+            @change="this.fetchTags(this.search.tag ? 'tags?search=' + this.search.tag : 'tags')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
@@ -145,7 +146,7 @@
         </thead>
         <tbody>
         <tr
-          v-for="tag in this.filteredTags"
+          v-for="tag in this.tags"
           v-bind:key="tag.id"
           class="intro-x"
         >
@@ -185,12 +186,12 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchTags(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.tag ? fetchTags(pagination.first_page_url + '&search=' + this.search.tag) : fetchTags(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchTags(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.tag ? fetchTags(pagination.prev_page_url + '&search=' + this.search.tag) : fetchTags(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
@@ -198,12 +199,12 @@
           <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchTags(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.tag ? fetchTags(pagination.next_page_url + '&search=' + this.search.tag) : fetchTags(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchTags(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.tag ? fetchTags(pagination.last_page_url + '&search=' + this.search.tag) : fetchTags(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -244,13 +245,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchTags('tags')
-  },
-  computed: {
-    filteredTags: function () {
-      return this.tags.filter((tag) => {
-        return tag?.name.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.description.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.color.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.icon.toLowerCase().match(this.search.tag.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchTags(page) {

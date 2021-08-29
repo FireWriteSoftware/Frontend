@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="intro-y text-lg font-medium mt-10">Wiki Bans</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">Bans Overview</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
       <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="javascript:;" @click="fetchBans('bans?page=' + pagination.current_page)" class="btn btn-primary btn-sm"><RepeatIcon class="w-4 h-4"></RepeatIcon></a>
@@ -14,6 +14,7 @@
               class="form-control w-56 box pr-10 placeholder-theme-13"
               placeholder="Search..."
               v-model="this.search.ban"
+              @change="this.fetchBans(this.search.ban ? 'bans?search=' + this.search.ban : 'bans')"
             />
             <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
           </div>
@@ -21,7 +22,7 @@
       </div>
       <!-- BEGIN: Ban Layout -->
       <div
-        v-for="ban in this.filteredBans"
+        v-for="ban in this.bans"
         v-bind:key="ban.id"
         class="intro-y col-span-12 md:col-span-6 xl:col-span-4 box"
       >
@@ -94,25 +95,25 @@
         <div class="flex flex-col items-center mt-5">
           <ul class="flex">
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchBans(pagination.first_page_url)">
+              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.ban ? fetchBans(pagination.first_page_url + '&search=' + this.search.ban) : fetchBans(pagination.first_page_url)">
                 <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchBans(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+              <button class="flex items-center font-bold" @click="this.search.ban ? fetchBans(pagination.prev_page_url + '&search=' + this.search.ban) : fetchBans(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
                 <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <a class="font-bold">{{ pagination.current_page }} / {{ pagination.last_page }}</a>
+              <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchBans(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+              <button class="flex items-center font-bold" @click="this.search.ban ? fetchBans(pagination.next_page_url + '&search=' + this.search.ban) : fetchBans(pagination.next_page_url)" :disabled="!pagination.next_page_url">
                 <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchBans(pagination.last_page_url)">
+              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.ban ? fetchBans(pagination.last_page_url + '&search=' + this.search.ban) : fetchBans(pagination.last_page_url)">
                 <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
               </button>
             </li>
@@ -136,13 +137,6 @@ export default defineComponent({
         ban: ''
       },
       bans: []
-    }
-  },
-  computed: {
-    filteredBans: function () {
-      return this.bans.filter((ban) => {
-        return ban?.reason.toLowerCase().match(this.search.ban.toLowerCase()) || ban?.description.toLowerCase().match(this.search.ban.toLowerCase()) || ban?.ban_until.toLowerCase().match(this.search.ban.toLowerCase()) || ban?.staff?.name.toLowerCase().match(this.search.ban.toLowerCase()) || ban?.target?.name.toLowerCase().match(this.search.ban.toLowerCase())
-      })
     }
   },
   mounted() {

@@ -62,7 +62,7 @@
             >
               <div class="w-8 h-8 image-fit">
                 <img
-                  alt="Icewall Tailwind HTML Admin Template"
+                  alt=""
                   class="rounded-full"
                   :src="require(`@/assets/images/${faker.photos[0]}`)"
                 />
@@ -84,7 +84,7 @@
           >
             <div class="w-8 h-8 image-fit">
               <img
-                alt="Icewall Tailwind HTML Admin Template"
+                alt=""
                 class="rounded-full"
                 :src="require(`@/assets/images/${faker.images[0]}`)"
               />
@@ -120,7 +120,7 @@
           >
             <div class="w-12 h-12 flex-none image-fit mr-1">
               <img
-                alt="Icewall Tailwind HTML Admin Template"
+                alt=""
                 class="rounded-full"
                 :src="require(`@/assets/images/${faker.photos[0]}`)"
               />
@@ -154,7 +154,7 @@
         aria-expanded="false"
       >
         <img
-          alt="Icewall Tailwind HTML Admin Template"
+          alt=""
           :src="require(`@/assets/images/${$f()[9].photos[0]}`)"
         />
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Wiki Permissions</h2>
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8 mb-4">
+      <h2 class="text-lg font-medium mr-auto">Permissions overview</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
           <input
@@ -9,6 +9,7 @@
             class="form-control w-56 box pr-10 placeholder-theme-13"
             placeholder="Search..."
             v-model="this.search.permission"
+            @change="this.fetchPermissions(this.search.permission ? 'permissions?search=' + this.search.permission : 'permissions')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
@@ -119,7 +120,7 @@
         </thead>
         <tbody>
         <tr
-          v-for="permission in this.filteredPermissions"
+          v-for="permission in this.permissions"
           v-bind:key="permission.id"
           class="intro-x"
         >
@@ -152,12 +153,12 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchPermissions(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.permission ? fetchPermissions(pagination.first_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPermissions(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.permission ? fetchPermissions(pagination.prev_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
@@ -165,12 +166,12 @@
           <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPermissions(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.permission ? fetchPermissions(pagination.next_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchPermissions(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.permission ? fetchPermissions(pagination.last_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -208,13 +209,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchPermissions('permissions')
-  },
-  computed: {
-    filteredPermissions: function () {
-      return this.permissions.filter((permission) => {
-        return permission?.name.toLowerCase().match(this.search.permission.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchPermissions(page) {

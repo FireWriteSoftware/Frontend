@@ -1,21 +1,20 @@
 <template>
   <div>
     <div class="grid grid-cols-12 gap-6 mt-5">
-      <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a class="btn btn-primary shadow-md mr-2" data-toggle='modal' data-target='#create-badge-modal' @click="modalState.create = true">Add new Badge</a>
-
-        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-          <div class="w-56 relative text-gray-700 dark:text-gray-300">
+      <div class="intro-y col-span-12 flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">Badges overview</h2>
+        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+          <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
             <input
               type="text"
               class="form-control w-56 box pr-10 placeholder-theme-13"
               placeholder="Search..."
-              v-model='search'
+              v-model='search.badges'
+              @change="this.fetchBadges(this.search.badges ? 'badges?search=' + this.search.badges : 'badges')"
             />
-            <SearchIcon
-              class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"
-            />
+            <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
           </div>
+          <a class="btn btn-primary shadow-md" data-toggle='modal' data-target='#create-badge-modal' @click="modalState.create = true">Add new Badge</a>
         </div>
       </div>
       <!-- BEGIN: Data List -->
@@ -34,8 +33,8 @@
           </thead>
           <tbody>
           <tr
-            v-for="(badge, index) in searchBadges(this.search)"
-            :key="index"
+            v-for="badge in badges"
+            :key="badge.id"
             class="intro-x"
           >
             <td class="text-center">
@@ -72,7 +71,7 @@
               <div class="flex justify-center items-center">
                 <a
                   v-on:click='this.editModal = badge; modalState.edit = true'
-                  href='javascript:'
+                  href='javascript:;'
                   data-toggle='modal'
                   data-target='#edit-badge-modal'
                   class="text-small">
@@ -80,7 +79,7 @@
                 </a>
                 <a
                   v-on:click='this.deleteModal = badge'
-                  href='javascript:'
+                  href='javascript:;'
                   data-toggle="modal"
                   data-target="#delete-confirmation-modal"
                   class="text-small">
@@ -93,51 +92,35 @@
         </table>
       </div>
       <!-- END: Data List -->
-      <!-- BEGIN: Pagination -->
-      <div
-        class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center"
-      >
-        <ul class="pagination">
-          <li>
-            <div class="pagination__link" v-on:click='this.fetchBadges(this.pagination.links.first)'>
-              <ChevronsLeftIcon class="w-4 h-4" />
-            </div>
+      <!-- BEGIN: Datatable Pagination -->
+      <div class="flex flex-col col-span-12 items-center mt-5">
+        <ul class="flex">
+          <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+            <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.badges ? fetchBadges(pagination.first_page_url + '&search=' + this.search.badges) : fetchBadges(pagination.first_page_url)">
+              <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
+            </button>
           </li>
-
-          <li>
-            <div class="pagination__link" v-if='this.pagination.links.prev != null' v-on:click='this.fetchBadges(this.pagination.links.prev)'>
-              <ChevronLeftIcon class="w-4 h-4" />
-            </div>
+          <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+            <button class="flex items-center font-bold" @click="this.search.badges ? fetchBadges(pagination.prev_page_url + '&search=' + this.search.badges) : fetchBadges(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+              <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
+            </button>
           </li>
-
-          <li>
-            <div class="pagination__link pagination__link--active">
-              {{ this.pagination.meta.current_page }}
-            </div>
+          <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+            <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
           </li>
-
-          <li>
-            <div class="pagination__link" v-if='this.pagination.links.next !== null' v-on:click='this.fetchBadges(this.pagination.links.last)'>
-              <ChevronRightIcon class="w-4 h-4" />
-            </div>
+          <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+            <button class="flex items-center font-bold" @click="this.search.badges ? fetchBadges(pagination.next_page_url + '&search=' + this.search.badges) : fetchBadges(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+              <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
+            </button>
           </li>
-
-          <li>
-            <div class="pagination__link" v-on:click='this.fetchBadges(this.pagination.links.last)'>
-              <ChevronsRightIcon class="w-4 h-4" />
-            </div>
+          <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+            <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.badges ? fetchBadges(pagination.last_page_url + '&search=' + this.search.badges) : fetchBadges(pagination.last_page_url)">
+              <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
+            </button>
           </li>
         </ul>
-        <select class="w-20 form-select box mt-3 sm:mt-0" v-model='per_page'>
-          <option>5</option>
-          <option>10</option>
-          <option selected>15</option>
-          <option>25</option>
-          <option>50</option>
-          <option>100</option>
-        </select>
       </div>
-      <!-- END: Pagination -->
+      <!-- END: Datatable Pagination -->
     </div>
 
     <!-- BEGIN: Delete Confirmation Modal -->
@@ -355,8 +338,8 @@
 <script>
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import moment from 'moment'
 import { useToast } from 'vue-toastification'
+import moment from 'moment'
 const toast = useToast()
 
 export default defineComponent({
@@ -367,8 +350,9 @@ export default defineComponent({
         links: {},
         meta: {}
       },
-      per_page: 15,
-      search: '',
+      search: {
+        badges: ''
+      },
       deleteModal: {},
       editModal: {},
       roles: [],
@@ -392,6 +376,17 @@ export default defineComponent({
     this.fetchRoles()
   },
   methods: {
+    makePagination(meta, links) {
+      const pagination = {
+        current_page: meta.current_page,
+        last_page: meta.last_page,
+        last_page_url: links.last,
+        first_page_url: links.first,
+        next_page_url: links.next,
+        prev_page_url: links.prev
+      }
+      this.pagination = pagination
+    },
     fetchBadges(page) {
       axios.get(page, {
         params: {
@@ -400,9 +395,7 @@ export default defineComponent({
       })
         .then((response) => {
           this.badges = response.data.data
-
-          this.pagination.links = response.data.links
-          this.pagination.meta = response.data.meta
+          this.makePagination(response.data.meta, response.data.links)
         })
         .catch((error) => {
           console.error(error)
@@ -470,25 +463,8 @@ export default defineComponent({
         })
       this.deleteModal = {}
     },
-    searchBadges(term) {
-      if (term === null || term === '' || term === ' ') {
-        return this.badges
-      }
-
-      return this.badges.filter((item) => {
-        return (item.title.toLowerCase().includes(term.toLowerCase()) || item.description.toLowerCase().includes(term.toLowerCase()) || item.user.name.toLowerCase().includes(term.toLowerCase()))
-      })
-    },
     formatDate(timeString) {
       return moment(String(timeString)).format('MMM Do YYYY  hh:mm')
-    }
-  },
-  watch: {
-    search: function (val) {
-      this.searchBadges(val)
-    },
-    per_page: function (val) {
-      this.fetchBadges('badges?page=' + this.pagination.meta.current_page)
     }
   }
 })

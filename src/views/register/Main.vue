@@ -21,15 +21,11 @@
               class="-intro-x w-1/2 -mt-16"
               :src="require(`@/assets/images/register-illustration.svg`)"
             />
-            <div
-              class="-intro-x text-white font-medium text-4xl leading-tight mt-10"
-            >
+            <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
               A few more clicks to <br />
               sign up to your account.
             </div>
-            <div
-              class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500"
-            >
+            <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500">
               Free of charge and opensource developed by KRB-Development
             </div>
           </div>
@@ -134,15 +130,10 @@
                 </router-link>
               </div>
               <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                <button
-                  type="submit"
-                  class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
-                >
+                <button type="submit" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">
                   Register
                 </button>
-                <router-link :to="{ name: 'login' }"
-                  class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top"
-                >
+                <router-link :to="{ name: 'login' }" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">
                   Sign in
                 </router-link>
               </div>
@@ -204,8 +195,8 @@ export default defineComponent({
         .then(response => {
           localStorage.setItem('user', JSON.stringify(response.data.data.user))
           localStorage.setItem('token', response.data.data.token)
+          loader.hide()
           if (localStorage.getItem('token') != null) {
-            loader.hide()
             this.$router.push({ name: 'categories' })
           }
         })

@@ -5,6 +5,7 @@ import Categories from '../views/categories/Main.vue'
 import Roles from '../views/roles/Main.vue'
 import RolePreferences from '../views/role/Preferences.vue'
 import RolePermissions from '../views/role/Permissions.vue'
+import RoleMembers from '../views/role/Members.vue'
 import Permissions from '../views/permissions/Main.vue'
 import Bans from '../views/bans/Main.vue'
 import Ban from '../views/ban/Main.vue'
@@ -42,7 +43,7 @@ import EditCategories from '../views/edit-category/Main.vue'
 import Search from '../views/search/Main.vue'
 import TermsOfService from '../views/terms-of-service/Main.vue'
 import PrivacyPolicy from '../views/privacy-policy/Main.vue'
-import PostSingle from '../views/post/PostSingle.vue'
+import PostSingle from '../views/post/Main.vue'
 
 const routes = [
   {
@@ -204,6 +205,16 @@ const routes = [
         component: RolePermissions,
         meta: {
           title: 'Role Permissions',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'roles/:id/members',
+        name: 'admin.role.view.members',
+        component: RoleMembers,
+        meta: {
+          title: 'Role Members',
           auth: true,
           isAuth: false
         }
