@@ -11,7 +11,8 @@
                 type="text"
                 class="form-control w-full sm:w-64 box px-10 text-gray-700 dark:text-gray-300 placeholder-theme-13"
                 placeholder="Search..."
-                v-model='keywords'
+                v-model="this.search.post"
+                @change="this.fetchPosts(this.search.post ? 'posts/unauthorized?search=' + this.search.post : 'posts/unauthorized')"
               />
             </div>
           </div>
@@ -22,7 +23,7 @@
       <div class="col-span-12">
         <div class="grid grid-cols-12 gap-5 mt-6 -mb-6">
           <div
-            v-for="post in this.filteredPosts"
+            v-for="post in this.posts"
             v-bind:key="post.id"
             class="intro-y blog col-span-12 md:col-span-4 box"
           >
@@ -90,12 +91,12 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchPosts(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.post ? fetchPosts(pagination.first_page_url + '&search=' + this.search.post) : fetchPosts(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPosts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.post ? fetchPosts(pagination.prev_page_url + '&search=' + this.search.post) : fetchPosts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
@@ -103,12 +104,12 @@
           <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPosts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.post ? fetchPosts(pagination.next_page_url + '&search=' + this.search.post) : fetchPosts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchPosts(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.post ? fetchPosts(pagination.last_page_url + '&search=' + this.search.post) : fetchPosts(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -129,32 +130,21 @@ export default defineComponent({
   data() {
     return {
       posts: [],
-      keywords: '',
+      search: {
+        post: ''
+      },
       permissions: [],
-      pagination: {},
-      search_type: 0
+      pagination: {}
     }
   },
   mounted() {
     this.testPagePermissions()
     this.fetchPosts('posts/unauthorized')
   },
-  computed: {
-    unauthorizedPosts: function () {
-      return this.posts.filter((post) => {
-        return !post.approved_by && !post.approved_at
-      })
-    },
-    filteredPosts: function () {
-      return this.unauthorizedPosts.filter((post) => {
-        return post.title.toLowerCase().match(this.keywords.toLowerCase()) || post.content.toLowerCase().match(this.keywords.toLowerCase())
-      })
-    }
-  },
   methods: {
-    fetchPosts($url) {
+    fetchPosts(url) {
       const loader = this.$loading.show()
-      axios.get($url)
+      axios.get(url)
         .then((response) => {
           this.posts = response.data.data
           loader.hide()
