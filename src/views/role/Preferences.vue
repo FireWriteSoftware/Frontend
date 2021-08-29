@@ -119,7 +119,7 @@ export default defineComponent({
         name: this.role.name,
         description: this.role.description,
         color: this.role.color,
-        is_default: this.role.is_default
+        is_default: !!this.role.is_default
       })
         .then(response => {
           toast.success('Role edited successfully')
