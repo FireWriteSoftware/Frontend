@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8 mb-4">
       <h2 class="text-lg font-medium mr-auto">Tags Overview</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
