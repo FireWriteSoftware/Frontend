@@ -97,7 +97,7 @@
       </div>
     </div>
     <!-- END: Create Modal -->
-    <h2 class="intro-y text-lg font-medium mt-10">Wiki Accounts</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">Accounts</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
       <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="javascript:;" data-toggle="modal" data-target="#create-account-modal" class="btn btn-primary" @click="this.modalState = true">Create new Account</a>
@@ -111,6 +111,7 @@
               class="form-control w-56 box pr-10 placeholder-theme-13"
               placeholder="Search..."
               v-model="this.search.account"
+              @change="this.fetchAccounts(this.search.account ? 'users?search=' + this.search.account : 'users')"
             />
             <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
           </div>
@@ -118,7 +119,7 @@
       </div>
       <!-- BEGIN: Users Layout -->
       <div
-        v-for="account in this.filteredAccounts"
+        v-for="account in this.accounts"
         v-bind:key="account.id"
         class="intro-y col-span-12 md:col-span-6"
       >
@@ -170,26 +171,26 @@
       <div class="intro-y col-span-12 items-center">
         <div class="flex flex-col items-center mt-5">
           <ul class="flex">
-            <li class="self-center mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchAccounts(pagination.first_page_url)">
+            <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
+              <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.account ? fetchAccounts(pagination.first_page_url + '&search=' + this.search.account) : fetchAccounts(pagination.first_page_url)">
                 <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchAccounts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+              <button class="flex items-center font-bold" @click="this.search.account ? fetchAccounts(pagination.prev_page_url + '&search=' + this.search.account) : fetchAccounts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
                 <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <a class="font-bold">{{ pagination.current_page }} / {{ pagination.last_page }}</a>
+              <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" @click="fetchAccounts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
-                <span class="mx-1"><ChevronRightIcon class="self-center"></ChevronRightIcon></span>
+              <button class="flex items-center font-bold" @click="this.search.account ? fetchAccounts(pagination.next_page_url + '&search=' + this.search.account) : fetchAccounts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+                <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchAccounts(pagination.last_page_url)">
+              <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.account ? fetchAccounts(pagination.last_page_url + '&search=' + this.search.account) : fetchAccounts(pagination.last_page_url)">
                 <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
               </button>
             </li>
@@ -227,13 +228,6 @@ export default defineComponent({
           name: 'Not set'
         }
       }
-    }
-  },
-  computed: {
-    filteredAccounts: function () {
-      return this.accounts.filter((account) => {
-        return account.name.toLowerCase().match(this.search.account.toLowerCase()) || account.email.toLowerCase().match(this.search.account.toLowerCase()) || account.pre_name.toLowerCase().match(this.search.account.toLowerCase()) || account.last_name.toLowerCase().match(this.search.account.toLowerCase())
-      })
     }
   },
   mounted() {
