@@ -8,7 +8,8 @@
             type="text"
             class="form-control w-56 box pr-10 placeholder-theme-13"
             placeholder="Search..."
-            v-model="this.search.role"
+            v-model="search.role"
+            @change="this.fetchRoles(this.search.role ? 'roles?search=' + this.search.role : 'roles')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
@@ -165,7 +166,7 @@
         </thead>
         <tbody>
         <tr
-          v-for="role in this.filteredRoles"
+          v-for="role in this.roles"
           v-bind:key="role.id"
           class="intro-x"
         >
@@ -272,13 +273,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchRoles('roles')
-  },
-  computed: {
-    filteredRoles: function () {
-      return this.roles.filter((role) => {
-        return role?.name?.toLowerCase().match(this.search.role.toLowerCase()) || role?.color?.toLowerCase().match(this.search.role.toLowerCase()) || role?.description?.toLowerCase().match(this.search.role.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchRoles(page) {
