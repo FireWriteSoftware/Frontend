@@ -771,7 +771,7 @@ export default defineComponent({
   mounted() {
     this.fetchUser()
     this.fetchNotifications('notifications')
-    this.fetchUsers('users')
+    this.fetchUsers('users?paginate=0')
     this.fetchRecentNotifications()
     this.testPagePermissions()
   },
@@ -814,7 +814,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.get(page)
         .then(response => {
-          this.users = response.data.data
+          this.users = response.data
           loader.hide()
         })
         .catch(error => {
