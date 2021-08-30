@@ -15,6 +15,9 @@ import Badges from '../views/badges/Main.vue'
 import PostAuthorization from '../views/post-authorization/Main.vue'
 import Announcements from '../views/announcements/Main.vue'
 import Notifications from '../views/notifications/Main.vue'
+import NotificationsLatest from '../views/notifications/Latest.vue'
+import NotificationsCreate from '../views/notifications/Create.vue'
+import NotificationsHistories from '../views/notifications/Histories.vue'
 import Accounts from '../views/accounts/Main.vue'
 import AccountInformations from '../views/account/AccountInformations.vue'
 import AccountSettings from '../views/account/AccountSettings.vue'
@@ -416,6 +419,36 @@ const routes = [
         component: Notifications,
         meta: {
           title: 'Notifications',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/latest',
+        name: 'moderation.notifications.latest',
+        component: NotificationsLatest,
+        meta: {
+          title: 'Latest Notifications',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/create',
+        name: 'moderation.notifications.create',
+        component: NotificationsCreate,
+        meta: {
+          title: 'Create Notifications',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/histories',
+        name: 'moderation.notifications.histories',
+        component: NotificationsHistories,
+        meta: {
+          title: 'Notification Histories',
           auth: true,
           isAuth: false
         }
