@@ -14,10 +14,11 @@ import Tags from '../views/tags/Main.vue'
 import Badges from '../views/badges/Main.vue'
 import PostAuthorization from '../views/post-authorization/Main.vue'
 import Announcements from '../views/announcements/Main.vue'
-import Notifications from '../views/notifications/Main.vue'
 import NotificationsLatest from '../views/notifications/Latest.vue'
 import NotificationsCreate from '../views/notifications/Create.vue'
 import NotificationsHistories from '../views/notifications/Histories.vue'
+import NotificationView from '../views/notification/View.vue'
+import NotificationEdit from '../views/notification/Edit.vue'
 import Accounts from '../views/accounts/Main.vue'
 import AccountInformations from '../views/account/AccountInformations.vue'
 import AccountSettings from '../views/account/AccountSettings.vue'
@@ -414,11 +415,21 @@ const routes = [
         }
       },
       {
-        path: 'notifications',
-        name: 'moderation.notifications',
-        component: Notifications,
+        path: 'notification/:id/view',
+        name: 'moderation.notifications.view',
+        component: NotificationView,
         meta: {
-          title: 'Notifications',
+          title: 'View Notification',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notification/:id/edit',
+        name: 'moderation.notifications.edit',
+        component: NotificationEdit,
+        meta: {
+          title: 'Edit Notification',
           auth: true,
           isAuth: false
         }
