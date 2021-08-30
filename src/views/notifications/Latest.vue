@@ -262,9 +262,8 @@ export default defineComponent({
   data() {
     return {
       active_tab: false,
-      recent_notifications: [],
       validation_error: {},
-      single_notification: {}
+      recent_notifications: []
     }
   },
   mounted() {
