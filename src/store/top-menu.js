@@ -53,7 +53,7 @@ const state = () => {
           },
           {
             icon: 'InboxIcon',
-            pageName: 'moderation.notifications',
+            pageName: 'moderation.notifications.latest',
             title: 'User Notifications'
           }
         ]
