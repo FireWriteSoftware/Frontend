@@ -111,7 +111,7 @@
                         <div class="flex items-start pt-5 pl-1">
                           <div class="w-full flex flex-col lg:flex-row items-center">
                             <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0 truncate">
-                              <a href="" class="font-medium">{{ notification.title }}}</a>
+                              <a href="" class="font-medium">{{ notification.title }}</a>
                               <div class="text-gray-600 text-xs mt-0.5">
                                 {{ notification.user.name }}
                               </div>
