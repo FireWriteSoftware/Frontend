@@ -275,9 +275,7 @@ export default defineComponent({
         .then(response => {
           this.recent_notifications = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     showSingleNotification(notification) {
       this.single_notification = notification
