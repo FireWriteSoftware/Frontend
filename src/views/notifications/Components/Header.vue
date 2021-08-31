@@ -8,7 +8,7 @@
       <div class="chat__tabs nav nav-tabs justify-center" role="tablist">
         <a
           id="latest-tab"
-          :class="this.$route.name === 'moderation.notifications.latest' ? 'active bg-theme-1 text-white flex-1 py-2 rounded-md text-center self-center' : 'flex-1 py-2 border-2 rounded-md text-center self-center'"
+          :class="'flex-1 py-2 rounded-md text-center self-center ' + (this.$route.name === 'moderation.notifications.latest' ? 'active bg-theme-1 text-white' : 'border-2')"
         >
           <router-link :to="{ name: 'moderation.notifications.latest' }">
             Latest
@@ -16,7 +16,7 @@
         </a>
         <a
           id="create-notification-tab"
-          :class="this.$route.name === 'moderation.notifications.create' ? 'active bg-theme-1 text-white flex-1 py-2 rounded-md text-center self-center mx-2' : 'flex-1 py-2 border-2 rounded-md text-center self-center mx-2'"
+          :class="'flex-1 py-2 rounded-md text-center self-center mx-2 ' + (this.$route.name === 'moderation.notifications.create' ? 'active bg-theme-1 text-white' : 'border-2')"
         >
           <router-link :to="{ name: 'moderation.notifications.create' }">
             Create
@@ -24,7 +24,7 @@
         </a>
         <a
           id="histories-tab"
-          :class="this.$route.name === 'moderation.notifications.histories' ? 'active bg-theme-1 text-white flex-1 py-2 rounded-md text-center self-center' : 'flex-1 py-2 border-2 rounded-md text-center self-center'"
+          :class="'flex-1 py-2 rounded-md text-center self-center ' + (this.$route.name === 'moderation.notifications.histories' ? 'active bg-theme-1 text-white' : 'border-2')"
         >
           <router-link :to="{ name: 'moderation.notifications.histories' }">
             Histories
