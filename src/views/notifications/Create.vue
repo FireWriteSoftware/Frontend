@@ -259,17 +259,10 @@ export default defineComponent({
       active_tab: false,
       users: [],
       validation_error: {},
-      search: {
-        user: ''
-      },
+      search: {},
       create_notification: {
-        title: 'New Notification',
-        content: 'New Content',
-        color: '#000000',
         type: 1,
-        target_id: null,
-        icon: 'BellIcon',
-        user_id: 0
+        icon: 'BellIcon'
       }
     }
   },
@@ -287,7 +280,6 @@ export default defineComponent({
         .catch(error => {
           this.validation_error = error.response.data.data.errors
           toast.error(error.response.data.message)
-          console.error(error)
           loader.hide()
         })
     },
