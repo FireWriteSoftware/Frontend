@@ -110,8 +110,8 @@
                       <div class="box">
                         <div class="flex items-start pt-5 pl-1">
                           <div class="w-full flex flex-col lg:flex-row items-center">
-                            <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0">
-                              <a href="" class="font-medium">{{ notification.title.substring(0,100) }}{{ notification.title > 100 ? '...' : '' }}</a>
+                            <div class="lg:ml-4 text-center lg:text-left mt-3 lg:mt-0 truncate">
+                              <a href="" class="font-medium">{{ notification.title }}}</a>
                               <div class="text-gray-600 text-xs mt-0.5">
                                 {{ notification.user.name }}
                               </div>
@@ -148,7 +148,7 @@
                             </div>
                             <!-- END: Notification Seen -->
                             <!-- BEGIN: Notification Type -->
-                            <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center" v-if="notification.target_id !== null">
+                            <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center" v-if="notification.target_id">
                               <UserIcon class="w-3 h-3 mr-2" />User Notification
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5self-center" v-else>
@@ -213,9 +213,7 @@ export default defineComponent({
         .then((response) => {
           this.permissions = response.data.data
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch()
     },
     fetchUsers(page) {
       const loader = this.$loading.show()
@@ -227,7 +225,6 @@ export default defineComponent({
         .catch(error => {
           this.validation_error = error.response.data.data.errors
           toast.error(error.response.data.message)
-          console.error(error)
           loader.hide()
         })
     },
