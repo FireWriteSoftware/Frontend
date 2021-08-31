@@ -202,6 +202,7 @@ import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle'
 import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat'
 import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
 import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
 const toast = useToast()
 
 function SpecialCharactersElectric(editor) {
@@ -388,7 +389,8 @@ export default defineComponent({
         RemoveFormat,
         SpecialCharacters,
         SpecialCharactersEssentials,
-        SpecialCharactersElectric
+        SpecialCharactersElectric,
+        CodeBlock
       ],
       toolbar: {
         items: [
@@ -401,6 +403,7 @@ export default defineComponent({
           'underline',
           'strikethrough',
           'code',
+          'codeBlock',
           'specialCharacters',
           'subscript',
           'superscript',
@@ -420,7 +423,7 @@ export default defineComponent({
         ]
       },
       simpleUpload: {
-        uploadUrl: 'storage/uploadEditor',
+        uploadUrl: process.env.VUE_APP_BASE_URL + 'storage/uploadEditor',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }

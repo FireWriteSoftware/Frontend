@@ -324,9 +324,7 @@ export default defineComponent({
 
           this.isBookmarked = (isBookmarkedArr.length > 0) ? isBookmarkedArr[0].id : 0
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     bookmarkPost() {
       if (this.isBookmarked !== 0) {
@@ -347,9 +345,7 @@ export default defineComponent({
             this.loadBookmarks(this.$route.params.id)
             toast.success('Post has been bookmarked')
           })
-          .catch(error => {
-            console.error(error)
-          })
+          .catch()
       }
     },
     votePost(vote) {
@@ -363,9 +359,7 @@ export default defineComponent({
         .then(response => {
           this.post.liked = response.data.data.vote
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     sendReport(content) {
       axios.post('posts/' + this.$route.params.id + '/reports', {
@@ -380,9 +374,7 @@ export default defineComponent({
         .then(response => {
           this.histories = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     testPagePermissions() {
       axios.post('permissions/test', {
@@ -397,9 +389,7 @@ export default defineComponent({
         .then((response) => {
           this.permissions = response.data.data
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch()
     },
     formatDate(timeString) {
       return moment(String(timeString)).format('MMM Do YYYY  hh:mm')
