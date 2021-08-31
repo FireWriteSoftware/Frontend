@@ -56,11 +56,11 @@
                               <input
                                 id="update-title-notification"
                                 type="text"
-                                :class="'form-control' + (this.validation_error?.title != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.title ? ' border-theme-6' : '')"
                                 placeholder="Enter Title"
                                 v-model="this.notification.title"
                               />
-                              <div v-if="this.validation_error?.title != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.title" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.title[0] }}
                               </div>
                             </div>
@@ -72,12 +72,12 @@
                               </label>
                               <textarea
                                 id="update-content-notification"
-                                :class="'form-control' + (this.validation_error?.content != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.content ? ' border-theme-6' : '')"
                                 placeholder="Enter Content"
                                 rows="2"
                                 v-model="this.notification.content"
                               />
-                              <div v-if="this.validation_error?.content != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.content" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.content[0] }}
                               </div>
                             </div>
@@ -90,11 +90,11 @@
                               <input
                                 id="update-color-notification"
                                 type="color"
-                                :class="'form-control' + (this.validation_error?.color != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.color ? ' border-theme-6' : '')"
                                 placeholder="Enter notification reason"
                                 v-model="this.notification.color"
                               />
-                              <div v-if="this.validation_error?.color != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.color" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.color[0] }}
                               </div>
                             </div>
@@ -106,7 +106,7 @@
                               </label>
                               <TailSelect
                                 v-model="this.notification.type"
-                                :class="'form-control' + (this.validation_error?.type != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.type ? ' border-theme-6' : '')"
                                 :options="{
                                 search: true,
                                 classNames: 'w-full'
@@ -115,7 +115,7 @@
                                 <option value=1>Icon</option>
                                 <option value=2>User</option>
                               </TailSelect>
-                              <div v-if="this.validation_error?.type != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.type" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
                               </div>
                               {{ this.notification?.type }}
@@ -145,7 +145,7 @@
                               <input
                                 id="update-icon-notification"
                                 type="text"
-                                :class="'form-control' + (this.validation_error?.icon != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.icon ? ' border-theme-6' : '')"
                                 placeholder="Enter Icon"
                                 v-model="this.notification.icon"
                                 :disabled="parseInt(this.notification?.type) !== 1"
@@ -153,7 +153,7 @@
                               <div v-if="parseInt(this.notification?.type) !== 1" class="text-theme-6 mt-2 mb-4">
                                 User Type is selected!
                               </div>
-                              <div v-if="this.validation_error?.icon != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.icon" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
                               </div>
                             </div>
@@ -164,7 +164,7 @@
                                 User
                               </label>
                               <TailSelect
-                                :class="'form-control' + (this.validation_error?.target_id != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.target_id ? ' border-theme-6' : '')"
                                 :options="{
                                   search: true,
                                   classNames: 'w-full'
@@ -177,7 +177,7 @@
                               <div v-if="parseInt(this.notification.type) !== 2" class="text-theme-6 mt-2 mb-4">
                                 Icon Type is selected!
                               </div>
-                              <div v-if="this.validation_error?.target_id != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.target_id" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
                               </div>
                             </div>
