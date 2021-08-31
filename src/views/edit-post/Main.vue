@@ -65,30 +65,6 @@
                         {{ this.validation_error?.content[0] }}
                       </div>
                     </div>
-                    <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
-                      <div class="shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
-                        <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
-                          <img
-                            class="rounded-md"
-                            alt=""
-                            :src="this.post.thumbnail ?? require('@/assets/images/placeholder.png')"
-                          />
-                        </div>
-                        <div class="mx-auto cursor-pointer relative mt-5">
-                          <button type="button" class="btn btn-primary w-full">
-                            Change Thumbnail
-                          </button>
-                          <input
-                            type="file"
-                            class="w-full h-full top-0 left-0 absolute opacity-0"
-                            @change="changePicture"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="this.validation_error?.thumbnail != null" class="text-theme-6 mt-2 mb-4">
-                      The thumbnail is required.
-                    </div>
                   </div>
                 </div>
               </div>
@@ -159,6 +135,28 @@
             </TailSelect>
           </div>
           <!-- END: Post Tags -->
+          <!-- BEGIN: Thumbnail upload-->
+          <div class="intro-y box mt-5 w-full">
+            <img
+              class="rounded-md h-64 w-full object-cover"
+              alt=""
+              :src="this.post.thumbnail ?? require('@/assets/images/placeholder.png')"
+            />
+          </div>
+          <div class="mx-auto relative mt-2">
+            <button type="button" class="btn btn-primary w-full">
+              Change Thumbnail
+            </button>
+            <input
+              type="file"
+              class="w-full h-full top-0 left-0 absolute opacity-0 cursor-pointer"
+              @change="changePicture"
+            />
+          </div>
+          <div v-if="this.validation_error?.thumbnail != null" class="text-theme-6 mt-2 mb-4">
+            The thumbnail is required.
+          </div>
+          <!-- END: Thumbnail upload-->
         </div>
         <!-- END: Post Sidebar -->
       </div>
@@ -196,8 +194,29 @@ import Font from '@ckeditor/ckeditor5-font/src/font'
 import Heading from '@ckeditor/ckeditor5-heading/src/heading'
 import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui'
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight'
-
+import Table from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties'
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties'
+import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle'
+import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat'
+import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
+import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
 const toast = useToast()
+
+function SpecialCharactersElectric(editor) {
+  editor.plugins.get('SpecialCharacters').addItems('Electric', [
+    { title: 'Ohm', character: 'Ω' },
+    { title: 'Siemen', character: '℧' },
+    { title: 'micro', character: 'µ' },
+    { title: 'Phase angle', character: 'θ' },
+    { title: 'Angular frequency', character: 'ω' },
+    { title: 'Time constant', character: 'τ' },
+    { title: 'Watt-Hour', character: 'Wh' },
+    { title: 'Decible', character: 'dB' },
+    { title: 'Frequence', character: 'Hz' }
+  ])
+}
 
 export default defineComponent({
   data() {
@@ -360,7 +379,16 @@ export default defineComponent({
         CloudServicesPlugin,
         Heading,
         HeadingButtonsUI,
-        Highlight
+        Highlight,
+        Table,
+        TableToolbar,
+        TableProperties,
+        TableCellProperties,
+        ListStyle,
+        RemoveFormat,
+        SpecialCharacters,
+        SpecialCharactersEssentials,
+        SpecialCharactersElectric
       ],
       toolbar: {
         items: [
@@ -373,6 +401,7 @@ export default defineComponent({
           'underline',
           'strikethrough',
           'code',
+          'specialCharacters',
           'subscript',
           'superscript',
           'link',
@@ -383,7 +412,11 @@ export default defineComponent({
           'imageStyle:full',
           'imageStyle:side',
           '|',
-          'highlight'
+          'highlight',
+          'insertTable',
+          'bulletedList',
+          'numberedList',
+          'removeFormat'
         ]
       },
       simpleUpload: {
@@ -391,6 +424,9 @@ export default defineComponent({
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }
+      },
+      table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties', 'toggleTableCaption']
       }
     }
     const editorData = ref('<p>Content of the editor.</p>')
