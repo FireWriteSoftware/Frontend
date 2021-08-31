@@ -56,12 +56,12 @@
                               <input
                                 id="update-title-notification"
                                 type="text"
-                                :class="'form-control' + (this.validation_error?.title != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.title ? ' border-theme-6' : '')"
                                 placeholder="Enter Title"
                                 v-model="this.notification.title"
                                 disabled
                               />
-                              <div v-if="this.validation_error?.title != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.title" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.title[0] }}
                               </div>
                             </div>
@@ -73,13 +73,13 @@
                               </label>
                               <textarea
                                 id="update-content-notification"
-                                :class="'form-control' + (this.validation_error?.content != null ? ' border-theme-6' : '')"
+                                :class="'form-control' + (this.validation_error?.content ? ' border-theme-6' : '')"
                                 placeholder="Enter Content"
                                 rows="10"
                                 v-model="this.notification.content"
                                 disabled
                               />
-                              <div v-if="this.validation_error?.content != null" class="text-theme-6 mt-2 mb-4">
+                              <div v-if="this.validation_error?.content" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.content[0] }}
                               </div>
                             </div>
