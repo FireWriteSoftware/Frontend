@@ -123,7 +123,6 @@ export default defineComponent({
           this.notification = response.data.data
         })
         .catch(error => {
-          console.error(error.response)
           toast.error(this.validation_error = error.response.data.message)
           this.$router.push({ name: 'categories' })
         })
