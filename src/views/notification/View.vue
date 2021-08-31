@@ -6,7 +6,7 @@
         <div class="intro-y chat grid grid-cols-12 gap-5 mt-5">
           <!-- BEGIN: Notification Latest Tab -->
           <div class="intro-y col-span-12">
-            <div class="chat__box box h-4 flex-grow">
+            <div class="chat__box box h-4 flex-grow" v-if="notification">
               <div class="h-full flex flex-col">
                 <div class="px-5 pt-5 flex-1 overflow-y-scroll scrollbar-hidden">
                   <div class="intro-y box px-5 pt-5">
@@ -91,6 +91,19 @@
                 </div>
               </div>
             </div>
+            <div class="intro-y grid-cols-12" v-else>
+              <div class="box">
+                <div class="p-5 text-center">
+                  <div class="mx-auto mt-5 w-80">
+                    <img alt="" :src="require(`@/assets/images/not-found-illustration.svg`)"/>
+                  </div>
+                  <div class="text-3xl mt-5">This item does not exist</div>
+                  <div class="text-gray-600 mt-2 mb-5">
+                    This item was deleted or moved to another page
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- END: Notification Latest Tab -->
         </div>
@@ -110,7 +123,7 @@ export default defineComponent({
     return {
       active_tab: false,
       validation_error: {},
-      notification: {}
+      notification: null
     }
   },
   mounted() {
@@ -124,7 +137,6 @@ export default defineComponent({
         })
         .catch(error => {
           toast.error(this.validation_error = error.response.data.message)
-          this.$router.push({ name: 'categories' })
         })
     }
   }
