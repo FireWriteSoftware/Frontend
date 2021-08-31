@@ -415,7 +415,7 @@ const routes = [
         }
       },
       {
-        path: 'notification/:id/view',
+        path: 'notification/:id',
         name: 'moderation.notifications.view',
         component: NotificationView,
         meta: {
