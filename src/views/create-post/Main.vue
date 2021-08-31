@@ -389,7 +389,7 @@ export default defineComponent({
         ]
       },
       simpleUpload: {
-        uploadUrl: 'storage/uploadEditor',
+        uploadUrl: process.env.VUE_APP_BASE_URL + 'storage/uploadEditor',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }
