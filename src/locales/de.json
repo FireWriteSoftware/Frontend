@@ -1,5 +1,40 @@
 {
   "categories": {
-    "category": "Kategorie"
+    "category": "Kategorie",
+    "post": "Beitrag",
+    "bookmark": "Lesezeichen",
+    "announcements": "Ankündigungen",
+    "author_tools": "Autor-Werkzeuge",
+    "recent_posts": "Letzte Beiträge",
+    "create_category": "Kategorie erstellen",
+    "create_post": "Beitrag erstellen",
+    "view_more": "Mehr ansehen"
+  },
+  "create_post": {
+    "create_post": "Beitrag erstellen",
+    "post_settings": "Beitrags Einstellungen",
+    "post_title": "Beitrags Titel",
+    "post_content": "Beitrags Inhalt",
+    "post_tags": "Post tags",
+    "change_thumbnail": "Vorschaubild ändern"
+  },
+  "attributes": {
+    "created_by": "Erstellt von",
+    "title": "Titel",
+    "parent_category": "Übergeordnete Kategory"
+  },
+  "utils": {
+    "edit": "Bearbeiten",
+    "delete": "Entfernen",
+    "properties": "Eigenschaften",
+    "save": "Speichern"
+  },
+  "pages": {
+    "dashboard": "Startseite"
+  },
+  "messages": {
+    "no_content_category_short": "Es gibt derzeit keine Inhalte",
+    "no_content_category": "Diese Kategorie hat noch keine Inhalte.",
+    "following_errors": "Die folgenden Fehler sind aufgetreten"
   }
 }
