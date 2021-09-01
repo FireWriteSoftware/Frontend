@@ -7,7 +7,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
     "@ckeditor/ckeditor5-autoformat": "^27.0.0",
@@ -64,6 +65,7 @@
     "tippy.js": "^6.2.7",
     "velocity-animate": "^1.5.2",
     "vue": "^3.0.0",
+    "vue-i18n": "^9.1.0",
     "vue-loading-overlay": "^4.0.3",
     "vue-router": "^4.0.0-0",
     "vue-toastification": "^2.0.0-rc.1",
@@ -74,6 +76,7 @@
   "devDependencies": {
     "@ckeditor/ckeditor5-dev-utils": "^12.0.1",
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^8.0.1",
+    "@intlify/vue-i18n-loader": "^3.0.0",
     "@tailwindcss/postcss7-compat": "^2.2.2",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
@@ -97,6 +100,7 @@
     "raw-loader": "^4.0.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.2",
+    "vue-cli-plugin-i18n": "~2.1.3"
   }
 }

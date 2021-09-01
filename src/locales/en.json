@@ -1,0 +1,24 @@
+{
+  "categories": {
+    "category": "Category",
+    "post": "Post",
+    "bookmark": "Bookmark",
+    "announcements": "Announcements",
+    "author_tools": "Author Tools",
+    "recent_posts": "Recent Posts",
+    "create_category": "Create a new category",
+    "create_post": "Create a new post",
+    "view_more": "View more"
+  },
+  "utils": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "pages": {
+    "dashboard": "Dashboard"
+  },
+  "messages": {
+    "no_content_category_short": "There is no content so far",
+    "no_content_category": "This category is not yet filled with content!"
+  }
+}

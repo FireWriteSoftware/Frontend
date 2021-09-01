@@ -13,11 +13,14 @@ import axios from 'axios'
 
 // SASS Theme
 import './assets/sass/app.scss'
+
+import i18n from './i18n'
 // import { DateTime } from 'litepicker/dist/types/datetime'
 
 const app = createApp(App)
   .use(store)
   .use(router)
+  .use(i18n)
 
 globalComponents(app)
 utils(app)
