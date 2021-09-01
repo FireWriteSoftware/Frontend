@@ -71,7 +71,7 @@
                       </div>
                       <div class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
                         <div class="font-medium text-center lg:text-left lg:mt-3">
-                          Contact Details
+                          {{ $t('utils.contact_details') }}
                         </div>
                         <div class="flex flex-col justify-center items-center lg:items-start mt-4">
                           <div class="truncate sm:whitespace-normal flex items-center">
@@ -81,7 +81,7 @@
                             <UserIcon class="w-4 h-4 mr-2"/>{{ this?.single_notification?.user?.pre_name }} {{ this?.single_notification?.user?.last_name }}
                           </div>
                           <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                            <HashIcon class="w-4 h-4 mr-2"/>User ID: {{ this?.single_notification?.user.id }}
+                            <HashIcon class="w-4 h-4 mr-2"/>{{ $t('utils.user_id', { id: this.single_notification?.user?.id }) }}
                           </div>
                         </div>
                       </div>
@@ -94,13 +94,12 @@
                           <div class="col-span-12 xxl:col-span-12 mb-4">
                             <div>
                               <label for="update-title-notification" class="form-label">
-                                Title
+                                {{ $t('attributes.title') }}
                               </label>
                               <input
                                 id="update-title-notification"
                                 type="text"
                                 :class="'form-control' + (this.validation_error?.title ? ' border-theme-6' : '')"
-                                placeholder="Enter Title"
                                 v-model="this.single_notification.title"
                               />
                               <div v-if="this.validation_error?.title" class="text-theme-6 mt-2 mb-4">
@@ -111,12 +110,11 @@
                           <div class="col-span-12 xxl:col-span-12 mb-4">
                             <div>
                               <label for="update-title-notification" class="form-label">
-                                Content
+                                {{ $t('attributes.content') }}
                               </label>
                               <textarea
                                 id="update-content-notification"
                                 :class="'form-control' + (this.validation_error?.content ? ' border-theme-6' : '')"
-                                placeholder="Enter Content"
                                 rows="2"
                                 v-model="this.single_notification.content"
                               />
@@ -128,13 +126,12 @@
                           <div class="col-span-12 xxl:col-span-6 mb-4">
                             <div>
                               <label for="update-color-notification" class="form-label">
-                                Color
+                                {{ $t('attributes.color') }}
                               </label>
                               <input
                                 id="update-color-notification"
                                 type="color"
                                 :class="'form-control' + (this.validation_error?.color ? ' border-theme-6' : '')"
-                                placeholder="Enter notification reason"
                                 v-model="this.single_notification.color"
                               />
                               <div v-if="this.validation_error?.color" class="text-theme-6 mt-2 mb-4">
@@ -145,7 +142,7 @@
                           <div class="col-span-12 xxl:col-span-6 mb-4">
                             <div>
                               <label class="form-label">
-                                Type
+                                {{ $t('attributes.types') }}
                               </label>
                               <TailSelect
                                 v-model="this.single_notification.type"
@@ -155,23 +152,22 @@
                                 classNames: 'w-full'
                               }"
                               >
-                                <option value=1>Icon</option>
-                                <option value=2>User</option>
+                                <option value=1>{{ $t('attributes.icon') }}</option>
+                                <option value=2>{{ $t('attributes.name') }}</option>
                               </TailSelect>
                               <div v-if="this.validation_error?.type" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
                               </div>
-                              {{ this.single_notification.type }}
                             </div>
                           </div>
                           <div class="col-span-12 xxl:col-span-12">
                             <div class="flex items-center">
                               <div class="border-l-2 border-theme-1 pl-4">
                                 <a href="" class="font-medium">
-                                  Has the notification already been seen?
+                                  {{ $t('notifications.already_seen') }}
                                 </a>
                                 <div class="text-gray-600">
-                                  Select this option to mark the notification as read.
+                                  {{ $t('notifications.select_read_status') }}
                                 </div>
                               </div>
                               <input class="form-check-switch ml-auto" type="checkbox" v-model="this.single_notification.seen">
@@ -183,7 +179,7 @@
                           <div class="col-span-12 xxl:col-span-6 mb-4">
                             <div>
                               <label for="update-icon-notification" class="form-label">
-                                Icon
+                                {{ $t('attributes.icon') }}
                               </label>
                               <input
                                 id="update-icon-notification"
@@ -194,7 +190,7 @@
                                 :disabled="parseInt(this.single_notification.type) !== 1"
                               />
                               <div v-if="parseInt(this.single_notification.type) !== 1" class="text-theme-6 mt-2 mb-4">
-                                User Type is selected!
+                                {{ $t('notifications.user_type_selected') }}
                               </div>
                               <div v-if="this.validation_error?.icon" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
@@ -204,7 +200,7 @@
                           <div class="col-span-12 xxl:col-span-6 mb-4">
                             <div>
                               <label class="form-label">
-                                User
+                                {{ $t('attributes.user') }}
                               </label>
                               <TailSelect
                                 :class="'form-control' + (this.validation_error?.target_id ? ' border-theme-6' : '')"
@@ -218,7 +214,7 @@
                                 </option>
                               </TailSelect>
                               <div v-if="parseInt(this.single_notification.type) !== 2" class="text-theme-6 mt-2 mb-4">
-                                Icon Type is selected!
+                                {{ $t('notifications.icon_type_selected') }}
                               </div>
                               <div v-if="this.validation_error?.target_id" class="text-theme-6 mt-2 mb-4">
                                 {{ this.validation_error?.type[0] }}
@@ -227,8 +223,12 @@
                           </div>
                           <div class="col-span-12 mb-4">
                             <div class="flow-root">
-                              <p class="float-left"><button class="btn btn-primary btn-md" @click="updateNotification(this.single_notification)"><SaveIcon class="w-4 h-4 mr-2"></SaveIcon>Save</button></p>
-                              <p class="float-right"><button class="btn btn-danger btn-md" @click="deleteNotification(this.single_notification.id)"><Trash2Icon class="w-4 h-4 mr-2"></Trash2Icon>Delete</button></p>
+                              <p class="float-left"><button class="btn btn-primary btn-md" @click="updateNotification(this.single_notification)"><SaveIcon class="w-4 h-4 mr-2"></SaveIcon>
+                                {{ $t('utils.save') }}
+                              </button></p>
+                              <p class="float-right"><button class="btn btn-danger btn-md" @click="deleteNotification(this.single_notification.id)"><Trash2Icon class="w-4 h-4 mr-2"></Trash2Icon>
+                                {{ $t('utils.delete') }}
+                              </button></p>
                             </div>
                           </div>
                         </div>
@@ -293,7 +293,7 @@ export default defineComponent({
         seen: notification.seen
       })
         .then(response => {
-          toast.success('Notification updated successfully')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchRecentNotifications()
         })
@@ -307,7 +307,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.delete('notifications/' + id)
         .then(response => {
-          toast.success('Notification deleted successfully')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchRecentNotifications()
           this.active_tab = false
