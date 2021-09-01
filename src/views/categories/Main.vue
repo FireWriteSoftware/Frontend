@@ -43,7 +43,7 @@
                       @click="this.$router.push({ name: 'moderation.categories.edit', params: { id: category.id } })"
                       v-if="this.permissions?.categories_update"
                     >
-                      <Edit2Icon class="w-4 h-4 mr-2"/> Edit
+                      <Edit2Icon class="w-4 h-4 mr-2"/>{{ $t('utils.edit') }}
                     </a>
                     <a
                       href="javascript:;"
@@ -52,7 +52,7 @@
                       data-dismiss="dropdown"
                       v-if="this.permissions?.categories_delete"
                     >
-                      <Trash2Icon class="w-4 h-4 mr-2"/> Delete
+                      <Trash2Icon class="w-4 h-4 mr-2"/>{{ $t('utils.delete') }}
                     </a>
                   </div>
                 </div>
@@ -71,13 +71,13 @@
               <Tippy
                 tag="div"
                 class="intro-x flex flex-none items-center justify-center mr-3 text-gray-600 dark:text-gray-300"
-                content="Bookmark"
+                :content="$t('categories.bookmark')"
                 v-on:click='this.addBookmark("category", category.id)'
               >
                 <BookmarkIcon class="w-5 h-5" />
               </Tippy>
               <div class="mr-3 flex">
-                <FolderIcon class="mr-1 w-5 h-5"></FolderIcon><span class="font-medium">Category</span>
+                <FolderIcon class="mr-1 w-5 h-5"></FolderIcon><span class="font-medium">{{ $t('categories.category') }}</span>
               </div>
             </div>
           </div>
@@ -124,14 +124,14 @@
                       @click="this.$router.push({ name: 'moderation.posts.edit', params: { id: post.id } })"
                       data-dismiss="dropdown"
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                      <Edit2Icon class="w-4 h-4 mr-2"/> Edit
+                      <Edit2Icon class="w-4 h-4 mr-2"/>{{ $t('utils.edit') }}
                     </a>
                     <a
                       v-if="this.permissions?.posts_delete"
                       href="javascript:;" @click="this.deletePost(post.id)"
                       data-dismiss="dropdown"
                       class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                      <Trash2Icon class="w-4 h-4 mr-2"/> Delete
+                      <Trash2Icon class="w-4 h-4 mr-2"/>{{ $t('utils.delete') }}
                     </a>
                   </div>
                 </div>
@@ -150,14 +150,14 @@
               <Tippy
                 tag="div"
                 class="intro-x flex flex-none items-center justify-center mr-3 text-gray-600 dark:bg-dark-5 dark:text-gray-300"
-                content="Bookmark"
+                content="$t('categories.bookmark')"
                 v-on:click='this.addBookmark("post", post.id)'
               >
                 <BookmarkIcon class="w-5 h-5" />
               </Tippy>
               <div class="mr-3 flex">
                 <FileTextIcon class="mr-1 w-5 h-5"></FileTextIcon>
-                <span class="font-medium">Post</span>
+                <span class="font-medium">{{ $t('categories.post') }}</span>
               </div>
               <div class="ml-auto flex">
                 <HeartIcon class="mr-1 ml-4 w-5 h-5"></HeartIcon><span class="font-medium">{{ post.like_votes > 0 ? post.like_votes : 0 }}</span>
@@ -214,9 +214,9 @@
             <div class="mx-auto mt-5 w-80">
               <img alt="" :src="require(`@/assets/images/no-data-illustration.svg`)"/>
             </div>
-            <div class="text-3xl mt-5">There is no content so far</div>
+            <div class="text-3xl mt-5">{{ $t('messages.no_content_category_short') }}</div>
             <div class="text-gray-600 mt-2 mb-5">
-              This category is not yet filled with content!
+              {{ $t('messages.no_content_category') }}
             </div>
           </div>
         </div>
@@ -231,7 +231,9 @@
             <div class="flex items-center h-10 mb-4" v-if="this.$route.name === 'categories.subcategory'">
               <div class="mt-5 intro-x float-left mr-auto">
                 <router-link :to="{ name: 'categories' }">
-                  <button class="btn btn-primary shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>Dashboard</button>
+                  <button class="btn btn-primary shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
+                    {{ $t('pages.dashboard') }}
+                  </button>
                 </router-link>
               </div>
             </div>
@@ -300,17 +302,17 @@
           <!-- BEGIN: Author Tools -->
           <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mb-3 xxl:mb-8" v-if="this.permissions?.categories_store || this.permissions?.posts_store">
             <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">Author Tools</h2>
+              <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.author_tools') }}</h2>
             </div>
             <div class="">
               <router-link :to="{ name: 'moderation.categories.create' }" v-if="this.permissions?.categories_store">
                 <button class="intro-x w-full block text-center rounded-md py-3 btn btn-primary w-24 mr-1 mb-2 flex">
-                  <FolderIcon class="w-4 h-4 mr-2" /> Create category
+                  <FolderIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_category') }}
                 </button>
               </router-link>
               <router-link :to="{ name: 'moderation.posts.create' }" v-if="this.permissions?.posts_store">
                 <button class="intro-x w-full block text-center rounded-md py-3 btn btn-primary w-24 mr-1 mb-2 flex">
-                  <EditIcon class="w-4 h-4 mr-2" /> Create new post
+                  <EditIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_post') }}
                 </button>
               </router-link>
             </div>
@@ -320,7 +322,7 @@
           <!-- BEGIN: Recent Postings -->
           <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12" v-if="this.recent.length > 0 || !this.loading.recent">
             <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">Recent Posts</h2>
+              <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.recent_posts') }}</h2>
             </div>
             <div class="mt-2" v-if="this.loading.recent === true">
               <div
@@ -349,7 +351,7 @@
               </div>
               <router-link :to="{ name: 'categories' }" v-if="this.$route.name !== 'categories'">
                 <button class="intro-x w-full block text-center rounded-md py-3 border border-theme-15 dark:border-dark-5 text-theme-16 dark:text-gray-600">
-                  View More
+                  {{ $t('categories.view_more') }}
                 </button>
               </router-link>
             </div>
@@ -445,9 +447,7 @@ export default defineComponent({
           this.recent = response.data.data.posts
           this.loading.recent = true
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch()
     },
     loadAnnouncements() {
       axios.get('announcements')
@@ -455,9 +455,7 @@ export default defineComponent({
           this.announcements = response.data.data
           this.loading.announcements = true
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch()
     },
     loadSubcategory(id) {
       axios.get('categories/' + id + '?load_depth=0')
@@ -477,18 +475,14 @@ export default defineComponent({
           this.view_structure.categories = response.data.data
           this.loading.content = true
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     loadBookmarks() {
       axios.get('users/' + this.user.id + '/bookmarks')
         .then(response => {
           this.user.bookmarks = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     addBookmark(type, id) {
       let isPost = 0
@@ -528,7 +522,6 @@ export default defineComponent({
             this.loadBookmarks()
           })
           .catch(error => {
-            console.error(error)
             toast.error(error)
             loader.hide()
           })
@@ -540,7 +533,6 @@ export default defineComponent({
             this.loadBookmarks()
           })
           .catch(error => {
-            console.error(error)
             toast.error(error)
             loader.hide()
           })
@@ -560,9 +552,7 @@ export default defineComponent({
         .then((response) => {
           this.permissions = response.data.data
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch()
     },
     deleteCategory(id) {
       const loader = this.$loading.show()
