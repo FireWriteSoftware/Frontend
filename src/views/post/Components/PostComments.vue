@@ -4,14 +4,14 @@
     <!-- BEGIN: Comments -->
     <div class="intro-y my-5">
       <div class="text-base sm:text-lg font-medium">
-        Comments
+        {{ $t('single_post.comments') }}
       </div>
       <!-- BEGIN: Comment Tooltip -->
       <div class="justify-end" v-show="!this.user.email_verified_at">
         <TippyContent to="custom-tooltip-content">
           <div class="items-center">
             <div class="text-theme-6">
-              Your Email needs to be verified to write comments
+              {{ $t('single_post.verify_email') }}
             </div>
           </div>
         </TippyContent>
@@ -24,7 +24,7 @@
             type="text"
             class="form-control border-transparent bg-gray-300 pl-16 py-6 placeholder-theme-13 resize-none"
             :disabled="!this.user.email_verified_at"
-            placeholder="Post a comment..."
+            :placeholder="$t('single_post.post_comment')"
             v-model='new_comment'
           >
           <Button type="submit" :name="!this.user.email_verified_at ? 'custom-tooltip-content' : 'write-comment'" :class="!this.user.email_verified_at ? 'tooltip' : ''">
@@ -49,7 +49,7 @@
               class="ml-auto text-sm text-gray-600"
               @click='this.new_comment = "@" + comment?.user?.name'
             >
-              Reply
+              {{ $t('single_post.reply') }}
             </button>
           </div>
           <div class="text-gray-600 text-xs">
@@ -67,7 +67,7 @@
         v-show="this.pagination?.next_page_url !== null"
         @click="loadComments(this.pagination.next_page_url + '&per_page=5')"
       >
-        Load more <LoadingIcon icon="oval" color="white" class="w-4 h-4 ml-2" v-show="this.loading_comments" />
+        {{ $t('single_post.load_more') }} <LoadingIcon icon="oval" color="white" class="w-4 h-4 ml-2" v-show="this.loading_comments" />
       </Button>
     </div>
     <!-- END: Load more comments button -->
