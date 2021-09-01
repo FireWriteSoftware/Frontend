@@ -81,6 +81,29 @@
                           {{ this.validation_error?.email[0] }}
                         </div>
                       </div>
+                    </div>
+                    <div class="col-span-12 xxl:col-span-6">
+                      <div class="mt-3">
+                        <label for="update-profile-language" class="form-label">
+                          Language
+                        </label>
+                        <TailSelect
+                          v-model="user.language"
+                          id="update-profile-language"
+                          :options="
+                          {
+                            search: true,
+                            descriptions: true,
+                            hideSelected: false,
+                            hideDisabled: false,
+                            classNames: 'w-full'
+                          }"
+                        >
+                          <option :value="locale" v-for="locale in locales" v-bind:key="locale" :selected="user.language === locale">{{ locale }}</option>
+                        </TailSelect>
+                      </div>
+                    </div>
+                    <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3">
                         <div class="flex items-center">
                           <div class="pl-4">
@@ -155,6 +178,7 @@ export default defineComponent({
   data() {
     return {
       user: {},
+      locales: process.env.VUE_APP_I18N_SUPPORTED_LOCALE.split(','),
       validation_error: {},
       darkmode: localStorage.getItem('darkmode') != null ? localStorage.getItem('darkmode') : false
     }
@@ -180,11 +204,13 @@ export default defineComponent({
         pre_name: this.user.pre_name,
         last_name: this.user.last_name,
         email: this.user.email,
-        profile_picture: this.user.profile_picture
+        profile_picture: this.user.profile_picture,
+        language: this.user.language
       })
         .then(response => {
           toast.success('Profile successfully updated')
           loader.hide()
+          this.changeLocale(this.user.language)
           this.fetchUser()
         })
         .catch(error => {
@@ -205,6 +231,11 @@ export default defineComponent({
           console.log(error)
           loader.hide()
         })
+    },
+    changeLocale(locale) {
+      if (this.$i18n.locale !== locale) {
+        this.$i18n.locale = locale
+      }
     },
     changePicture(event) {
       if (event.target.files.length <= 0) return
