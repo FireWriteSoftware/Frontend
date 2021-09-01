@@ -1,18 +1,18 @@
 <template>
   <div>
-    <h2 class="intro-y text-lg font-medium mt-10">Bans Overview</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">{{ $t('bans.overview') }}</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
       <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
         <a href="javascript:;" @click="fetchBans('bans?page=' + pagination.current_page)" class="btn btn-primary btn-sm"><RepeatIcon class="w-4 h-4"></RepeatIcon></a>
         <div class="hidden md:block mx-auto text-gray-600">
-          Showing {{ this.pagination.showing_from }} to {{ this.pagination.showing_to }} of {{ this.pagination.total }} entries
+          {{ $t('utils.dataset_overview', { from: this.pagination.showing_from, to: this.pagination.showing_to, total: this.pagination.total }) }}
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <div class="w-56 relative text-gray-700 dark:text-gray-300">
             <input
               type="text"
               class="form-control w-56 box pr-10 placeholder-theme-13"
-              placeholder="Search..."
+              :placeholder="$t('utils.search')"
               v-model="this.search.ban"
               @change="this.fetchBans(this.search.ban ? 'bans?search=' + this.search.ban : 'bans')"
             />
@@ -40,7 +40,7 @@
             </router-link>
             <div class="flex text-gray-600 truncate text-xs mt-0.5">
               <a class="text-theme-1 dark:text-theme-10 inline-block truncate">
-                {{ ban.type === 0 ? 'Global Ban' : ban.type === 1 ? 'Comment Ban' : 'Post Ban' }}
+                {{ ban.type === 0 ? $t('bans.global_ban') : ban.type === 1 ? $t('bans.comment_ban') : $t('ban.posting_ban') }}
               </a>
               <span class="mx-1">•</span> {{ ban.created_at }}
             </div>
@@ -53,12 +53,14 @@
               <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                 <router-link :to="{ name: 'admin.ban', params: { 'id': ban.id }}">
                   <a data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                    <SlashIcon class="w-4 h-4 mr-2"/> View Ban
+                    <SlashIcon class="w-4 h-4 mr-2"/>
+                    {{ $t('bans.view_ban') }}
                   </a>
                 </router-link>
                 <router-link :to="{ name: 'admin.accounts.informations', params: { 'id': ban.target.id }}">
                   <a data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                    <UserIcon class="w-4 h-4 mr-2"/> View Account
+                    <UserIcon class="w-4 h-4 mr-2"/>
+                    {{ $t('bans.view_account') }}
                   </a>
                 </router-link>
               </div>
@@ -76,15 +78,15 @@
         <div class="px-5 pt-3 pb-5 border-t border-gray-200 dark:border-dark-5">
           <div class="w-full flex text-gray-600 text-xs sm:text-sm">
             <div class="mr-2">
-              Banned by:
+              {{ $t('bans.banned_by') }}
               <router-link :to="{ name: 'admin.accounts.informations', params: { 'id': ban?.staff?.id }}" v-if="ban.staff">
                 <span class="font-medium">{{ ban?.staff?.name }}</span>
               </router-link>
-              <span class="font-medium" v-if="!ban.staff">Unknown</span>
+              <span class="font-medium" v-if="!ban.staff">{{ $t('attributes.unknown') }}</span>
             </div>
             <div class="ml-auto">
-              <span v-if="ban.active">Until: <span class="font-medium">{{ ban.ban_until }}</span></span>
-              <span v-if="!ban.active"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">Closed</span></span>
+              <span v-if="ban.active">{{ $t('attributes.until') }} <span class="font-medium">{{ ban.ban_until }}</span></span>
+              <span v-if="!ban.active"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">{{ $t('attributes.closed') }}</span></span>
             </div>
           </div>
         </div>
@@ -105,7 +107,7 @@
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+              <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
               <button class="flex items-center font-bold" @click="this.search.ban ? fetchBans(pagination.next_page_url + '&search=' + this.search.ban) : fetchBans(pagination.next_page_url)" :disabled="!pagination.next_page_url">
@@ -151,8 +153,7 @@ export default defineComponent({
           loader.hide()
           this.makePagination(response.data.meta, response.data.links)
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
         })
     },
