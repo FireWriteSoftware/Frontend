@@ -90,6 +90,7 @@
     "change_thumbnail": "Change thumbnail",
     "save": "Save",
     "create": "Create",
+    "close": "Close",
     "actions": "Actions",
     "publish": "Publish",
     "settings": "Settings",
@@ -134,6 +135,34 @@
     "you_sure": "Are you sure?",
     "cannot_undone": "Do you really want to delete this record? This process may not be undone.",
     "password_matches": "Please make sure that you specify a password that matches"
+  },
+  "topbar": {
+    "profile": "Profile",
+    "change_password": "Change Password",
+    "logout": "Logout",
+    "notifications_modal_title": "Notifications",
+    "no_recent_notification": "No recent Notifications!",
+    "search_modal_no_result": "Nothing found!",
+    "select_other_query": "Please select another Keyword to search.",
+    "view_searchpage": "View Searchpage"
+  },
+  "footer": {
+    "copyright": "Copyright",
+    "rights_reserved": "All Rights Reserved.",
+    "help": "Help",
+    "privacy_policy": "Privacy Policy",
+    "conditions": "Conditions",
+    "contact": "Contact"
+  },
+  "search_page": {
+    "filter_all": "Show all",
+    "filter_categories": "Categories",
+    "filter_authors": "Authors",
+    "filter_posts": "Posts",
+    "no_results": "Your search has not found any results!",
+    "no_results_subtitle": "Your search did not find any results, please search for another term or name.",
+    "search_filters": "Search Filter",
+    "returned_hits": "Your search has returned {count} hits"
   },
   "tags": {
     "overview": "Tags Overview",
