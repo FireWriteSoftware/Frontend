@@ -227,16 +227,7 @@
       <div class="-mb-10 pb-10">
         <div class="xxl:pl-6 grid grid-cols-12 gap-5">
           <!-- BEGIN: Announcements -->
-          <div class="col-span-12 md:col-span-6 xl:col-span-12 xl:col-start-1 xl:row-start-1 xxl:col-start-auto xxl:row-start-auto mt-3">
-            <div class="flex items-center h-10 mb-4" v-if="this.$route.name === 'categories.subcategory'">
-              <div class="mt-5 intro-x float-left mr-auto">
-                <router-link :to="{ name: 'categories' }">
-                  <button class="btn btn-primary shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
-                    {{ $t('pages.dashboard') }}
-                  </button>
-                </router-link>
-              </div>
-            </div>
+          <div class="col-span-12 mt-3">
             <div class="intro-x flex items-center h-10 mb-3 xxl:mb-8" v-if="this.announcements.length > 0 || !this.loading.announcements">
               <h2 class="text-lg font-medium truncate mr-auto">
                 {{ $t('categories.announcements')}}
@@ -299,12 +290,13 @@
           </div>
           <!-- END: Announcements -->
 
-          <!-- BEGIN: Author Tools -->
-          <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mb-3 xxl:mb-8" v-if="this.permissions?.categories_store || this.permissions?.posts_store">
-            <div class="intro-x flex items-center h-10">
+          <!-- BEGIN: Author Tools & Shortnav -->
+          <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mb-3" v-if="this.permissions?.categories_store || this.permissions?.posts_store || this.$route.name === 'categories.subcategory'">
+            <!-- BEGIN: Author Tools -->
+            <div class="intro-x flex items-center h-10" v-if="this.permissions?.categories_store || this.permissions?.posts_store">
               <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.author_tools') }}</h2>
             </div>
-            <div class="">
+            <div class='mb-3'>
               <router-link :to="{ name: 'moderation.categories.create' }" v-if="this.permissions?.categories_store">
                 <button class="intro-x w-full block text-center rounded-md py-3 btn btn-primary w-24 mr-1 mb-2 flex">
                   <FolderIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_category') }}
@@ -316,15 +308,30 @@
                 </button>
               </router-link>
             </div>
+            <!-- END: Author Tools -->
+            <!-- BEGIN: Shortnav -->
+            <div class="intro-x flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.short_navigation') }}</h2>
+            </div>
+            <div class="flex items-center h-10" v-if="this.$route.name === 'categories.subcategory'">
+              <div class="intro-x float-left mr-auto w-full">
+                <router-link :to="{ name: 'categories' }">
+                  <button class="btn btn-primary w-full shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
+                    {{ $t('pages.dashboard') }}
+                  </button>
+                </router-link>
+              </div>
+            </div>
+            <!-- BEGIN: Shortnav -->
           </div>
-          <!-- END: Author Tools -->
+          <!-- END: Author Tools & Shortnav -->
 
           <!-- BEGIN: Recent Postings -->
-          <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12" v-if="this.recent.length > 0 || !this.loading.recent">
+          <div class="col-span-12 md:col-span-12 xl:col-span-8 xxl:col-span-12" v-if="this.recent.length > 0 || !this.loading.recent">
             <div class="intro-x flex items-center h-10">
               <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.recent_posts') }}</h2>
             </div>
-            <div class="mt-2" v-if="this.loading.recent === true">
+            <div class="mt-2 w-full" v-if="this.loading.recent === true">
               <div
                 v-for="activity in this.recent"
                 :key="activity.id"
