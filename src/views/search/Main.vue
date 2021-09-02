@@ -54,7 +54,7 @@
           class="intro-y col-span-12 sm:col-span-12 md:col-span-12 xxl:col-span-12"
         >
           <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative border-l-2 border-theme-9 pl-4">
-            <div class="relative flex items-center">
+            <div class="flex items-center">
               <div class="w-12 h-12 flex-none image-fit">
                 <img alt="" class="rounded" :src="result.thumbnail ?? require('@/assets/images/placeholder.png')">
               </div>
@@ -62,7 +62,7 @@
                 <a href="javascript:;" class="font-medium" @click="this.$router.push({ name: 'categories.subcategory', params: { id: result.id } })">
                   {{ result.title }}
                 </a>
-                <div class="text-gray-600 mr-5 sm:mr-5" v-html="result.description.substring(0,400)+'...'">
+                <div class="text-gray-600 mr-5 sm:mr-5 overflow" v-html="result?.description.substring(0,200) + '...'">
                 </div>
               </div>
             </div>
@@ -84,7 +84,6 @@
                 <a href="javascript:;" class="font-medium" @click="this.$router.push({ name: 'posts.view', params: { id: result.id } })">
                   {{ result.title }}
                 </a>
-                <div class="text-gray-600 mr-5 sm:mr-5" v-html="result.content.substring(0,400)+'...'"></div>
               </div>
             </div>
           </div>
