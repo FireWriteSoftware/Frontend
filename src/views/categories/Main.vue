@@ -314,7 +314,7 @@
               <div class="intro-x flex items-center h-10">
                 <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.short_navigation') }}</h2>
               </div>
-              <div class="flex items-center h-10">
+              <div class="flex items-center h-10 mb-2">
                 <div class="intro-x float-left mr-auto w-full">
                   <router-link :to="{ name: 'categories' }">
                     <a class="btn btn-primary w-full shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
