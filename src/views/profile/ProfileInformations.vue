@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Update Profile</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('profile.update_profile') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -11,7 +11,7 @@
         <!-- BEGIN: Display Information -->
         <div class="intro-y box lg:mt-5">
           <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
-            <h2 class="font-medium text-base mr-auto">Display Information</h2>
+            <h2 class="font-medium text-base mr-auto">{{ $t('profile.display_info') }}</h2>
           </div>
           <div class="p-5">
             <form @submit.prevent="handleSubmit">
@@ -21,13 +21,13 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label for="update-profile-firstname" class="form-label">
-                          Firstname
+                          {{ $t('attributes.firstname') }}
                         </label>
                         <input
                           id="update-profile-firstname"
                           type="text"
                           :class="'form-control' + (this.validation_error?.pre_name != null ? ' border-theme-6' : '')"
-                          placeholder="Firstname"
+                          :placeholder="$t('attributes.firstname')"
                           v-model="user.pre_name"
                         />
                         <div v-if="this.validation_error?.pre_name != null" class="text-theme-6 mt-2 mb-4">
@@ -36,13 +36,13 @@
                       </div>
                       <div class="mt-3">
                         <label for="update-profile-username" class="form-label">
-                          Username
+                          {{ $t('attributes.username') }}*
                         </label>
                         <input
                           id="update-profile-username"
                           type="text"
                           :class="'form-control' + (this.validation_error?.name != null ? ' border-theme-6' : '')"
-                          placeholder="Username"
+                          :placeholder="$t('attributes.username')"
                           v-model="user.name"
                         />
                         <div v-if="this.validation_error?.name != null" class="text-theme-6 mt-2 mb-4">
@@ -53,13 +53,13 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-profile-lastname" class="form-label">
-                          Lastname
+                          {{ $t('attributes.lastname') }}
                         </label>
                         <input
                           id="update-profile-lastname"
                           type="text"
                           :class="'form-control' + (this.validation_error?.type != null ? ' border-theme-6' : '')"
-                          placeholder="Lastname"
+                          :placeholder="$t('attributes.lastname')"
                           v-model="user.last_name"
                         />
                         <div v-if="this.validation_error?.last_name != null" class="text-theme-6 mt-2 mb-4">
@@ -68,13 +68,13 @@
                       </div>
                       <div class="mt-3">
                         <label for="update-profile-email" class="form-label">
-                          Email
+                          {{ $t('attributes.email') }}*
                         </label>
                         <input
                           id="update-profile-email"
                           type="text"
                           :class="'form-control' + (this.validation_error?.type != null ? ' border-theme-6' : '')"
-                          placeholder="Email"
+                          :placeholder="$t('attributes.email')"
                           v-model="user.email"
                         />
                         <div v-if="this.validation_error?.email != null" class="text-theme-6 mt-2 mb-4">
@@ -85,7 +85,7 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3">
                         <label for="update-profile-language" class="form-label">
-                          Language
+                          {{ $t('attributes.language') }}
                         </label>
                         <TailSelect
                           v-model="user.language"
@@ -107,11 +107,11 @@
                       <div class="mt-3">
                         <div class="flex items-center">
                           <div class="pl-4">
-                            <a href="" class="font-medium">
-                              Darkmode
+                            <a class="font-medium">
+                              {{ $t('profile.darkmode') }}
                             </a>
                             <div class="text-gray-600">
-                              Enable darkmode on all wiki pages
+                              {{ $t('profile.darkmode_subtitle') }}
                             </div>
                           </div>
                           <input class="form-check-switch ml-auto" type="checkbox" v-model='darkmode'>
@@ -120,7 +120,7 @@
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary w-20 mt-3">
-                    Save
+                    {{ $t('utils.save') }}
                   </button>
                 </div>
                 <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
@@ -137,12 +137,12 @@
                         class="w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2"
                         @click="this.user.profile_picture = null"
                       >
-                        <xIcon class="w-4 h-4" />
+                        <xIcon class="w-4 h-4"/>
                       </Tippy>
                     </div>
                     <div class="mx-auto cursor-pointer relative mt-5">
                       <button type="button" class="btn btn-primary w-full">
-                        Change Photo
+                        {{ $t('profile.change_photo') }}
                       </button>
                       <input
                         type="file"
