@@ -228,7 +228,7 @@
         <div class="xxl:pl-6 grid grid-cols-12 gap-5">
           <!-- BEGIN: Announcements -->
           <div class="col-span-12 mt-3">
-            <div class="intro-x flex items-center h-10 mb-3 xxl:mb-8" v-if="this.announcements.length > 0 || !this.loading.announcements">
+            <div class="intro-x flex items-center h-10 mb-3" v-if="this.announcements.length > 0 || !this.loading.announcements">
               <h2 class="text-lg font-medium truncate mr-auto">
                 {{ $t('categories.announcements')}}
               </h2>
@@ -291,7 +291,7 @@
           <!-- END: Announcements -->
 
           <!-- BEGIN: Author Tools & Shortnav -->
-          <div class="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mb-3" v-if="this.permissions?.categories_store || this.permissions?.posts_store || this.$route.name === 'categories.subcategory'">
+          <div class="col-span-12 md:col-span-12 xl:col-span-4 xxl:col-span-12 mb-3" v-if="this.permissions?.categories_store || this.permissions?.posts_store || this.$route.name === 'categories.subcategory'">
             <!-- BEGIN: Author Tools -->
             <div class="intro-x flex items-center h-10" v-if="this.permissions?.categories_store || this.permissions?.posts_store">
               <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.author_tools') }}</h2>
@@ -310,16 +310,25 @@
             </div>
             <!-- END: Author Tools -->
             <!-- BEGIN: Shortnav -->
-            <div class="intro-x flex items-center h-10">
-              <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.short_navigation') }}</h2>
-            </div>
-            <div class="flex items-center h-10" v-if="this.$route.name === 'categories.subcategory'">
-              <div class="intro-x float-left mr-auto w-full">
-                <router-link :to="{ name: 'categories' }">
-                  <button class="btn btn-primary w-full shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
-                    {{ $t('pages.dashboard') }}
-                  </button>
-                </router-link>
+            <div v-if="this.$route.name === 'categories.subcategory'">
+              <div class="intro-x flex items-center h-10">
+                <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.short_navigation') }}</h2>
+              </div>
+              <div class="flex items-center h-10">
+                <div class="intro-x float-left mr-auto w-full">
+                  <router-link :to="{ name: 'categories' }">
+                    <a class="btn btn-primary w-full shadow-md mr-2"><HomeIcon class="mr-2 h-5 w-5"/>
+                      {{ $t('pages.dashboard') }}
+                    </a>
+                  </router-link>
+                </div>
+              </div>
+              <div class="flex items-center h-10">
+                <div class="intro-x float-left mr-auto w-full">
+                  <a class="btn btn-secondary w-full shadow-md mr-2" disabled><LinkIcon class="mr-2 h-5 w-5"/>
+                    {{ this.subcategory.title ?? $t('attributes.unknown') }}
+                  </a>
+                </div>
               </div>
             </div>
             <!-- BEGIN: Shortnav -->
@@ -421,6 +430,7 @@ export default defineComponent({
       },
       permissions: {},
       validation_error: {},
+      subcategory: {},
       user: {}
     }
   },
@@ -436,6 +446,7 @@ export default defineComponent({
     $route(to, from) {
       this.view_structure.categories = []
       this.view_structure.posts = []
+      this.subcategory = {}
       this.initialLoad()
     }
   },
@@ -469,6 +480,7 @@ export default defineComponent({
         .then(response => {
           this.view_structure.categories = response.data.data.children
           this.view_structure.posts = response.data.data.posts
+          this.subcategory = response.data.data
           this.loading.content = true
         })
         .catch(error => {
