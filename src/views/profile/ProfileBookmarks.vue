@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Update Profile</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('profile.my_bookmarks') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -17,7 +17,7 @@
           >
             <router-link :to="{ name: bookmark.is_post ? 'posts.view' : 'categories.subcategory', params: { id: bookmark.is_post ? bookmark?.post?.id : bookmark?.category?.id }}">
               <div class="intro-y">
-                <div class="box px-4 py-4 flex items-center zoom-in">
+                <div class="box px-4 py-4 flex items-center">
                   <div class="w-10 h-10 flex-none image-fit rounded-md overflow-hidden">
                     <img alt="" :src="bookmark?.post?.thumbnail ?? require('@/assets/images/placeholder.png')" v-if="bookmark?.is_post">
                     <img alt="" :src="bookmark?.category?.thumbnail ?? require('@/assets/images/placeholder.png')" v-if="bookmark?.is_category">
@@ -32,10 +32,10 @@
                   </div>
                   <div class="py-1 px-2 text-gray-600 cursor-pointer font-medium">
                     <span v-if="bookmark.is_category" class="flex">
-                        <FolderIcon class="mr-3"></FolderIcon>Category
+                        <FolderIcon class="mr-3"></FolderIcon>{{ $t('categories.category') }}
                     </span>
                     <span v-if="bookmark.is_post" class="flex">
-                        <FileTextIcon class="mr-3"></FileTextIcon>Post
+                        <FileTextIcon class="mr-3"></FileTextIcon>{{ $t('categories.post') }}
                     </span>
                   </div>
                 </div>
@@ -46,9 +46,9 @@
             <div class="box">
               <div class="p-5 text-center">
                 <BookmarkIcon class="w-16 h-16 text-theme-1 mx-auto mt-5"/>
-                <div class="text-3xl mt-5">No recent Bookmarks</div>
+                <div class="text-3xl mt-5">{{ $t('profile.no_recent_bookmarks') }}</div>
                 <div class="text-gray-600 mt-2 mb-5">
-                  You have no Bookmarks, but you can subscribe to a new one!
+                  {{ $t('profile.no_recent_bookmarks_subtitle') }}
                 </div>
               </div>
             </div>
@@ -87,9 +87,7 @@ export default defineComponent({
         .then(response => {
           this.bookmarks = response.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     formatDate(timeString) {
       return moment(String(timeString)).format('MMM Do YYYY')
