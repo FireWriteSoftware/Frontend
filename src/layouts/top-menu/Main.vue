@@ -346,6 +346,7 @@ export default defineComponent({
       if (this.$route.name === 'TopMenu') {
         this.$router.push({ name: 'categories' })
       }
+      this.$i18n.locale = this.user.language
       this.testPagePermissions()
       this.fetchNotifications()
       this.breadcrums = this.$route.matched

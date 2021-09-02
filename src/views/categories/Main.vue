@@ -239,7 +239,7 @@
             </div>
             <div class="intro-x flex items-center h-10 mb-3 xxl:mb-8" v-if="this.announcements.length > 0 || !this.loading.announcements">
               <h2 class="text-lg font-medium truncate mr-auto">
-                Announcements
+                {{ $t('categories.announcements')}}
               </h2>
               <button
                 data-carousel="important-notes"
