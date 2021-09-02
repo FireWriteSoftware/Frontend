@@ -343,17 +343,13 @@ export default defineComponent({
     this.user = JSON.parse(localStorage.getItem('user'))
     if (this.user) this.loggedIn = true
     if (this.loggedIn) {
-      if (this.$route.name === 'TopMenu') {
-        this.$router.push({ name: 'categories' })
-      }
-      this.$i18n.locale = this.user.language
+      if (this.$route.name === 'TopMenu') { this.$router.push({ name: 'categories' }) } // Redirect to categories if no route is given
+      if (this.user.language !== '' && this.user.language) { this.$i18n.locale = this.user.language } // Set Users language
       this.testPagePermissions()
       this.fetchNotifications()
       this.breadcrums = this.$route.matched
     } else {
-      if (this.$route.name === 'TopMenu') {
-        this.$router.push({ name: 'login' })
-      }
+      if (this.$route.name === 'TopMenu') { this.$router.push({ name: 'login' }) } // Redirect to login if user is not logged in
     }
     localStorage.getItem('darkmode') != null && localStorage.getItem('darkmode') === 'true'
       ? cash('html').addClass('dark')
