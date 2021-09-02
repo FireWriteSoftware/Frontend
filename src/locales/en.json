@@ -65,7 +65,7 @@
     "updated_at": "Last update",
     "unauthorized": "Unauthorized",
     "types": "Types",
-    "type": "Typ",
+    "type": "Type",
     "bans": "Bans",
     "closed": "Closed",
     "seen": "Seen",
@@ -81,7 +81,8 @@
     "target": "Target",
     "staff": "staff",
     "unknown": "Unknown",
-    "until": "Until:"
+    "until": "Until:",
+    "language": "Language"
   },
   "utils": {
     "edit": "Edit",
@@ -104,7 +105,8 @@
     "contact_details": "Contact Details",
     "user_id": "User ID: {id}",
     "pagination": "Page {first} / {last}",
-    "dataset_overview": " Showing {from} to {to} of {total} entries"
+    "dataset_overview": "Showing {from} to {to} of {total} entries",
+    "reset": "Reset"
   },
   "editor": {
     "electric": "Electric",
@@ -250,5 +252,46 @@
     "unbanned_subtitle": "This user is currently Unbanned",
     "current_ban_state": "Current Ban status",
     "most_recent_ban": "Most recent ban:"
+  },
+  "auth_pages": {
+    "header": "Welcome to the {name} Wiki...",
+    "slogan": "Free of charge and opensource developed by KRB-Development",
+    "sign_in": "Sign in",
+    "sign_in_subtitle": "A few more clicks to sign in to your Account.",
+    "sign_up": "Sign up",
+    "sign_up_subtitle": "A few more clicks to sign up to your account.",
+    "reset_password": "Reset Password",
+    "reset_password_subtitle": "A few more clicks toreset your account password.",
+    "send_link": "Send Link",
+    "register": "Register",
+    "login": "Login",
+    "username_email": "Username / Email",
+    "remember_me": "Remember me",
+    "forgot_password_link": "Forgot password?",
+    "sign_up_info_1": " By signin up, you agree to our ",
+    "terms_conditions": "Terms and Conditions",
+    "sign_up_agree": "I agree to the"
+  },
+  "profile": {
+    "personal_information": "Personal Information",
+    "change_password": "Change Password",
+    "my_postings": "My Postings",
+    "my_bookmarks": "My Bookmarks",
+    "terms_of_service": "Terms of Service",
+    "privacy_policy": "Privacy policy",
+    "display_info": "Display Information",
+    "update_profile": "Update your Profile",
+    "darkmode": "Darkmode",
+    "darkmode_subtitle": "Enable Darkmode for all wiki pages",
+    "change_photo": "Change Photo",
+    "old_password": "Old Password",
+    "new_password": "New Password",
+    "new_password_confirmation": "Confirm new Password",
+    "public": "Public",
+    "not_approved": "Not Approved",
+    "no_recent_posts": "No recent Posts",
+    "no_recent_posts_subtitle": "You have no Posts, but you can create a new one",
+    "no_recent_bookmarks": "No recent Bookmarks",
+    "no_recent_bookmarks_subtitle": "You have no Bookmarks, but you can subscribe to a new one!"
   }
 }
