@@ -56,7 +56,7 @@
         <!-- BEGIN: Breadcrumb -->
         <div class="-intro-x breadcrumb breadcrumb--light mr-auto">
           <div v-for="breadcrum in this?.breadcrums" v-bind:key="breadcrum.path" class="flex">
-            <a href="" :class="breadcrum.name === this.$router.name ? '' : 'breadcrumb--active'">{{ breadcrum.meta.title }}</a>
+            <a href="" :class="breadcrum.name === this.$router.name ? '' : 'breadcrumb--active'">{{ $t(breadcrum.meta.title) }}</a>
             <ChevronRightIcon class="breadcrumb__icon self-center" v-if="breadcrum.children.length !== 0"/>
           </div>
         </div>
@@ -198,7 +198,7 @@
               <component :is="menu.icon" />
             </div>
             <div class="top-menu__title">
-              {{ menu.title }}
+              {{ $t(menu.title) }}
               <ChevronDownIcon v-if="menu.subMenu" class="top-menu__sub-icon" />
             </div>
           </a>
@@ -218,7 +218,7 @@
                   <component :is="subMenu.icon" />
                 </div>
                 <div class="top-menu__title">
-                  {{ subMenu.title }}
+                  {{ $t(subMenu.title) }}
                   <ChevronDownIcon
                     v-if="subMenu.subMenu"
                     class="top-menu__sub-icon"
@@ -244,7 +244,7 @@
                       <component :is="lastSubMenu.icon" />
                     </div>
                     <div class="top-menu__title">
-                      {{ lastSubMenu.title }}
+                      {{ $t(lastSubMenu.title) }}
                     </div>
                   </a>
                 </li>
