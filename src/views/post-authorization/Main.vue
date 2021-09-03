@@ -43,7 +43,7 @@
                 </div>
                 <div class="ml-3 text-white mr-auto">
                   <a href="" class="font-medium">{{ post?.user?.name }}</a>
-                  <div class="text-xs mt-0.5">{{ post?.updated_at }}</div>
+                  <div class="text-xs mt-0.5">{{ formatDate(post?.updated_at) }}</div>
                 </div>
                 <div class="dropdown ml-3" v-if='this.permissions?.posts_update'>
                   <a

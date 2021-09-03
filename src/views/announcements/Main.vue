@@ -148,7 +148,7 @@
               <a class="text-theme-1 dark:text-theme-10 inline-block truncate">
                 {{ announce.user.role?.name }}
               </a>
-              <span class="mx-1">•</span> {{ announce.created_at }}
+              <span class="mx-1">•</span> {{ formatDate(announce.created_at) }}
             </div>
           </div>
           <div class="dropdown ml-3">
@@ -189,7 +189,7 @@
         <div class="px-5 pt-3 pb-5 border-t border-gray-200 dark:border-dark-5">
           <div class="w-full flex text-gray-600 text-xs sm:text-sm">
             <div class="mr-2">
-              {{ $t('attributes.updated_at') }}: <span class="font-medium">{{ announce.updated_at }}</span>
+              {{ $t('attributes.updated_at') }}: <span class="font-medium">{{ formatDate(announce.updated_at) }}</span>
             </div>
           </div>
         </div>
@@ -234,6 +234,7 @@
 import { defineComponent } from 'vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification'
+import moment from 'moment'
 const toast = useToast()
 
 export default defineComponent({
@@ -331,6 +332,9 @@ export default defineComponent({
         total: meta.total
       }
       this.pagination = pagination
+    },
+    formatDate(timeString) {
+      return moment(String(timeString)).format('MMM Do YYYY')
     }
   }
 })
