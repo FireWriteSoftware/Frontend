@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Update Profile</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('accounts.account_settings') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -12,8 +12,9 @@
         <form @submit.prevent="submitCredentials()">
           <div class="intro-y box lg:mt-5">
             <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-              <h2 class="font-medium text-base mr-auto">Roles & Badges</h2>
-              <button class="btn btn-primary btn-sm ml-auto" type="submit"><SaveIcon class="mr-2 w-5 h-5"></SaveIcon>Save</button>
+              <h2 class="font-medium text-base mr-auto">{{ $t('Roles & Badges') }}</h2>
+              <button class="btn btn-primary btn-sm ml-auto" type="submit"><SaveIcon class="mr-2 w-5 h-5"></SaveIcon>
+                {{ $t('utils.save') }}</button>
             </div>
             <div class="p-5">
               <div class="flex flex-col-reverse xl:flex-row flex-col">
@@ -22,7 +23,7 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label class="form-label">
-                          Role
+                          {{ $t('accounts.role') }}
                         </label>
                         <TailSelect
                           v-model="user.role.id"
@@ -42,7 +43,7 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label class="form-label">
-                          Badges
+                          {{ $t('accounts.badges') }}
                         </label>
                         <TailSelect
                           :class="'form-control' + (this.validation_error?.badges != null ? ' border-theme-6' : '')"
@@ -59,7 +60,7 @@
                           }"
                           multiple
                         >
-                          <option :value=badge.id v-for="badge in this.badges" v-bind:key="badge.id" :selected="this.old_account_badges.some(account_badge => account_badge.id === badge.id)">{{ badge.title }} - {{ badge.id }}</option>
+                          <option :value=badge.id v-for="badge in this.badges" v-bind:key="badge.id" :selected="this.old_account_badges.some(account_badge => account_badge.id === badge.id)">{{ badge.title }}</option>
                         </TailSelect>
                         <div v-if="this.validation_error?.badges != null" class="text-theme-6 mt-2 mb-4">
                           {{ this.validation_error?.badges[0] }}
@@ -76,10 +77,10 @@
         <!-- BEGIN: Settings -->
         <div class="intro-y box lg:mt-5">
           <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-            <h2 class="font-medium text-base mr-auto">Account Settings</h2>
+            <h2 class="font-medium text-base mr-auto">{{ $t('accounts.account_settings') }}</h2>
             <button class="btn btn-primary btn-sm ml-auto" v-on:click='saveSettings()'>
               <SaveIcon class="mr-2 w-5 h-5"></SaveIcon>
-              Save
+              {{ $t('utils.save') }}
             </button>
           </div>
           <div class="p-5">
@@ -89,11 +90,11 @@
                   <div class="col-span-12 xxl:col-span-6">
                     <div class="flex items-center">
                       <div class="border-l-2 border-theme-1 pl-4">
-                        <a href="" class="font-medium">
-                          Verified E-Mail address
+                        <a class="font-medium">
+                          {{ $t('accounts.verified_email') }}
                         </a>
                         <div class="text-gray-600">
-                          Is the account-email verified?
+                          {{ $t('accounts.verified_email_subtext') }}
                         </div>
                       </div>
                       <input class="form-check-switch ml-auto" type="checkbox" v-model="new_verified">
@@ -102,11 +103,11 @@
                   <div class="col-span-12 xxl:col-span-6 mb-4">
                     <div class="flex items-center">
                       <div class="border-l-2 border-theme-1 pl-4">
-                        <a href="" class="font-medium">
-                          Newsletter
+                        <a class="font-medium">
+                          {{ $t('accounts.newsletter') }}
                         </a>
                         <div class="text-gray-600">
-                          Does the user get newsletter?
+                          {{ $t('accounts.newsletter_subtext') }}
                         </div>
                       </div>
                       <input class="form-check-switch ml-auto" type="checkbox" v-model='new_newsletter'>
@@ -115,11 +116,11 @@
                   <div class="col-span-12 xxl:col-span-6 mb-4">
                     <div class="flex items-center">
                       <div class="border-l-2 border-theme-1 pl-4">
-                        <a href="" class="font-medium">
-                          Darkmode
+                        <a class="font-medium">
+                          {{ $t('accounts.darkmode') }}
                         </a>
                         <div class="text-gray-600">
-                          Enable darkmode on all wiki pages
+                          {{ $t('accounts.darkmode_subtext') }}
                         </div>
                       </div>
                       <input class="form-check-switch ml-auto" type="checkbox" v-model='darkmode'>
@@ -183,7 +184,7 @@ export default defineComponent({
         role_id: this.user.role.id
       })
         .then(response => {
-          toast.success('Role successfully updated')
+          toast.success(response.data.message)
           loader.hide()
         })
         .catch(error => {
@@ -202,8 +203,7 @@ export default defineComponent({
           this.new_verified = (this.user.email_verified_at != null)
           this.new_newsletter = this.user.subscribed_newsletter
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
         })
     },
@@ -212,18 +212,14 @@ export default defineComponent({
         .then(response => {
           this.roles = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     fetchBadges() {
       axios.get('badges')
         .then(response => {
           this.badges = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     fetchUserBadges(id) {
       axios.get('users/' + id + '/badges')
@@ -234,9 +230,7 @@ export default defineComponent({
             this.selected_badges.push(response.data.data[badge].id.toString())
           }
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     saveSettings() {
       const store = useStore()
@@ -258,9 +252,7 @@ export default defineComponent({
           this.new_newsletter = this.user.subscribed_newsletter
           loader.hide()
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     }
   },
   watch: {

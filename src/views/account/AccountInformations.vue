@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">User Account</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('accounts.user_account') }}</h2>
     </div>
     <DeleteModal :user="this.user"></DeleteModal>
     <div class="grid grid-cols-12 gap-6">
@@ -12,7 +12,7 @@
         <!-- BEGIN: Display Information -->
         <div class="intro-y box lg:mt-5">
           <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
-            <h2 class="font-medium text-base mr-auto">Display Information</h2>
+            <h2 class="font-medium text-base mr-auto">{{ $t('accounts.display_information') }}</h2>
           </div>
           <div class="p-5">
             <form @submit.prevent="updatedUser(user)">
@@ -22,13 +22,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label for="update-profile-form-1" class="form-label">
-                          Display Name
+                          {{ $t('attributes.username') }}*
                         </label>
                         <input
                           id="update-profile-form-1"
                           type="text"
                           :class="'form-control' + (this.validation_error?.name != null ? ' border-theme-6' : '')"
-                          placeholder="Enter Username"
                           v-model="user.name"
                         />
                         <div v-if="this.validation_error?.name != null" class="text-theme-6 mt-2 mb-4">
@@ -37,13 +36,12 @@
                       </div>
                       <div class="mt-3">
                         <label for="accounts-firstname-edit" class="form-label">
-                          Firstname
+                          {{ $t('attributes.firstname') }}
                         </label>
                         <input
                           id="accounts-firstname-edit"
                           type="text"
                           :class="'form-control' + (this.validation_error?.pre_name != null ? ' border-theme-6' : '')"
-                          placeholder="Enter Firstname"
                           v-model="user.pre_name"
                         />
                         <div v-if="this.validation_error?.pre_name != null" class="text-theme-6 mt-2 mb-4">
@@ -54,13 +52,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="accounts-email-edit" class="form-label">
-                          Email address
+                          {{ $t('attributes.email') }}*
                         </label>
                         <input
                           id="accounts-email-edit"
                           type="text"
                           :class="'form-control' + (this.validation_error?.email != null ? ' border-theme-6' : '')"
-                          placeholder="Enter Email"
                           v-model="user.email"
                         />
                         <div v-if="this.validation_error?.email != null" class="text-theme-6 mt-2 mb-4">
@@ -69,13 +66,12 @@
                       </div>
                       <div class="mt-3">
                         <label for="accounts-lastname-edit" class="form-label">
-                          Lastname
+                          {{ $t('attributes.lastname') }}
                         </label>
                         <input
                           id="accounts-lastname-edit"
                           type="text"
                           :class="'form-control' + (this.validation_error?.last_name != null ? ' border-theme-6' : '')"
-                          placeholder="Enter Lastname"
                           v-model="user.last_name"
                         />
                         <div v-if="this.validation_error?.last_name != null" class="text-theme-6 mt-2 mb-4">
@@ -89,14 +85,13 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="accounts-email_verify-edit" class="form-label">
-                          Email verified at
+                          {{ $t('accounts.email_verified_at') }}
                         </label>
                         <input
                           id="accounts-email_verify-edit"
                           type="text"
                           class="form-control"
-                          placeholder="Input text"
-                          :value="user.email_verified_at ? user.email_verified_at : 'Unknown'"
+                          :value="user.email_verified_at ? user.email_verified_at : $t('attributes.unknown')"
                           disabled
                         />
                       </div>
@@ -104,13 +99,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="accounts-id-edit" class="form-label">
-                          Account ID
+                          {{ $t('accounts.account_id') }}
                         </label>
                         <input
                           id="accounts-id-edit"
                           type="text"
                           class="form-control"
-                          placeholder="Input text"
                           :value="user.id"
                           disabled
                         />
@@ -119,10 +113,11 @@
                   </div>
                   <div class="flex justify-end mt-4">
                     <button type="submit" class="btn btn-primary w-20 mr-auto">
-                      Save
+                      {{ $t('utils.save') }}
                     </button>
                     <a href="javascript:;" data-toggle="modal" data-target="#delete-account-modal" class="text-theme-6 flex items-center">
-                      <Trash2Icon class="w-4 h-4 mr-1"/> Delete Account
+                      <Trash2Icon class="w-4 h-4 mr-1"/>
+                      {{ $t('accounts.delete_account') }}
                     </a>
                   </div>
                 </div>
@@ -145,7 +140,7 @@
                     </div>
                     <div class="mx-auto cursor-pointer relative mt-5">
                       <button type="button" class="btn btn-primary w-full">
-                        Change Photo
+                        {{ $t('profile.change_photo') }}
                       </button>
                       <input
                         type="file"
