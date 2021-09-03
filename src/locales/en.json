@@ -364,5 +364,101 @@
     "create_ban": "Create Ban",
     "settings": "Settings",
     "history": "History"
+  },
+  "navigation": {
+    "default": "Wiki",
+    "categories": "Categories",
+    "author": {
+      "title": "Author",
+      "create_post": "Create Post",
+      "create_category": "Create Category"
+    },
+    "moderation" : {
+      "title": "Moderation",
+      "tags": "Tags",
+      "authorization": "Authorization",
+      "announcements": "Announcements",
+      "reports": "Reports",
+      "user_notifications": "User Notifications"
+    },
+    "administration": {
+      "title": "Administration",
+      "roles": "Roles",
+      "permissions": "Permissions",
+      "badges": "Badges",
+      "accounts": "Accounts",
+      "bans": "Bans",
+      "settings": "Settings"
+    },
+    "titles": {
+      "single_post": "View Post",
+      "categories": "Categories",
+      "subcategories": "Subcategory",
+      "search": "Search Page",
+      "terms_of_service": "Terms of Service",
+      "privacy_policy": "Privacy Policy",
+      "profile": {
+        "title": "Profile",
+        "general": "General Profile",
+        "security": "Security Profile",
+        "my_postings": "My Postings",
+        "my_bookmarks": "My Bookmarks"
+      },
+      "moderation": {
+        "title": "Moderation",
+        "tags": "Tags",
+        "announcements": "Announcements",
+        "reports": "Reports",
+        "notifications": {
+          "title": "Notifications",
+          "view": "View Notification",
+          "edit": "Edit Notification",
+          "latest": "Latest Notifications",
+          "create": "Create Notifications",
+          "history": "Notification History"
+        },
+        "post_authorization": "Post Authorization",
+        "create_category": "Create Category",
+        "create_post": "Create Post",
+        "edit_post": "Edit Post",
+        "edit_category": "Edit Category"
+      },
+      "administration": {
+        "title": "Administration",
+        "roles": {
+          "title": "roles",
+          "preferences": "Role Preferences",
+          "permissions": "Permissions",
+          "members": "Members"
+        },
+        "permissions": "Permissions",
+        "bans": "Bans",
+        "view_ban": "View Ban",
+        "accounts": {
+          "title": "Accounts",
+          "informations": "Account Informations",
+          "settings": "Account Settings",
+          "security": "Account Security",
+          "postings": "Account Postings",
+          "bookmarks": "Account Bookmarks",
+          "bans": "Account Bans"
+        },
+        "settings": {
+          "general": "General Settings",
+          "security": "Security Settings",
+          "database": "Database Settings",
+          "mail": "Mail Settings"
+        },
+        "badges": "Badges"
+      },
+      "auth_pages": {
+        "login": "Login",
+        "register": "Register",
+        "email_verify": "Verify Email",
+        "forgot_password": "Forgot Password",
+        "reset_password": "Reset Password",
+        "error": "Error"
+      }
+    }
   }
 }

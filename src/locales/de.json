@@ -363,5 +363,30 @@
     "create_ban": "Sperre erstellen",
     "settings": "Einstellungen",
     "history": "Verlauf"
+  },
+  "navigation": {
+    "categories": "Startseite",
+    "author": {
+      "title": "Autor",
+      "create_post": "Beitrag erstellen",
+      "create_category": "Kategorie erstellen"
+    },
+    "moderation" : {
+      "title": "Moderation",
+      "tags": "Stichworte",
+      "authorization": "Autorisierung",
+      "announcements": "Ankündigungen",
+      "reports": "Meldungen",
+      "user_notifications": "Benachrichtigungen"
+    },
+    "administration": {
+      "title": "Administration",
+      "roles": "Rollen",
+      "permissions": "Berechtigungen",
+      "badges": "Abzeichen",
+      "accounts": "Benutzerkonten",
+      "bans": "Sperren",
+      "settings": "Einstellungen"
+    }
   }
 }
