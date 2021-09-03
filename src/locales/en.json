@@ -390,7 +390,7 @@
       "bans": "Bans",
       "settings": "Settings"
     },
-    "titles": {
+    "pages": {
       "single_post": "View Post",
       "categories": "Categories",
       "subcategories": "Subcategory",
@@ -426,7 +426,7 @@
       "administration": {
         "title": "Administration",
         "roles": {
-          "title": "roles",
+          "title": "Roles",
           "preferences": "Role Preferences",
           "permissions": "Permissions",
           "members": "Members"
