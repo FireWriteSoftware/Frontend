@@ -387,6 +387,76 @@
       "accounts": "Benutzerkonten",
       "bans": "Sperren",
       "settings": "Einstellungen"
+    },
+    "pages": {
+      "single_post": "Beitrag",
+      "categories": "Kategorien",
+      "subcategories": "Subkategorien",
+      "search": "Suchmaschine",
+      "terms_of_service": "Nutzungsbedingungen",
+      "privacy_policy": "Datenschutz-Bestimmungen",
+      "profile": {
+        "title": "Profil",
+        "general": "Allgemeine Einstellungen",
+        "security": "Sicherheits Einstellungen",
+        "my_postings": "Meine Beiträge",
+        "my_bookmarks": "Meine Lesezeichen"
+      },
+      "moderation": {
+        "title": "Moderation",
+        "tags": "Stichworte",
+        "announcements": "Anknüdigungen",
+        "reports": "Meldungen",
+        "notifications": {
+          "title": "Benachrichtigungen",
+          "view": "Benachrichtigungen ansehen",
+          "edit": "Benachrichtigungen bearbeiten",
+          "latest": "Letzliche Benachrichtigungen",
+          "create": "Benachrichtigungen erstellen",
+          "history": "Benachrichtigungsverlauf"
+        },
+        "post_authorization": "Beitrags Auterisierung",
+        "create_category": "Kategorie erstellen",
+        "create_post": "Beitrag erstellen",
+        "edit_post": "Beitrag bearbeiten",
+        "edit_category": "Kategorie bearbeiten"
+      },
+      "administration": {
+        "title": "Administration",
+        "roles": {
+          "title": "Rollen",
+          "preferences": "Rollen Einstellungen",
+          "permissions": "Rollen Berechtigungen",
+          "members": "Rollen Mitglieder"
+        },
+        "permissions": "Berechtigungen",
+        "bans": "Sperren",
+        "view_ban": "Sperre anschauen",
+        "accounts": {
+          "title": "Benutzerkonten",
+          "informations": "Konto informationen",
+          "settings": "Konto einstellungen",
+          "security": "Konto sicherheit",
+          "postings": "Konto beiträge",
+          "bookmarks": "Konto lesezeichen",
+          "bans": "Konto sperren"
+        },
+        "settings": {
+          "general": "Allgemeine einstellungen",
+          "security": "Sicherheits einstellungen",
+          "database": "Datenbank einstellungen",
+          "mail": "Email einstellungen"
+        },
+        "badges": "Abzeichen"
+      },
+      "auth_pages": {
+        "login": "Anmelden",
+        "register": "Regestrieren",
+        "email_verify": "Email verifizieren",
+        "forgot_password": "Passwort vergessen",
+        "reset_password": "Password zurücksetzen",
+        "error": "Fehler"
+      }
     }
   }
 }
