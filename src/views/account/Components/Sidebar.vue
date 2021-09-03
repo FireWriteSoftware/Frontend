@@ -87,14 +87,14 @@
       <div class="flex items-center border-b border-gray-200 dark:border-dark-5 py-5">
         <div>
           <div class="text-gray-600">{{ $t('attributes.updated_at') }}</div>
-          <div class="mt-1">{{ this.user.updated_at }}</div>
+          <div class="mt-1">{{ this.formatDate(this.user.updated_at) }}</div>
         </div>
         <ClockIcon class="w-4 h-4 text-gray-600 ml-auto" />
       </div>
       <div class="flex items-center pt-5">
         <div>
           <div class="text-gray-600">{{ $t('attributes.created_at') }}</div>
-          <div class="mt-1">{{ this.user.created_at }}</div>
+          <div class="mt-1">{{ this.formatDate(this.user.created_at) }}</div>
         </div>
         <UserPlusIcon class="w-4 h-4 text-gray-600 ml-auto" />
       </div>
@@ -106,8 +106,14 @@
 
 <script>
 import { defineComponent } from 'vue'
+import moment from 'moment'
 
 export default defineComponent({
-  props: ['user']
+  props: ['user'],
+  methods: {
+    formatDate(timeString) {
+      return moment(String(timeString)).format('MMM Do YYYY')
+    }
+  }
 })
 </script>
