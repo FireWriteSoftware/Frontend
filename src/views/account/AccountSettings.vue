@@ -12,7 +12,7 @@
         <form @submit.prevent="submitCredentials()">
           <div class="intro-y box lg:mt-5">
             <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-              <h2 class="font-medium text-base mr-auto">{{ $t('Roles & Badges') }}</h2>
+              <h2 class="font-medium text-base mr-auto">{{ $t('accounts.roles_badges') }}</h2>
               <button class="btn btn-primary btn-sm ml-auto" type="submit"><SaveIcon class="mr-2 w-5 h-5"></SaveIcon>
                 {{ $t('utils.save') }}</button>
             </div>

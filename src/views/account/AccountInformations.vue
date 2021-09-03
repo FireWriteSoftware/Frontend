@@ -190,8 +190,7 @@ export default defineComponent({
           this.user = response.data.data
           loader.hide()
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
           this.$router.push({ name: 'admin.accounts' })
         })
@@ -206,12 +205,11 @@ export default defineComponent({
         profile_picture: user.profile_picture
       })
         .then(response => {
-          toast.success('Account successfully updated')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchUser(this.$route.params.id)
         })
         .catch(error => {
-          console.error(error)
           this.validation_error = error.response.data.data.errors
           toast.error(error.response.data.message)
           loader.hide()
@@ -244,18 +242,16 @@ export default defineComponent({
             profile_picture: this.user.profile_picture
           })
             .then(response => {
-              toast.success('Profile picture successfully updated')
+              toast.success(response.data.message)
               loader.hide()
             })
             .catch(error => {
-              console.error(error.response)
               this.validation_error = error.response.data.data.errors
               toast.error(error.response.data.message)
               loader.hide()
             })
         })
         .catch((error) => {
-          console.error(error)
           toast.error(error.response.data.message)
           loader.hide()
         })
