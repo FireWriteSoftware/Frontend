@@ -14,7 +14,7 @@
                     <input
                       type="text"
                       class="form-control py-3 px-4 border-transparent bg-gray-200 pr-10 placeholder-theme-13"
-                      placeholder="Search user..."
+                      :placeholder="$t('utils.search')"
                       v-model="this.search.user"
                       @change="this.fetchUsers(this.search.user ? 'users?search=' + this.search.user + '&paginate=0' : 'users?paginate=0')"
                     />
@@ -82,7 +82,7 @@
                         </div>
                         <div class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
                           <div class="font-medium text-center lg:text-left lg:mt-3">
-                            Contact Details
+                            {{ $t('utils.contact_details') }}
                           </div>
                           <div class="flex flex-col justify-center items-center lg:items-start mt-4">
                             <div class="truncate sm:whitespace-normal flex items-center">
@@ -92,7 +92,7 @@
                               <UserIcon class="w-4 h-4 mr-2"/>{{ this.history_notification_user?.pre_name }} {{ this.history_notification_user?.last_name }}
                             </div>
                             <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                              <HashIcon class="w-4 h-4 mr-2"/>User ID: {{ this.history_notification_user?.id }}
+                              <HashIcon class="w-4 h-4 mr-2"/>{{ $t('utils.user_id', { id: this.history_notification_user?.id }) }}
                             </div>
                           </div>
                         </div>
@@ -128,10 +128,12 @@
                             <div class="dropdown-menu w-40">
                               <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                                 <a href="javascript:;" v-if="permissions.notifications_get_single" @click="this.$router.push({ name: 'moderation.notifications.view', params: { id: notification.id } })" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                  <EyeIcon class="w-4 h-4 mr-2" /> View
+                                  <EyeIcon class="w-4 h-4 mr-2" />
+                                  {{ $t('utils.view') }}
                                 </a>
                                 <a href="javascript:;" v-if="permissions.notifications_update" @click="this.$router.push({ name: 'moderation.notifications.edit', params: { id: notification.id } })" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                                  <Edit2Icon class="w-4 h-4 mr-2" /> Edit
+                                  <Edit2Icon class="w-4 h-4 mr-2" />
+                                  {{ $t('utils.edit') }}
                                 </a>
                               </div>
                             </div>
@@ -141,18 +143,22 @@
                           <div class="flex">
                             <!-- BEGIN: Notification Seen -->
                             <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center mr-3" v-if="notification.seen">
-                              <EyeIcon class="w-3 h-3 mr-2"/>Seen
+                              <EyeIcon class="w-3 h-3 mr-2"/>
+                              {{ $t('attributes.seen') }}
                             </div>
                             <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center mr-3" v-else>
-                              <EyeOffIcon class="w-3 h-3 mr-2"/>Unseen
+                              <EyeOffIcon class="w-3 h-3 mr-2"/>
+                              {{ $t('attributes.unseen') }}
                             </div>
                             <!-- END: Notification Seen -->
                             <!-- BEGIN: Notification Type -->
                             <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center" v-if="notification.target_id">
-                              <UserIcon class="w-3 h-3 mr-2" />User Notification
+                              <UserIcon class="w-3 h-3 mr-2" />
+                              {{ $t('notifications.user_notification') }}
                             </div>
-                            <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5self-center" v-else>
-                              <component class="w-3 h-3 mr-2" :is="notification.icon"/>Icon Notification
+                            <div class="flex items-center justify-center lg:justify-start text-gray-600 mt-5 self-center" v-else>
+                              <component class="w-3 h-3 mr-2" :is="notification.icon"/>
+                              {{ $t('notifications.icon_notification') }}
                             </div>
                             <!-- END: Notification Type -->
                           </div>

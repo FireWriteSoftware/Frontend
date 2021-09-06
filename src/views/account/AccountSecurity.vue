@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">User Account</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('accounts.account_security') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -12,8 +12,9 @@
         <form @submit.prevent="resetPassword">
           <div class="intro-y box lg:mt-5">
             <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-              <h2 class="font-medium text-base mr-auto">Security</h2>
-              <button class="btn btn-primary btn-sm ml-auto" type="submit"><LockIcon class="mr-2 w-4 h-4"></LockIcon>Change Password</button>
+              <h2 class="font-medium text-base mr-auto">{{ $t('accounts.security') }}</h2>
+              <button class="btn btn-primary btn-sm ml-auto" type="submit"><LockIcon class="mr-2 w-4 h-4"></LockIcon>
+                {{ $t('profile.change_password') }}</button>
             </div>
             <div class="p-5">
               <div class="flex flex-col-reverse xl:flex-row flex-col">
@@ -22,13 +23,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label for="accounts-new_password-edit" class="form-label">
-                          New Password
+                          {{ $t('profile.new_password') }}
                         </label>
                         <input
                           id="accounts-new_password-edit"
                           type="password"
                           :class="'form-control' + (this.validation_error?.password != null ? ' border-theme-6' : '')"
-                          placeholder="Your new Password"
                           v-model="password"
                         />
                       </div>
@@ -39,13 +39,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div>
                         <label for="accounts-password_confirmation-edit" class="form-label">
-                          New Password confirmation
+                          {{ $t('profile.new_password_confirmation') }}
                         </label>
                         <input
                           id="accounts-password_confirmation-edit"
                           type="password"
                           :class="'form-control' + (this.validation_error?.password_confirmation != null ? ' border-theme-6' : '')"
-                          placeholder="Your new Password confirmation"
                           v-model="password_confirmation"
                         />
                         <div v-if="this.validation_error?.password_confirmation != null" class="text-theme-6 mt-2 mb-4">
@@ -63,7 +62,7 @@
         <!-- BEGIN: Verification -->
         <div class="intro-y box lg:mt-5">
           <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-            <h2 class="font-medium text-base mr-auto">Verification</h2>
+            <h2 class="font-medium text-base mr-auto">{{ $t('accounts.verification') }}</h2>
           </div>
           <div class="p-5">
             <div class="flex flex-col-reverse xl:flex-row flex-col">
@@ -72,27 +71,29 @@
                   <div class="col-span-12 xxl:col-span-6">
                     <div class="flex items-center">
                       <div class="border-l-2 border-theme-1 pl-4">
-                        <a href="" class="font-medium">
-                          Verify Email
+                        <a class="font-medium">
+                          {{ $t('accounts.verify_email') }}
                         </a>
                         <div class="text-gray-600">
-                          Send a Email for verification
+                          {{ $t('accounts.verify_email_subtext') }}
                         </div>
                       </div>
-                      <button @click="sendVerifyMail(this.$route.params.id)" class="btn btn-primary btn-sm ml-auto">Send</button>
+                      <button @click="sendVerifyMail(this.$route.params.id)" class="btn btn-primary btn-sm ml-auto">
+                        {{ $t('accounts.send') }}</button>
                     </div>
                   </div>
                   <div class="col-span-12 xxl:col-span-6">
                     <div class="flex items-center">
                       <div class="border-l-2 border-theme-1 pl-4">
-                        <a href="" class="font-medium">
-                          Password Reset
+                        <a class="font-medium">
+                          {{ $t('accounts.password_reset') }}
                         </a>
                         <div class="text-gray-600">
-                          Send a Password Reset link
+                          {{ $t('accounts.password_reset_subtext') }}
                         </div>
                       </div>
-                      <button @click="sendResetMail(this.$route.params.id)" class="btn btn-primary btn-sm ml-auto">Send</button>
+                      <button @click="sendResetMail(this.$route.params.id)" class="btn btn-primary btn-sm ml-auto">
+                        {{ $t('accounts.send') }}</button>
                     </div>
                   </div>
                 </div>
@@ -139,7 +140,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.post('users/' + id + '/verify_email')
         .then(response => {
-          toast.success('Verification mail sent')
+          toast.success(response.data.message)
           loader.hide()
         })
         .catch(error => {
@@ -152,7 +153,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.post('users/' + id + '/reset_password')
         .then(response => {
-          toast.success('Password-reset mail sent')
+          toast.success(response.data.message)
           loader.hide()
         })
         .catch(error => {
@@ -168,7 +169,7 @@ export default defineComponent({
         password_confirmation: this.password_confirmation
       })
         .then(response => {
-          toast.success('Password successfully changed')
+          toast.success(response.data.message)
           loader.hide()
         })
         .catch(error => {
@@ -185,8 +186,7 @@ export default defineComponent({
           this.user_role = response.data.data.role.id
           loader.hide()
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
         })
     }

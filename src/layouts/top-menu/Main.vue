@@ -25,7 +25,7 @@
           <!-- BEGIN: Modal Footer -->
           <div class="modal-footer text-right">
             <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-              Close
+              {{ $t('utils.close') }}
             </button>
           </div>
           <!-- END: Modal Footer -->
@@ -56,7 +56,7 @@
         <!-- BEGIN: Breadcrumb -->
         <div class="-intro-x breadcrumb breadcrumb--light mr-auto">
           <div v-for="breadcrum in this?.breadcrums" v-bind:key="breadcrum.path" class="flex">
-            <a href="" :class="breadcrum.name === this.$router.name ? '' : 'breadcrumb--active'">{{ breadcrum.meta.title }}</a>
+            <a href="" :class="breadcrum.name === this.$router.name ? '' : 'breadcrumb--active'">{{ $t(breadcrum.meta.title) }}</a>
             <ChevronRightIcon class="breadcrumb__icon self-center" v-if="breadcrum.children.length !== 0"/>
           </div>
         </div>
@@ -76,7 +76,7 @@
             <div
               class="p-3 dropdown-menu__content box dark:bg-dark-6"
             >
-              <div class="notification-content__title">Notifications</div>
+              <div class="notification-content__title">{{ $t('topbar.notifications_modal_title') }}</div>
               <a
                 v-for="notification in this?.notifications"
                 v-bind:key="notification.id"
@@ -109,7 +109,7 @@
                 </div>
               </a>
               <div v-if="this.notifications.length === 0" class="text-xs text-gray-500 ml-auto whitespace-nowrap">
-                No recent Notifications!
+                {{ $t('topbar.no_recent_notification') }}
               </div>
             </div>
           </div>
@@ -140,18 +140,21 @@
               <div class="p-2">
                 <router-link :to="{ name: 'profile.informations' }">
                   <a href="#" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                    <UserIcon class="w-4 h-4 mr-2" /> Profile
+                    <UserIcon class="w-4 h-4 mr-2" />
+                    {{ $t('topbar.profile') }}
                   </a>
                 </router-link>
                 <router-link :to="{ name: 'profile.security' }">
                   <a href="#" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                    <LockIcon class="w-4 h-4 mr-2" /> Change Password
+                    <LockIcon class="w-4 h-4 mr-2" />
+                    {{ $t('topbar.change_password') }}
                   </a>
                 </router-link>
               </div>
               <div class="p-2 border-t border-theme-27 dark:border-dark-3">
                 <a v-on:click="logout" href="#" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md">
-                  <LogOutIcon class="w-4 h-4 mr-2"/>Logout
+                  <LogOutIcon class="w-4 h-4 mr-2"/>
+                  {{ $t('topbar.logout') }}
                 </a>
               </div>
             </div>
@@ -195,7 +198,7 @@
               <component :is="menu.icon" />
             </div>
             <div class="top-menu__title">
-              {{ menu.title }}
+              {{ $t(menu.title) }}
               <ChevronDownIcon v-if="menu.subMenu" class="top-menu__sub-icon" />
             </div>
           </a>
@@ -215,7 +218,7 @@
                   <component :is="subMenu.icon" />
                 </div>
                 <div class="top-menu__title">
-                  {{ subMenu.title }}
+                  {{ $t(subMenu.title) }}
                   <ChevronDownIcon
                     v-if="subMenu.subMenu"
                     class="top-menu__sub-icon"
@@ -241,7 +244,7 @@
                       <component :is="lastSubMenu.icon" />
                     </div>
                     <div class="top-menu__title">
-                      {{ lastSubMenu.title }}
+                      {{ $t(lastSubMenu.title) }}
                     </div>
                   </a>
                 </li>
@@ -263,16 +266,16 @@
     <div class="footer mt-5">
       <div class="my-5">
         <div class="flex px-3 m-auto text-gray-800 text-sm flex-col md:flex-row max-w-6xl">
-          <div class="my-3 dark:text-theme-2">© Copyright 2021. All Rights Reserved.</div>
+          <div class="my-3 dark:text-theme-2">© {{ $t('footer.copyright') }} 2021. {{ $t('footer.rights_reserved') }}</div>
           <div class="md:flex-auto md:flex-row-reverse flex-row flex">
-            <a class="my-3 block dark:text-theme-2" :href="'mailto:' + wiki_settings.contactmail">Contact <span class="text-teal-600 text-xs p-1"></span></a>
+            <a class="my-3 block dark:text-theme-2" :href="'mailto:' + wiki_settings.contactmail">{{ $t('footer.contact') }} <span class="text-teal-600 text-xs p-1"></span></a>
             <router-link :to="{ name: 'tos' }">
-              <a class="my-3 block dark:text-theme-2 mr-4">Conditions</a>
+              <a class="my-3 block dark:text-theme-2 mr-4">{{ $t('footer.conditions') }}</a>
             </router-link>
             <router-link :to="{ name: 'privacy' }">
-              <a class="my-3 block dark:text-theme-2 mr-4">Privacy Policy</a>
+              <a class="my-3 block dark:text-theme-2 mr-4">{{ $t('footer.privacy_policy') }}</a>
             </router-link>
-            <a class="my-3 block dark:text-theme-2 mr-4" :href="wiki_settings.supportlink">Help</a>
+            <a class="my-3 block dark:text-theme-2 mr-4" :href="wiki_settings.supportlink">{{ $t('footer.help') }}</a>
           </div>
         </div>
       </div>
@@ -334,22 +337,23 @@ export default defineComponent({
         this.$router.push({ name: 'categories' })
       }
       this.breadcrums = this.$route.matched
+      document.title = this.$t(this.$route.meta.title) || process.env.BASE_URL
     }
   },
   mounted() {
     this.user = JSON.parse(localStorage.getItem('user'))
     if (this.user) this.loggedIn = true
     if (this.loggedIn) {
-      if (this.$route.name === 'TopMenu') {
-        this.$router.push({ name: 'categories' })
-      }
+      if (this.$route.name === 'TopMenu') { this.$router.push({ name: 'categories' }) } // Redirect to categories if no route is given
+      if (this.user.language !== '' && this.user.language) {
+        this.$i18n.locale = this.user.language
+        document.title = this.$t(this.$route.meta.title) || process.env.BASE_URL
+      } // Set Users language
       this.testPagePermissions()
       this.fetchNotifications()
       this.breadcrums = this.$route.matched
     } else {
-      if (this.$route.name === 'TopMenu') {
-        this.$router.push({ name: 'login' })
-      }
+      if (this.$route.name === 'TopMenu') { this.$router.push({ name: 'login' }) } // Redirect to login if user is not logged in
     }
     localStorage.getItem('darkmode') != null && localStorage.getItem('darkmode') === 'true'
       ? cash('html').addClass('dark')

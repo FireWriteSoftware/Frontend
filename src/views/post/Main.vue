@@ -13,17 +13,17 @@
             <div class="modal-body pt-5 mt-10">
               <div class="p-5 text-center">
                 <AlertCircleIcon class="w-16 h-16 text-theme-6 mx-auto mt-3" />
-                <div class="text-3xl mt-5">Please write a Report reason!</div>
+                <div class="text-3xl mt-5">{{ $t('single_post.report_reason') }}</div>
                 <div class="text-gray-600 mt-2">
                   <textarea rows="3" class="form-control" v-model="report.content" required></textarea>
                 </div>
               </div>
               <div class="px-5 pb-8 text-center">
                 <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">
-                  Cancel
+                  {{ $t('utils.cancel') }}
                 </button>
                 <button type="submit" data-dismiss="modal" class="btn btn-danger w-24">
-                  Submit
+                  {{ $t('utils.submit') }}
                 </button>
               </div>
             </div>
@@ -38,7 +38,7 @@
         <div class="modal-content">
           <div class="modal-header p-5">
             <h2 class="font-medium text-base mr-auto">
-              Post History
+              {{ $t('single_post.post_history') }}
             </h2>
           </div>
           <div class="modal-body">
@@ -65,9 +65,9 @@
             </div>
             <div class="p-5 text-center" v-if="this.histories.length === 0">
               <XCircleIcon class="w-16 h-16 text-theme-6 mx-auto mt-3" />
-              <div class="text-3xl mt-5">No History!</div>
+              <div class="text-3xl mt-5">{{ $t('single_post.post_history') }}</div>
               <div class="text-gray-600 mt-2">
-                This post has no recent History
+                {{ $t('single_post.no_recent_history') }}
               </div>
             </div>
           </div>
@@ -90,19 +90,19 @@
                       <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                         <a v-if="this.permissions?.posts_report_store" href="javascript:;" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" data-toggle="modal" data-target="#report-post-modal" data-dismiss="dropdown">
                           <SlashIcon class="mr-3"></SlashIcon>
-                          Report Post
+                          {{ $t('single_post.report_post') }}
                         </a>
                         <a v-if="this.permissions?.posts_history_get_post" href="javascript:;" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" data-toggle="modal" data-target="#post-history-slider" data-dismiss="dropdown">
                           <ClockIcon class="mr-3"></ClockIcon>
-                          Post History
+                          {{ $t('single_post.post_history') }}
                         </a>
                         <a v-if="this.permissions?.posts_update" href="javascript:;" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" @click="this.$router.push({ name: 'moderation.posts.edit', params: { id: this.post.id }})" data-dismiss="dropdown">
                           <Edit2Icon class="mr-3"></Edit2Icon>
-                          Edit
+                          {{ $t('utils.edit') }}
                         </a>
                         <a v-if="this.permissions?.posts_delete" href="javascript:;" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" @click="this.deletePost(this.post.id)" data-dismiss="dropdown">
                           <Trash2Icon class="mr-3"></Trash2Icon>
-                          Delete
+                          {{ $t('utils.delete') }}
                         </a>
                       </div>
                     </div>
@@ -122,7 +122,7 @@
                     </div>
                   </div>
                   <div v-if="(Math.round(this.post?.content?.split(' ').length)) > 0" class="hidden md:block">
-                    {{ Math.round(this.post?.content?.split(' ').length / 3000 * 60 * 100) / 100 }} Min read
+                    {{ $t('single_post.read_time', { time: Math.round(this.post?.content?.split(' ').length / 3000 * 60 * 100) / 100 }) }}
                   </div>
                 </div>
               </div>
@@ -132,7 +132,7 @@
             <Tippy
               tag="div"
               :class="'intro-x w-8 h-8 sm:w-10 sm:h-10 flex flex-none items-center justify-center rounded-full mr-3 border dark:bg-dark-5 ' + (this.isBookmarked !== 0 ? 'border-blue-500 dark:border-blue-500 text-blue-500' : 'border-gray-400 text-gray-600 dark:border-dark-5 dark:text-gray-300')"
-              content="Bookmark"
+              :content="$t('single_post.bookmark')"
               v-on:click='this.bookmarkPost()'
             >
               <BookmarkIcon class="w-3 h-3" />
@@ -155,9 +155,9 @@
             </div>
             <div class="absolute sm:relative -mt-12 sm:mt-0 w-full flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm">
               <div class="intro-x sm:mr-3 ml-auto">
-                Comments: <span class="font-medium mr-4">{{ this.post?.comments_count }}</span>
-                Changes: <span class="font-medium mr-4">{{ this.post?.histories_count }}</span>
-                Likes: <span class="font-medium">{{ this.post?.like_votes_count }} / {{ this.post?.dislike_votes_count }}</span>
+                {{ $t('single_post.comments_count') }}<span class="font-medium mr-4">{{ this.post?.comments_count }}</span>
+                {{ $t('single_post.changes_count') }}<span class="font-medium mr-4">{{ this.post?.histories_count }}</span>
+                {{ $t('single_post.likes_count')}}<span class="font-medium">{{ this.post?.like_votes_count }} / {{ this.post?.dislike_votes_count }}</span>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@
                 tag="div"
                 v-on:click='this.votePost(1)'
                 :class="'w-12 h-12 md:w-9 md:h-9 rounded-full flex items-center justify-center ml-2 zoom-in ' + (this.post?.liked === 1 ? 'border border-blue-500 text-blue-500' : 'border dark:border-dark-5 text-gray-500')"
-                content="Like"
+                :content="$t('single_post.like')"
               >
                 <ThumbsUpIcon class="w-5 h-5 md:w-3 md:h-3 fill-current" />
               </Tippy>
@@ -197,7 +197,7 @@
                 tag="div"
                 v-on:click='this.votePost(2)'
                 :class="'w-12 h-12 md:w-9 md:h-9 rounded-full flex items-center justify-center ml-2 zoom-in ' + (this.post?.liked === 2 ? 'border border-blue-500 text-blue-500' : 'border dark:border-dark-5 text-gray-500')"
-                content="Dislike"
+                :content="$t('single_post.dislike')"
               >
                 <ThumbsDownIcon class="w-5 h-5 md:w-3 md:h-3 fill-current" />
               </Tippy>
@@ -266,7 +266,7 @@ export default defineComponent({
         .then(response => {
           this.$router.push({ name: 'categories.subcategory', params: { id: this.post.parent.id } })
           loader.hide()
-          toast.success('Post was successfully deleted!')
+          toast.success(response.data.message)
         })
         .catch(error => {
           this.validation_error = error.response.data.data.errors
@@ -286,7 +286,7 @@ export default defineComponent({
           } else {
             loader.hide()
             this.$router.push({ name: 'categories' })
-            toast.error('This Post is not approved at the moment!')
+            toast.error(this.$t('messages.post_not_approved'))
           }
         })
         .catch(error => {
@@ -331,11 +331,9 @@ export default defineComponent({
         axios.delete('bookmarks/' + this.isBookmarked)
           .then(response => {
             this.loadBookmarks(this.$route.params.id)
-            toast.success('Post has been unbookmarked')
+            toast.success(response.data.message)
           })
-          .catch(error => {
-            console.error(error)
-          })
+          .catch()
       } else {
         axios.post('bookmarks', {
           is_post: 1,
@@ -343,7 +341,7 @@ export default defineComponent({
         })
           .then(response => {
             this.loadBookmarks(this.$route.params.id)
-            toast.success('Post has been bookmarked')
+            toast.success(response.data.message)
           })
           .catch()
       }
@@ -366,7 +364,7 @@ export default defineComponent({
         content: content
       })
         .then(response => {
-          toast.success('The post was successfully reported')
+          toast.success(response.data.message)
         })
     },
     loadHistory() {

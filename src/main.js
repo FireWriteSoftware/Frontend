@@ -10,6 +10,7 @@ import './libs'
 import Toast, { POSITION, TYPE } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import axios from 'axios'
+import i18n from './i18n'
 
 // SASS Theme
 import './assets/sass/app.scss'
@@ -18,6 +19,7 @@ import './assets/sass/app.scss'
 const app = createApp(App)
   .use(store)
   .use(router)
+  .use(i18n)
 
 globalComponents(app)
 utils(app)

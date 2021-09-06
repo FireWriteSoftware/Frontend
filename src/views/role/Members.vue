@@ -6,15 +6,15 @@
     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
       <!-- BEGIN: Role Content -->
       <div class="intro-y col-span-12 lg:col-span-9">
-        <div class="box p-5">
+        <div class="box p-5 overflow-x-auto">
           <table class="table table--sm">
             <thead>
             <tr>
               <th class="border-b-2 dark:border-dark-5 whitespace-nowrap"></th>
-              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Username</th>
-              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Firstname</th>
-              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Lastname</th>
-              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Email</th>
+              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ $t('attributes.username') }}</th>
+              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ $t('attributes.firstname') }}</th>
+              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ $t('attributes.lastname') }}</th>
+              <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ $t('attributes.email') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -72,7 +72,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.delete('roles/' + this.role.id)
         .then(response => {
-          toast.success('Role deleted successfully')
+          toast.success(response.data.message)
           loader.hide()
           this.$router.push({ name: 'admin.roles' })
         })
@@ -97,14 +97,11 @@ export default defineComponent({
         })
     },
     fetchRoleMembers() {
-      axios.get('roles/' + this.$route.params.id + '/users')
+      axios.get('roles/' + this.$route.params.id + '/users?paginate=0')
         .then(response => {
-          console.error(response)
           this.role_members = response.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     }
   }
 })
