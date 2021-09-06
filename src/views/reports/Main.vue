@@ -32,18 +32,18 @@
             <img
               alt=""
               class="rounded-full"
-              :src="report.user.profile_picture ?? require('@/assets/images/avatar.png')"
+              :src="report?.user?.profile_picture ?? require('@/assets/images/avatar.png')"
             />
           </div>
           <div class="ml-3 mr-auto">
-            <router-link :to="{ name: 'admin.accounts.informations', params: { 'id': report.user.id }}">
-              <a href="javascript:;" class="font-medium">{{ report.user.name }}</a>
+            <router-link :to="{ name: 'admin.accounts.informations', params: { 'id': report?.user?.id }}">
+              <a href="javascript:;" class="font-medium">{{ report?.user?.name }}</a>
             </router-link>
             <div class="flex text-gray-600 truncate text-xs mt-0.5">
               <a class="text-theme-1 dark:text-theme-10 inline-block truncate">
-                {{ report.user.email }}
+                {{ report?.user?.email }}
               </a>
-              <span class="mx-1">•</span> {{ this.formatDate(report.created_at) }}
+              <span class="mx-1">•</span> {{ this.formatDate(report?.created_at) }}
             </div>
           </div>
           <div class="dropdown ml-3">
@@ -71,7 +71,7 @@
             Report:
           </a>
           <div class="text-gray-700 dark:text-gray-600 mt-2">
-            {{ report.content }}
+            {{ report?.content }}
           </div>
         </div>
         <div class="px-5 pt-3 pb-5 border-t border-gray-200 dark:border-dark-5">
@@ -79,7 +79,7 @@
             <div class="mr-2">
               {{ $t('reports.reported_post') }}
               <router-link :to="{ name: 'posts.view', params: { 'id': report.post_id }}">
-                <span class="font-medium">#{{ report.post_id }}</span>
+                <span class="font-medium">#{{ report?.post_id }}</span>
               </router-link>
             </div>
             <div class="ml-auto">
