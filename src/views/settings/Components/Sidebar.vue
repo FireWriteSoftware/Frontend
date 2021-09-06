@@ -6,22 +6,22 @@
       </button>
       <div class="border-t border-theme-3 dark:border-dark-5 mt-6 pt-6 text-white">
         <router-link :to="{ name: 'admin.settings.general' }">
-          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.general' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')" href="">
+          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.general' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')">
             <GlobeIcon class="w-4 h-4 mr-2"/> General
           </a>
         </router-link>
         <router-link :to="{ name: 'admin.settings.security' }">
-          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.security' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')" href="">
+          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.security' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')">
               <LockIcon class="w-4 h-4 mr-2"/> Security
           </a>
         </router-link>
         <router-link :to="{ name: 'admin.settings.database' }">
-          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.database' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')" href="">
+          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.database' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')">
               <DatabaseIcon class="w-4 h-4 mr-2"/> Database
           </a>
         </router-link>
         <router-link :to="{ name: 'admin.settings.mail' }">
-          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.mail' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')" href="">
+          <a :class="'flex items-center px-3 py-2 mt-2 rounded-md ' + (this.$route.name === 'admin.settings.mail' ? 'bg-theme-20 dark:bg-dark-1 font-medium' : '')">
               <MailIcon class="w-4 h-4 mr-2"/> Mails
           </a>
         </router-link>

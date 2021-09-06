@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Wiki Permissions</h2>
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8 mb-4">
+      <h2 class="text-lg font-medium mr-auto">{{ $t('permissions.overview') }}</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
           <input
             type="text"
             class="form-control w-56 box pr-10 placeholder-theme-13"
-            placeholder="Search..."
+            :placeholder="$t('utils.search')"
             v-model="this.search.permission"
+            @change="this.fetchPermissions(this.search.permission ? 'permissions?search=' + this.search.permission : 'permissions')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
-        <a href="javascript:;" data-toggle="modal" data-target="#create-permission-modal" class="btn btn-primary" @click="this.modalState.create = true">Create new Permission</a>
+        <a href="javascript:;" data-toggle="modal" data-target="#create-permission-modal" class="btn btn-primary" @click="this.modalState.create = true">{{ $t('permissions.add_permission') }}</a>
       </div>
     </div>
     <!-- BEGIN: Create Permission Modal -->
@@ -23,18 +24,18 @@
             <!-- BEGIN: Modal Header -->
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Create a new Permission
+                {{ $t('permissions.create_permission') }}
               </h2>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="create-permission-modal-name" class="form-label">Name</label>
-                <input id="create-permission-modal-name" type="text" class="form-control" placeholder="Your Name" v-model="permission.name"/>
+                <label for="create-permission-modal-name" class="form-label">{{ $t('attributes.name') }}</label>
+                <input id="create-permission-modal-name" type="text" class="form-control" v-model="permission.name"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -48,10 +49,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Create
+                {{ $t('utils.create') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -68,18 +69,18 @@
             <!-- BEGIN: Modal Header -->
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Edit a Permission
+                {{ $t('permissions.edit_permission') }}
               </h2>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="edit-permission-modal-name" class="form-label">Name</label>
-                <input id="edit-permission-modal-name" type="text" class="form-control" placeholder="Your Name" v-model="edit_permission.name"/>
+                <label for="edit-permission-modal-name" class="form-label">{{ $t('attributes.name') }}</label>
+                <input id="edit-permission-modal-name" type="text" class="form-control" v-model="edit_permission.name"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -93,10 +94,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Save
+                {{ $t('utils.save') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -110,16 +111,16 @@
       <table class="table table-report -mt-2">
         <thead>
         <tr>
-          <th class="text-center whitespace-nowrap">ID</th>
-          <th class="text-center whitespace-nowrap">NAME</th>
-          <th class="text-center whitespace-nowrap">CREATED AT</th>
-          <th class="text-center whitespace-nowrap">LAST UPDATE</th>
-          <th class="text-center whitespace-nowrap">ACTIONS</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.id') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.name') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.created_at') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.updated_at') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('utils.actions') }}</th>
         </tr>
         </thead>
         <tbody>
         <tr
-          v-for="permission in this.filteredPermissions"
+          v-for="permission in this.permissions"
           v-bind:key="permission.id"
           class="intro-x"
         >
@@ -152,25 +153,25 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchPermissions(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.permission ? fetchPermissions(pagination.first_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPermissions(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.permission ? fetchPermissions(pagination.prev_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+          <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPermissions(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.permission ? fetchPermissions(pagination.next_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchPermissions(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.permission ? fetchPermissions(pagination.last_page_url + '&search=' + this.search.permission) : fetchPermissions(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -193,7 +194,7 @@ export default defineComponent({
       permissions: [],
       edit_permission: {},
       permission: {
-        name: 'New Permission'
+        name: 'new_permission'
       },
       search: {
         permission: ''
@@ -208,13 +209,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchPermissions('permissions')
-  },
-  computed: {
-    filteredPermissions: function () {
-      return this.permissions.filter((permission) => {
-        return permission?.name.toLowerCase().match(this.search.permission.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchPermissions(page) {
@@ -246,7 +240,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.delete('permissions/' + id)
         .then(response => {
-          toast.success('Permission successfully deleted')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchPermissions('permissions?page=' + this.pagination.current_page)
         })
@@ -262,7 +256,7 @@ export default defineComponent({
         name: permission.name
       })
         .then(response => {
-          toast.success('Permission successfully created')
+          toast.success(response.data.message)
           loader.hide()
           this.modalState.create = false
           this.fetchPermissions('permissions?page=' + this.pagination.current_page)
@@ -279,7 +273,7 @@ export default defineComponent({
         name: this.edit_permission.name
       })
         .then(response => {
-          toast.success('Permission successfully edited')
+          toast.success(response.data.message)
           loader.hide()
           this.modalState.edit = false
           this.fetchPermissions('permissions?page=' + this.pagination.current_page)

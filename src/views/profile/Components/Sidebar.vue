@@ -19,36 +19,42 @@
       <div class="p-5 border-t border-gray-200 dark:border-dark-5">
         <router-link :to="{ name: 'profile.informations' }">
             <a :class="'flex items-center ' + (this.$route.name === 'profile.informations' ? 'text-theme-1 dark:text-theme-10 font-medium' : '')" href="javascript:;">
-            <UserIcon class="w-4 h-4 mr-2"/> Personal Information
+            <UserIcon class="w-4 h-4 mr-2"/>
+              {{ $t('profile.personal_information') }}
           </a>
         </router-link>
         <router-link :to="{ name: 'profile.security' }">
           <a :class="'flex items-center ' + (this.$route.name === 'profile.security' ? 'text-theme-1 dark:text-theme-10 font-medium' : '')" href="javascript:;">
-            <LockIcon class="w-4 h-4 mr-2"/> Change Password
+            <LockIcon class="w-4 h-4 mr-2"/>
+            {{ $t('profile.change_password') }}
           </a>
         </router-link>
       </div>
       <div class="p-5 border-t border-gray-200 dark:border-dark-5">
         <router-link :to="{ name: 'profile.postings' }">
           <a :class="'flex items-center ' + (this.$route.name === 'profile.postings' ? 'text-theme-1 dark:text-theme-10 font-medium' : '')" href="javascript:;">
-            <FolderIcon class="w-4 h-4 mr-2"/> My Postings
+            <FolderIcon class="w-4 h-4 mr-2"/>
+            {{ $t('profile.my_postings') }}
           </a>
         </router-link>
         <router-link :to="{ name: 'profile.bookmarks' }">
           <a :class="'flex items-center ' + (this.$route.name === 'profile.bookmarks' ? 'text-theme-1 dark:text-theme-10 font-medium' : '')" href="javascript:;">
-            <BookmarkIcon class="w-4 h-4 mr-2"/> My Bookmarks
+            <BookmarkIcon class="w-4 h-4 mr-2"/>
+            {{ $t('profile.my_bookmarks') }}
           </a>
         </router-link>
       </div>
       <div class="p-5 border-t border-gray-200 dark:border-dark-5">
         <router-link :to="{ name: 'tos' }">
-          <a class="flex items-center" href="">
-            <BookIcon class="w-4 h-4 mr-2"/> Terms of service
+          <a class="flex items-center">
+            <BookIcon class="w-4 h-4 mr-2"/>
+            {{ $t('profile.terms_of_service') }}
           </a>
         </router-link>
         <router-link :to="{ name: 'privacy' }">
-          <a class="flex items-center mt-3" href="">
-            <ServerIcon class="w-4 h-4 mr-2"/> Privacy policy
+          <a class="flex items-center mt-3">
+            <ServerIcon class="w-4 h-4 mr-2"/>
+            {{ $t('profile.privacy_policy') }}
           </a>
         </router-link>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Update Profile</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('profile.my_postings') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -48,7 +48,8 @@
                         @click="this.$router.push({ name: 'posts.view', params: { id: post.id } })"
                         data-dismiss="dropdown"
                         class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                        <FileIcon class="w-4 h-4 mr-2"/> View Post
+                        <FileIcon class="w-4 h-4 mr-2"/>
+                        {{ $t('utils.view_post') }}
                       </a>
                     </div>
                   </div>
@@ -73,8 +74,8 @@
                     <ClockIcon class="mr-1 h-4 w-4"></ClockIcon>{{ post.histories_count }}
                   </div>
                   <div class="ml-auto">
-                    <span v-if="post.approved_at"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">Public</span></span>
-                    <span v-else><span class="px-2 py-1 rounded-full bg-theme-12 text-white mr-1">Not Approved</span></span>
+                    <span v-if="post.approved_at"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">{{ $t('profile.public') }}</span></span>
+                    <span v-else><span class="px-2 py-1 rounded-full bg-theme-12 text-white mr-1">{{ $t('profile.not_approved') }}</span></span>
                   </div>
                 </div>
               </div>
@@ -84,9 +85,9 @@
             <div class="box">
               <div class="p-5 text-center">
                 <FolderIcon class="w-16 h-16 text-theme-1 mx-auto mt-5"/>
-                <div class="text-3xl mt-5">No recent Posts</div>
+                <div class="text-3xl mt-5">{{ $t('profile.no_recent_posts') }}</div>
                 <div class="text-gray-600 mt-2 mb-5">
-                  You have no Posts, but you can create a new one!
+                  {{ $t('profile.no_recent_posts_subtitle') }}
                 </div>
               </div>
             </div>
@@ -125,9 +126,7 @@ export default defineComponent({
         .then(response => {
           this.postings = response.data.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     formatDate(timeString) {
       return moment(String(timeString)).format('MMM Do YYYY')

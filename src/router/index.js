@@ -5,6 +5,7 @@ import Categories from '../views/categories/Main.vue'
 import Roles from '../views/roles/Main.vue'
 import RolePreferences from '../views/role/Preferences.vue'
 import RolePermissions from '../views/role/Permissions.vue'
+import RoleMembers from '../views/role/Members.vue'
 import Permissions from '../views/permissions/Main.vue'
 import Bans from '../views/bans/Main.vue'
 import Ban from '../views/ban/Main.vue'
@@ -13,7 +14,11 @@ import Tags from '../views/tags/Main.vue'
 import Badges from '../views/badges/Main.vue'
 import PostAuthorization from '../views/post-authorization/Main.vue'
 import Announcements from '../views/announcements/Main.vue'
-import Notifications from '../views/notifications/Main.vue'
+import NotificationsLatest from '../views/notifications/Latest.vue'
+import NotificationsCreate from '../views/notifications/Create.vue'
+import NotificationsHistories from '../views/notifications/Histories.vue'
+import NotificationView from '../views/notification/View.vue'
+import NotificationEdit from '../views/notification/Edit.vue'
 import Accounts from '../views/accounts/Main.vue'
 import AccountInformations from '../views/account/AccountInformations.vue'
 import AccountSettings from '../views/account/AccountSettings.vue'
@@ -42,15 +47,14 @@ import EditCategories from '../views/edit-category/Main.vue'
 import Search from '../views/search/Main.vue'
 import TermsOfService from '../views/terms-of-service/Main.vue'
 import PrivacyPolicy from '../views/privacy-policy/Main.vue'
-import PostSingle from '../views/post/PostSingle.vue'
-
+import PostSingle from '../views/post/Main.vue'
 const routes = [
   {
     path: '/',
     component: TopMenu,
     name: 'TopMenu',
     meta: {
-      title: 'Wiki',
+      title: 'navigation.default',
       auth: true,
       isAuth: false
     },
@@ -60,7 +64,7 @@ const routes = [
         name: 'categories',
         component: Categories,
         meta: {
-          title: 'Categories',
+          title: 'navigation.pages.categories',
           auth: true,
           isAuth: false
         }
@@ -70,7 +74,7 @@ const routes = [
         name: 'categories.subcategory',
         component: Categories,
         meta: {
-          title: 'Categories',
+          title: 'navigation.pages.subcategory',
           auth: true,
           isAuth: false
         }
@@ -80,7 +84,7 @@ const routes = [
         name: 'posts.view',
         component: PostSingle,
         meta: {
-          title: 'View Post',
+          title: 'navigation.pages.single_post',
           auth: true,
           isAuth: false
         }
@@ -90,7 +94,7 @@ const routes = [
         name: 'search',
         component: Search,
         meta: {
-          title: 'Search',
+          title: 'navigation.pages.search',
           auth: true,
           isAuth: false
         }
@@ -100,7 +104,7 @@ const routes = [
         name: 'tos',
         component: TermsOfService,
         meta: {
-          title: 'Terms of Service',
+          title: 'navigation.pages.tos',
           auth: false,
           isAuth: false
         }
@@ -110,7 +114,7 @@ const routes = [
         name: 'privacy',
         component: PrivacyPolicy,
         meta: {
-          title: 'Privacy Policy',
+          title: 'navigation.pages.privacy_policy',
           auth: false,
           isAuth: false
         }
@@ -122,7 +126,7 @@ const routes = [
     component: TopMenu,
     name: 'Profile',
     meta: {
-      title: 'Profile',
+      title: 'navigation.pages.profile.title',
       auth: true,
       isAuth: false
     },
@@ -132,7 +136,7 @@ const routes = [
         name: 'profile.informations',
         component: ProfileInformations,
         meta: {
-          title: 'General',
+          title: 'navigation.pages.profile.general',
           auth: true,
           isAuth: false
         }
@@ -142,7 +146,7 @@ const routes = [
         name: 'profile.security',
         component: ProfileSecurity,
         meta: {
-          title: 'Change Password',
+          title: 'navigation.pages.profile.security',
           auth: true,
           isAuth: false
         }
@@ -152,7 +156,7 @@ const routes = [
         name: 'profile.postings',
         component: ProfilePostings,
         meta: {
-          title: 'My Postings',
+          title: 'navigation.pages.profile.my_postings',
           auth: true,
           isAuth: false
         }
@@ -162,7 +166,7 @@ const routes = [
         name: 'profile.bookmarks',
         component: ProfileBookmarks,
         meta: {
-          title: 'My Bookmarks',
+          title: 'navigation.pages.profile.my_bookmarks',
           auth: true,
           isAuth: false
         }
@@ -173,7 +177,7 @@ const routes = [
     path: '/admin',
     component: TopMenu,
     meta: {
-      title: 'Administration',
+      title: 'navigation.pages.administration.title',
       auth: false,
       isAuth: false
     },
@@ -183,7 +187,7 @@ const routes = [
         name: 'admin.roles',
         component: Roles,
         meta: {
-          title: 'Roles',
+          title: 'navigation.pages.administration.roles.title',
           auth: true,
           isAuth: false
         }
@@ -193,7 +197,7 @@ const routes = [
         name: 'admin.role.view.preferences',
         component: RolePreferences,
         meta: {
-          title: 'Role Preferences',
+          title: 'navigation.pages.administration.roles.preferences',
           auth: true,
           isAuth: false
         }
@@ -203,7 +207,17 @@ const routes = [
         name: 'admin.role.view.permissions',
         component: RolePermissions,
         meta: {
-          title: 'Role Permissions',
+          title: 'navigation.pages.administration.roles.permissions',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'roles/:id/members',
+        name: 'admin.role.view.members',
+        component: RoleMembers,
+        meta: {
+          title: 'navigation.pages.administration.roles.members',
           auth: true,
           isAuth: false
         }
@@ -213,7 +227,7 @@ const routes = [
         name: 'admin.permissions',
         component: Permissions,
         meta: {
-          title: 'Permissions',
+          title: 'navigation.pages.administration.permissions',
           auth: true,
           isAuth: false
         }
@@ -223,7 +237,7 @@ const routes = [
         name: 'admin.bans',
         component: Bans,
         meta: {
-          title: 'Bans',
+          title: 'navigation.pages.administration.bans',
           auth: true,
           isAuth: false
         }
@@ -233,7 +247,7 @@ const routes = [
         name: 'admin.ban',
         component: Ban,
         meta: {
-          title: 'View Ban',
+          title: 'navigation.pages.administration.view_ban',
           auth: true,
           isAuth: false
         }
@@ -243,7 +257,7 @@ const routes = [
         name: 'admin.accounts',
         component: Accounts,
         meta: {
-          title: 'Accounts',
+          title: 'navigation.pages.administration.accounts.title',
           auth: true,
           isAuth: false
         }
@@ -253,7 +267,7 @@ const routes = [
         name: 'admin.accounts.informations',
         component: AccountInformations,
         meta: {
-          title: 'Account Informations',
+          title: 'navigation.pages.administration.accounts.informations',
           auth: true,
           isAuth: false
         }
@@ -263,7 +277,7 @@ const routes = [
         name: 'admin.accounts.settings',
         component: AccountSettings,
         meta: {
-          title: 'Account Settings',
+          title: 'navigation.pages.administration.accounts.settings',
           auth: true,
           isAuth: false
         }
@@ -273,7 +287,7 @@ const routes = [
         name: 'admin.accounts.security',
         component: AccountSecurity,
         meta: {
-          title: 'Account Security',
+          title: 'navigation.pages.administration.accounts.security',
           auth: true,
           isAuth: false
         }
@@ -283,7 +297,7 @@ const routes = [
         name: 'admin.accounts.postings',
         component: AccountPostings,
         meta: {
-          title: 'Account Postings',
+          title: 'navigation.pages.administration.accounts.postings',
           auth: true,
           isAuth: false
         }
@@ -293,7 +307,7 @@ const routes = [
         name: 'admin.accounts.bookmarks',
         component: AccountBookmarks,
         meta: {
-          title: 'Account Bookmarks',
+          title: 'navigation.pages.administration.accounts.bookmarks',
           auth: true,
           isAuth: false
         }
@@ -303,7 +317,7 @@ const routes = [
         name: 'admin.accounts.bans',
         component: AccountBans,
         meta: {
-          title: 'Account Bans',
+          title: 'navigation.pages.administration.accounts.bans',
           auth: true,
           isAuth: false
         }
@@ -313,7 +327,7 @@ const routes = [
         name: 'admin.settings.general',
         component: SettingsGeneral,
         meta: {
-          title: 'General Settings',
+          title: 'navigation.pages.administration.settings.general',
           auth: true,
           isAuth: false
         }
@@ -323,7 +337,7 @@ const routes = [
         name: 'admin.settings.database',
         component: SettingsDatabase,
         meta: {
-          title: 'Database Settings',
+          title: 'navigation.pages.administration.settings.database',
           auth: true,
           isAuth: false
         }
@@ -333,7 +347,7 @@ const routes = [
         name: 'admin.settings.mail',
         component: SettingsMail,
         meta: {
-          title: 'Mail Settings',
+          title: 'navigation.pages.administration.settings.mail',
           auth: true,
           isAuth: false
         }
@@ -343,7 +357,7 @@ const routes = [
         name: 'admin.settings.security',
         component: SettingsSecurity,
         meta: {
-          title: 'Security Settings',
+          title: 'navigation.pages.administration.settings.security',
           auth: true,
           isAuth: false
         }
@@ -353,7 +367,7 @@ const routes = [
         name: 'admin.badges',
         component: Badges,
         meta: {
-          title: 'Badges',
+          title: 'navigation.pages.administration.badges',
           auth: true,
           isAuth: false
         }
@@ -364,7 +378,7 @@ const routes = [
     path: '/moderation',
     component: TopMenu,
     meta: {
-      title: 'Moderation',
+      title: 'navigation.pages.moderation.title',
       auth: false,
       isAuth: false
     },
@@ -374,7 +388,7 @@ const routes = [
         name: 'moderation.tags',
         component: Tags,
         meta: {
-          title: 'Post Tags',
+          title: 'navigation.pages.moderation.tags',
           auth: true,
           isAuth: false
         }
@@ -384,7 +398,7 @@ const routes = [
         name: 'moderation.announcements',
         component: Announcements,
         meta: {
-          title: 'Announcements',
+          title: 'navigation.pages.moderation.announcements',
           auth: true,
           isAuth: false
         }
@@ -394,17 +408,57 @@ const routes = [
         name: 'moderation.reports',
         component: Reports,
         meta: {
-          title: 'Reports',
+          title: 'navigation.pages.moderation.reports',
           auth: true,
           isAuth: false
         }
       },
       {
-        path: 'notifications',
-        name: 'moderation.notifications',
-        component: Notifications,
+        path: 'notification/:id',
+        name: 'moderation.notifications.view',
+        component: NotificationView,
         meta: {
-          title: 'Notifications',
+          title: 'navigation.pages.moderation.notifications.view',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notification/:id/edit',
+        name: 'moderation.notifications.edit',
+        component: NotificationEdit,
+        meta: {
+          title: 'navigation.pages.moderation.notifications.edit',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/latest',
+        name: 'moderation.notifications.latest',
+        component: NotificationsLatest,
+        meta: {
+          title: 'navigation.pages.moderation.notifications.latest',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/create',
+        name: 'moderation.notifications.create',
+        component: NotificationsCreate,
+        meta: {
+          title: 'navigation.pages.moderation.notifications.create',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'notifications/histories',
+        name: 'moderation.notifications.histories',
+        component: NotificationsHistories,
+        meta: {
+          title: 'navigation.pages.moderation.notifications.history',
           auth: true,
           isAuth: false
         }
@@ -414,7 +468,7 @@ const routes = [
         name: 'moderation.authorizations',
         component: PostAuthorization,
         meta: {
-          title: 'Post Authorization',
+          title: 'navigation.pages.moderation.post_authorization',
           auth: true,
           isAuth: false
         }
@@ -424,7 +478,7 @@ const routes = [
         name: 'moderation.categories.create',
         component: CreateCategories,
         meta: {
-          title: 'Create Category',
+          title: 'navigation.pages.moderation.create_category',
           auth: true,
           isAuth: false
         }
@@ -434,7 +488,7 @@ const routes = [
         name: 'moderation.posts.create',
         component: CreatePosts,
         meta: {
-          title: 'Create Post',
+          title: 'navigation.pages.moderation.create_post',
           auth: true,
           isAuth: false
         }
@@ -444,7 +498,7 @@ const routes = [
         name: 'moderation.posts.edit',
         component: EditPosts,
         meta: {
-          title: 'Edit Post',
+          title: 'navigation.pages.moderation.edit_post',
           auth: true,
           isAuth: false
         }
@@ -454,7 +508,7 @@ const routes = [
         name: 'moderation.categories.edit',
         component: EditCategories,
         meta: {
-          title: 'Edit Category',
+          title: 'navigation.pages.moderation.edit_category',
           auth: true,
           isAuth: false
         }
@@ -466,7 +520,7 @@ const routes = [
     name: 'login',
     component: Login,
     meta: {
-      title: 'Login',
+      title: 'navigation.pages.auth_pages.login',
       auth: false,
       isAuth: true
     }
@@ -476,7 +530,7 @@ const routes = [
     name: 'register',
     component: Register,
     meta: {
-      title: 'Register',
+      title: 'navigation.pages.auth_pages.register',
       auth: false,
       isAuth: true
     }
@@ -486,7 +540,7 @@ const routes = [
     name: 'email-verify',
     component: EmailVerify,
     meta: {
-      title: 'Email Verify',
+      title: 'navigation.pages.auth_pages.email_verify',
       auth: false,
       isAuth: false
     }
@@ -496,7 +550,7 @@ const routes = [
     name: 'password-forgot',
     component: ForgotPassword,
     meta: {
-      title: 'Forgot Password',
+      title: 'navigation.pages.auth_pages.forgot_password',
       auth: false,
       isAuth: false
     }
@@ -506,7 +560,7 @@ const routes = [
     name: 'password-reset',
     component: ResetPassword,
     meta: {
-      title: 'Reset Password',
+      title: 'navigation.pages.auth_pages.reset_password',
       auth: false,
       isAuth: false
     }
@@ -516,7 +570,7 @@ const routes = [
     name: 'error-page',
     component: ErrorPage,
     meta: {
-      title: 'Error',
+      title: 'navigation.pages.auth_pages.error',
       auth: false,
       isAuth: false
     }
@@ -525,7 +579,7 @@ const routes = [
     path: '/:pathMatch(.*)*',
     component: ErrorPage,
     meta: {
-      title: 'Error',
+      title: 'navigation.pages.auth_pages.error',
       auth: false,
       isAuth: false
     }
@@ -571,7 +625,7 @@ router.beforeEach(async (to, from, next) => {
     })
   }
 
-  document.title = toWithMeta.meta.title || process.env.BASE_URL
+  document.title = process.env.BASE_URL
 
   next()
 })

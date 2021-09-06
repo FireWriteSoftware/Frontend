@@ -1,18 +1,19 @@
 <template>
   <div>
-    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Wiki Tags</h2>
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8 mb-4">
+      <h2 class="text-lg font-medium mr-auto">{{ $t('tags.overview') }}</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <div class="w-56 relative text-gray-700 dark:text-gray-300 mr-3">
           <input
             type="text"
             class="form-control w-56 box pr-10 placeholder-theme-13"
-            placeholder="Search..."
+            :placeholder="$t('utils.search')"
             v-model="this.search.tag"
+            @change="this.fetchTags(this.search.tag ? 'tags?search=' + this.search.tag : 'tags')"
           />
           <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"/>
         </div>
-        <a href="javascript:;" data-toggle="modal" data-target="#create-tag-modal" class="btn btn-primary" @click="this.modalState.create = true">Add new Tag</a>
+        <a href="javascript:;" data-toggle="modal" data-target="#create-tag-modal" class="btn btn-primary" @click="this.modalState.create = true">{{ $t('tags.add_tag') }}</a>
       </div>
     </div>
 
@@ -24,30 +25,30 @@
             <!-- BEGIN: Modal Header -->
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Create a new Tag
+                {{ $t('tags.create_tag') }}
               </h2>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="create-tag-modal-name" class="form-label">Name</label>
-                <input id="create-tag-modal-name" type="text" class="form-control" placeholder="Your Name" v-model="tag.name"/>
+                <label for="create-tag-modal-name" class="form-label">{{ $t('attributes.name') }}</label>
+                <input id="create-tag-modal-name" type="text" class="form-control" v-model="tag.name"/>
               </div>
               <div class="col-span-12">
-                <label for="create-tag-modal-description" class="form-label">Description</label>
-                <textarea id="create-tag-modal-description" class="form-control" placeholder="Your Description" v-model="tag.description"/>
+                <label for="create-tag-modal-description" class="form-label">{{ $t('attributes.description') }}</label>
+                <textarea id="create-tag-modal-description" class="form-control" v-model="tag.description"/>
               </div>
               <div class="col-span-12">
-                <label for="create-tag-modal-color" class="form-label">Color</label>
+                <label for="create-tag-modal-color" class="form-label">{{ $t('attributes.color') }}</label>
                 <input id="create-tag-modal-color" type="color" class="form-control" v-model="tag.color"/>
               </div>
               <div class="col-span-12">
-                <label for="create-tag-modal-icon" class="form-label">Icon</label>
-                <input id="create-tag-modal-icon" type="text" class="form-control" placeholder="Your Icon" v-model="tag.icon"/>
+                <label for="create-tag-modal-icon" class="form-label">{{ $t('attributes.icon') }}</label>
+                <input id="create-tag-modal-icon" type="text" class="form-control" v-model="tag.icon"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -61,10 +62,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Create
+                {{ $t('utils.create') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -81,30 +82,30 @@
             <!-- BEGIN: Modal Header -->
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Edit a Tag
+                {{ $t('tags.edit_tag') }}
               </h2>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="edit-tag-modal-name" class="form-label">Name</label>
-                <input id="edit-tag-modal-name" type="text" class="form-control" placeholder="Your Name" v-model="edit_tag.name"/>
+                <label for="edit-tag-modal-name" class="form-label">{{ $t('attributes.name') }}</label>
+                <input id="edit-tag-modal-name" type="text" class="form-control" v-model="edit_tag.name"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-tag-modal-description" class="form-label">Description</label>
-                <textarea id="edit-tag-modal-description" class="form-control" placeholder="Your Description" v-model="edit_tag.description"/>
+                <label for="edit-tag-modal-description" class="form-label">{{ $t('attributes.description') }}</label>
+                <textarea id="edit-tag-modal-description" class="form-control" v-model="edit_tag.description"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-tag-modal-color" class="form-label">Color</label>
+                <label for="edit-tag-modal-color" class="form-label">{{ $t('attributes.color') }}</label>
                 <input id="edit-tag-modal-color" type="color" class="form-control" v-model="edit_tag.color"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-tag-modal-icon" class="form-label">Icon</label>
-                <input id="edit-tag-modal-icon" type="text" class="form-control" placeholder="Your Name" v-model="edit_tag.icon"/>
+                <label for="edit-tag-modal-icon" class="form-label">{{ $t('attributes.icon') }}</label>
+                <input id="edit-tag-modal-icon" type="text" class="form-control" v-model="edit_tag.icon"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -118,10 +119,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Save
+                {{ $t('utils.save') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -135,22 +136,22 @@
       <table class="table table-report -mt-2">
         <thead>
         <tr>
-          <th class="text-center whitespace-nowrap">NAME</th>
-          <th class="text-center whitespace-nowrap">DESCRIPTION</th>
-          <th class="text-center whitespace-nowrap">COLOR</th>
-          <th class="text-center whitespace-nowrap">LAST UPDATE</th>
-          <th class="text-center whitespace-nowrap">CREATED AT</th>
-          <th class="text-center whitespace-nowrap">ACTIONS</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.name') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.description') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.color') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.updated_at') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('attributes.created_at') }}</th>
+          <th class="text-center whitespace-nowrap">{{ $t('utils.actions') }}</th>
         </tr>
         </thead>
         <tbody>
         <tr
-          v-for="tag in this.filteredTags"
+          v-for="tag in this.tags"
           v-bind:key="tag.id"
           class="intro-x"
         >
           <td class="text-center">
-            {{ tag.name }}
+            {{ tag.name.substring(0, 25) }}{{ tag.name?.length > 25 ? '...' : '' }}
           </td>
           <td class="text-center">
               {{ tag.description.substring(0, 25) }}{{ tag.description?.length > 25 ? '...' : '' }}
@@ -185,25 +186,25 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchTags(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.tag ? fetchTags(pagination.first_page_url + '&search=' + this.search.tag) : fetchTags(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchTags(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.tag ? fetchTags(pagination.prev_page_url + '&search=' + this.search.tag) : fetchTags(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+          <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchTags(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.tag ? fetchTags(pagination.next_page_url + '&search=' + this.search.tag) : fetchTags(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchTags(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.tag ? fetchTags(pagination.last_page_url + '&search=' + this.search.tag) : fetchTags(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -226,8 +227,6 @@ export default defineComponent({
       tags: [],
       edit_tag: {},
       tag: {
-        name: 'New Tag',
-        description: 'New Description',
         color: '#000000',
         icon: 'TagIcon'
       },
@@ -244,13 +243,6 @@ export default defineComponent({
   },
   mounted() {
     this.fetchTags('tags')
-  },
-  computed: {
-    filteredTags: function () {
-      return this.tags.filter((tag) => {
-        return tag?.name.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.description.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.color.toLowerCase().match(this.search.tag.toLowerCase()) || tag?.icon.toLowerCase().match(this.search.tag.toLowerCase())
-      })
-    }
   },
   methods: {
     fetchTags(page) {

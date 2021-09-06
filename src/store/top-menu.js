@@ -4,95 +4,95 @@ const state = () => {
       {
         icon: 'HomeIcon',
         pageName: 'categories',
-        title: 'Categories',
+        title: 'navigation.categories',
         permission: 'category_default'
       },
       {
         icon: 'Edit3Icon',
         pageName: 'author',
-        title: 'Author',
+        title: 'navigation.author.title',
         permission: 'category_author',
         subMenu: [
           {
             icon: 'FileTextIcon',
             pageName: 'moderation.posts.create',
-            title: 'Create Post'
+            title: 'navigation.author.create_post'
           },
           {
             icon: 'FolderIcon',
             pageName: 'moderation.categories.create',
-            title: 'Create Category'
+            title: 'navigation.author.create_category'
           }
         ]
       },
       {
         icon: 'ToolIcon',
         pageName: 'moderation.tags',
-        title: 'Moderation',
+        title: 'navigation.moderation.title',
         permission: 'category_moderation',
         subMenu: [
           {
             icon: 'TagIcon',
             pageName: 'moderation.tags',
-            title: 'Tags'
+            title: 'navigation.moderation.tags'
           },
           {
             icon: 'FilterIcon',
             pageName: 'moderation.authorizations',
-            title: 'Authorization'
+            title: 'navigation.moderation.authorization'
           },
           {
             icon: 'BellIcon',
             pageName: 'moderation.announcements',
-            title: 'Announcements'
+            title: 'navigation.moderation.announcements'
           },
           {
             icon: 'AlertOctagonIcon',
             pageName: 'moderation.reports',
-            title: 'Reports'
+            title: 'navigation.moderation.reports'
           },
           {
             icon: 'InboxIcon',
-            pageName: 'moderation.notifications',
-            title: 'User Notifications'
+            pageName: 'moderation.notifications.latest',
+            title: 'navigation.moderation.user_notifications'
           }
         ]
       },
       {
         icon: 'SlidersIcon',
         pageName: 'admin.roles',
-        title: 'Administration',
+        title: 'navigation.administration.title',
         permission: 'category_administration',
         subMenu: [
           {
             icon: 'ShieldIcon',
             pageName: 'admin.roles',
-            title: 'Roles'
+            title: 'navigation.administration.roles'
           },
           {
             icon: 'KeyIcon',
             pageName: 'admin.permissions',
-            title: 'Permissions'
+            title: 'navigation.administration.permissions'
           },
           {
             icon: 'CreditCardIcon',
             pageName: 'admin.badges',
-            title: 'Badges'
+            title: 'navigation.administration.badges'
           },
           {
             icon: 'UsersIcon',
             pageName: 'admin.accounts',
-            title: 'Accounts'
+            title: 'navigation.administration.accounts'
           },
           {
             icon: 'SlashIcon',
             pageName: 'admin.bans',
-            title: 'Bans'
+            title: 'navigation.administration.bans'
           },
           {
             icon: 'ServerIcon',
             pageName: 'admin.settings.general',
-            title: 'Settings'
+            title: 'navigation.administration.settings'
           }
         ]
       }

@@ -21,41 +21,33 @@
               class="-intro-x w-1/2 -mt-16"
               :src="require(`@/assets/images/register-illustration.svg`)"
             />
-            <div
-              class="-intro-x text-white font-medium text-4xl leading-tight mt-10"
-            >
-              A few more clicks to <br />
-              sign up to your account.
+            <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
+              {{ $t('auth_pages.sign_up_subtitle') }}
             </div>
-            <div
-              class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500"
-            >
-              Free of charge and opensource developed by KRB-Development
+            <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-gray-500">
+              {{ $t('auth_pages.slogan') }}
             </div>
           </div>
         </div>
         <!-- END: Register Info -->
         <!-- BEGIN: Register Form -->
         <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
-          <div
-            class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto"
-          >
+          <div class="my-auto mx-auto xl:ml-20 bg-white dark:bg-dark-1 xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
             <form @submit.prevent="handleSubmit">
-              <h2
-                class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left"
-              >
-                Sign Up
+              <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+                {{ $t('auth_pages.sign_up') }}
               </h2>
-              <div
-                class="intro-x mt-2 text-gray-500 dark:text-gray-500 xl:hidden text-center"
-              >
-                A few more clicks to sign in to your account.
+              <div class="intro-x mt-2 text-gray-500 dark:text-gray-500 xl:hidden text-center">
+                {{ $t('auth_pages.sign_up_subtitle') }}
+              </div>
+              <div class='intro-x hidden xl:block text-gray-500 mt-2'>
+                {{ $t('auth_pages.sign_in_subtitle') }}
               </div>
               <div class="intro-x mt-8">
                 <input
                   type="text"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.first_name != null ? ' border-theme-6' : '')"
-                  placeholder="Firstname"
+                  :placeholder="$t('attributes.firstname')"
                   v-model="first_name"
                 />
 
@@ -66,7 +58,7 @@
                 <input
                   type="text"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.last_name != null ? ' border-theme-6' : '')"
-                  placeholder="Lastname"
+                  :placeholder="$t('attributes.lastname')"
                   v-model="last_name"
                 />
 
@@ -77,7 +69,7 @@
                 <input
                   type="text"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.name != null ? ' border-theme-6' : '')"
-                  placeholder="Username"
+                  :placeholder="$t('attributes.username') + '*'"
                   v-model="name"
                 />
 
@@ -88,7 +80,7 @@
                 <input
                   type="text"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.email != null ? ' border-theme-6' : '')"
-                  placeholder="Email"
+                  :placeholder="$t('attributes.email') + '*'"
                   v-model="email"
                 />
 
@@ -99,7 +91,7 @@
                 <input
                   type="password"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.password != null ? ' border-theme-6' : '')"
-                  placeholder="Password"
+                  :placeholder="$t('attributes.password') + '*'"
                   v-model="password"
                 />
 
@@ -110,7 +102,7 @@
                 <input
                   type="password"
                   :class="'intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4' + (this.validation_error?.password_confirmation != null ? ' border-theme-6' : '')"
-                  placeholder="Password Confirmation"
+                  :placeholder="$t('attributes.password_confirmation') + '*'"
                   v-model="password_confirmation"
                 />
 
@@ -125,25 +117,26 @@
                   class="form-check-input border mr-2"
                 />
                 <label class="cursor-pointer select-none" for="remember-me">
-                  I agree to the
+                  {{ $t('auth_pages.sign_up_agree') }}
                 </label>
                 <router-link :to="{ name: 'privacy' }">
                   <a class="text-theme-1 dark:text-theme-10 ml-1">
-                    Privacy Policy.
+                    {{ $t('footer.privacy_policy') }}
+                  </a>
+                </router-link>
+                <p class='ml-1'>&</p>
+                <router-link :to="{ name: 'tos' }">
+                  <a class="text-theme-1 dark:text-theme-10 ml-1">
+                    {{ $t('auth_pages.terms_conditions') }}
                   </a>
                 </router-link>
               </div>
               <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
-                <button
-                  type="submit"
-                  class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top"
-                >
-                  Register
+                <button type="submit" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">
+                  {{ $t('auth_pages.register') }}
                 </button>
-                <router-link :to="{ name: 'login' }"
-                  class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top"
-                >
-                  Sign in
+                <router-link :to="{ name: 'login' }" class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">
+                  {{ $t('auth_pages.sign_in') }}
                 </router-link>
               </div>
             </form>
@@ -204,8 +197,8 @@ export default defineComponent({
         .then(response => {
           localStorage.setItem('user', JSON.stringify(response.data.data.user))
           localStorage.setItem('token', response.data.data.token)
+          loader.hide()
           if (localStorage.getItem('token') != null) {
-            loader.hide()
             this.$router.push({ name: 'categories' })
           }
         })

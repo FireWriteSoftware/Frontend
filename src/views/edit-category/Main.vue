@@ -2,10 +2,11 @@
   <div>
     <form @submit.prevent="handleSubmit">
       <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">Update a Category</h2>
+        <h2 class="text-lg font-medium mr-auto">{{ $t('create_category.update_category') }}</h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
           <button class="btn btn-primary shadow-md flex items-center" type="submit">
-            <SaveIcon class="w-5 h-5 mr-2"></SaveIcon>Save
+            <SaveIcon class="w-5 h-5 mr-2"></SaveIcon>
+            {{ $t('utils.save') }}
           </button>
         </div>
       </div>
@@ -20,13 +21,14 @@
               <Tippy
                 id="properties-tab"
                 tag="a"
-                content="Customize the category properties"
+                :content="$t('messages.customize_category_properties')"
                 class="w-full sm:w-40 py-4 text-center flex justify-center items-center active"
                 role="tab"
                 aria-controls="properties"
                 aria-selected="true"
               >
-                <FileTextIcon class="w-4 h-4 mr-2" /> Properties
+                <FileTextIcon class="w-4 h-4 mr-2" />
+                {{ $t('utils.properties') }}
               </Tippy>
             </div>
             <div class="category__content tab-content">
@@ -38,23 +40,24 @@
               >
                 <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5">
                   <div class="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
-                    <ChevronDownIcon class="w-4 h-4 mr-2" /> Category settings
+                    <ChevronDownIcon class="w-4 h-4 mr-2" />
+                    {{ $t('create_category.category_settings') }}
                   </div>
                   <div class="flex flex-col-reverse xl:flex-row flex-col">
                     <div class="flex-1 mt-6 xl:mt-0">
-                      <p class="mt-3">Category Title</p>
-                      <input type="text" :class="'form-control mt-2' + (this.validation_error?.title != null ? ' border-theme-6' : '')" placeholder="Title" v-model="this.category.title"/>
+                      <p class="mt-3">{{ $t('create_category.category_title') }}</p>
+                      <input type="text" :class="'form-control mt-2' + (this.validation_error?.title != null ? ' border-theme-6' : '')" :placeholder="$t('attributes.title')" v-model="this.category.title"/>
                       <div v-if="this.validation_error?.title != null" class="text-theme-6 mt-2 mb-4">
                         {{ this.validation_error?.title[0] }}
                       </div>
-                      <p class="mt-3">Category Description</p>
+                      <p class="mt-3">{{ $t('create_category.category_description') }}</p>
                       <textarea rows="5" class="form-control" v-model="this.category.description"></textarea>
                       <div v-if="this.validation_error?.description != null" class="text-theme-6 mt-2 mb-4">
                         {{ this.validation_error?.description[0] }}
                       </div>
                     </div>
                     <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
-                      <div class="border-2 border-dashed shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
+                      <div class="shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
                         <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
                           <img
                             class="rounded-md"
@@ -64,7 +67,7 @@
                         </div>
                         <div class="mx-auto cursor-pointer relative mt-5">
                           <button type="button" class="btn btn-primary w-full">
-                            Change Thumbnail
+                            {{ $t('utils.change_thumbnail') }}
                           </button>
                           <input
                             type="file"
@@ -73,9 +76,6 @@
                           />
                         </div>
                       </div>
-                    </div>
-                    <div v-if="this.validation_error?.thumbnail != null" class="text-theme-6 mt-2 mb-4">
-                      The thumbnail is required.
                     </div>
                   </div>
                 </div>
@@ -88,7 +88,7 @@
         <div class="col-span-12 lg:col-span-4">
           <div class="intro-y box p-5">
             <div>
-              <label class="form-label">Created by</label>
+              <label class="form-label">{{ $t('attributes.created_by') }}</label>
               <div class="dropdown">
                 <div class="dropdown-toggle btn w-full btn-outline-secondary dark:bg-dark-2 dark:border-dark-2 flex items-center justify-start" role="button" aria-expanded="false">
                   <div class="w-6 h-6 image-fit mr-3">
@@ -100,7 +100,7 @@
               </div>
             </div>
             <div class="mt-4">
-              <label class="form-label">Title</label>
+              <label class="form-label">{{ $t('attributes.title') }}</label>
               <div class="dropdown">
                 <div class="dropdown-toggle btn w-full btn-outline-secondary dark:bg-dark-2 dark:border-dark-2 flex items-center justify-start" role="button" aria-expanded="false">
                   <div class="truncate">{{ this.category?.title?.substring(0,75) }}</div>
@@ -109,11 +109,11 @@
               </div>
             </div>
             <div class="mt-4">
-              <label class="form-label">Parent Category</label>
+              <label class="form-label">{{ $t('attributes.parent_category') }}</label>
               <div class="w-full flex items-center justify-start mb-3" aria-expanded="false">
                 <div class="form-check">
                   <input id="checkbox-has_parent" class="form-check-switch" type="checkbox" v-model="has_parent">
-                  <label class="form-check-label" for="checkbox-has_parent">Has parent Category</label>
+                  <label class="form-check-label" for="checkbox-has_parent">{{ $t('create_category.has_parent_category') }}</label>
                 </div>
               </div>
               <div v-show="has_parent">
@@ -210,7 +210,7 @@ export default defineComponent({
         parent_id: this.has_parent ? this.category.parent_id : null
       })
         .then(response => {
-          toast.success('Category was updated successfully!')
+          toast.success(response.data.message)
           loader.hide()
           this.$router.push({ name: 'categories' })
         })
@@ -242,11 +242,10 @@ export default defineComponent({
         })
         .then((res) => {
           this.category.thumbnail = res.data.data.url
-          toast.success('Thumbnail successfully uploaded')
+          toast.success(res.data.message)
           this.updateCategory()
         })
         .catch((err) => {
-          console.error(err)
           toast.error(err.response.data.message)
         })
     },
@@ -255,9 +254,7 @@ export default defineComponent({
         .then(response => {
           this.categories = response.data
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     fetchCategory() {
       const loader = this.$loading.show()
@@ -270,8 +267,7 @@ export default defineComponent({
           }
           loader.hide()
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           this.$router.push({ name: 'categories' })
           loader.hide()
         })

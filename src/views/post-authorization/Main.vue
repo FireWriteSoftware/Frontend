@@ -10,8 +10,9 @@
               <input
                 type="text"
                 class="form-control w-full sm:w-64 box px-10 text-gray-700 dark:text-gray-300 placeholder-theme-13"
-                placeholder="Search..."
-                v-model='keywords'
+                :placeholder="$t('utils.search')"
+                v-model="this.search.post"
+                @change="this.fetchPosts(this.search.post ? 'posts/unauthorized?search=' + this.search.post : 'posts/unauthorized')"
               />
             </div>
           </div>
@@ -22,7 +23,7 @@
       <div class="col-span-12">
         <div class="grid grid-cols-12 gap-5 mt-6 -mb-6">
           <div
-            v-for="post in this.filteredPosts"
+            v-for="post in this.posts"
             v-bind:key="post.id"
             class="intro-y blog col-span-12 md:col-span-4 box"
           >
@@ -42,7 +43,7 @@
                 </div>
                 <div class="ml-3 text-white mr-auto">
                   <a href="" class="font-medium">{{ post?.user?.name }}</a>
-                  <div class="text-xs mt-0.5">{{ post?.updated_at }}</div>
+                  <div class="text-xs mt-0.5">{{ formatDate(post?.updated_at) }}</div>
                 </div>
                 <div class="dropdown ml-3" v-if='this.permissions?.posts_update'>
                   <a
@@ -55,10 +56,12 @@
                   <div class="dropdown-menu w-40">
                     <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                       <a href="javascript:;" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md" @click="approvePost(post)">
-                        <ShareIcon class="w-4 h-4 mr-2"/> Publish
+                        <ShareIcon class="w-4 h-4 mr-2"/>
+                        {{ $t('utils.publish') }}
                       </a>
                       <a href="javascript:;" @click="this.$router.push({ name: 'moderation.posts.edit', params: { id: post.id } })" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                        <Edit2Icon class="w-4 h-4 mr-2"/> Edit
+                        <Edit2Icon class="w-4 h-4 mr-2"/>
+                        {{ $t('utils.edit') }}
                       </a>
                     </div>
                   </div>
@@ -76,7 +79,7 @@
                   <span class="font-medium">{{ this.formatDate(post.created_at) }}</span>
                 </div>
                 <div class="ml-auto">
-                  <span class="px-2 py-1 rounded-full bg-theme-6 text-white" v-if="!post.approved_at">Unauthorized</span>
+                  <span class="px-2 py-1 rounded-full bg-theme-6 text-white" v-if="!post.approved_at">{{ $t('attributes.unauthorized') }}</span>
                 </div>
               </div>
             </div>
@@ -90,25 +93,25 @@
     <div class="flex flex-col items-center mt-5">
       <ul class="flex">
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="fetchPosts(pagination.first_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.first_page_url" @click="this.search.post ? fetchPosts(pagination.first_page_url + '&search=' + this.search.post) : fetchPosts(pagination.first_page_url)">
             <span class="mx-1"><ChevronsLeftIcon></ChevronsLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPosts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
+          <button class="flex items-center font-bold" @click="this.search.post ? fetchPosts(pagination.prev_page_url + '&search=' + this.search.post) : fetchPosts(pagination.prev_page_url)" :disabled="!pagination.prev_page_url">
             <span class="mx-1"><ChevronLeftIcon></ChevronLeftIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+          <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" @click="fetchPosts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
+          <button class="flex items-center font-bold" @click="this.search.post ? fetchPosts(pagination.next_page_url + '&search=' + this.search.post) : fetchPosts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
             <span class="mx-1"><ChevronRightIcon></ChevronRightIcon></span>
           </button>
         </li>
         <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="fetchPosts(pagination.last_page_url)">
+          <button class="flex items-center font-bold" :disabled="!pagination.last_page_url" @click="this.search.post ? fetchPosts(pagination.last_page_url + '&search=' + this.search.post) : fetchPosts(pagination.last_page_url)">
             <span class="mx-1"><ChevronsRightIcon></ChevronsRightIcon></span>
           </button>
         </li>
@@ -129,39 +132,27 @@ export default defineComponent({
   data() {
     return {
       posts: [],
-      keywords: '',
+      search: {
+        post: ''
+      },
       permissions: [],
-      pagination: {},
-      search_type: 0
+      pagination: {}
     }
   },
   mounted() {
     this.testPagePermissions()
     this.fetchPosts('posts/unauthorized')
   },
-  computed: {
-    unauthorizedPosts: function () {
-      return this.posts.filter((post) => {
-        return !post.approved_by && !post.approved_at
-      })
-    },
-    filteredPosts: function () {
-      return this.unauthorizedPosts.filter((post) => {
-        return post.title.toLowerCase().match(this.keywords.toLowerCase()) || post.content.toLowerCase().match(this.keywords.toLowerCase())
-      })
-    }
-  },
   methods: {
-    fetchPosts($url) {
+    fetchPosts(url) {
       const loader = this.$loading.show()
-      axios.get($url)
+      axios.get(url)
         .then((response) => {
           this.posts = response.data.data
           loader.hide()
           this.makePagination(response.data.meta, response.data.links)
         })
-        .catch((error) => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
         })
     },
@@ -185,11 +176,10 @@ export default defineComponent({
         approve: true
       })
         .then(response => {
-          toast.success('Post successfully approved')
+          toast.success(response.data.message)
           this.fetchPosts('posts/unauthorized')
         })
         .catch(error => {
-          console.error(error.response)
           toast.error(error.response.data.message)
         })
     },
@@ -206,7 +196,6 @@ export default defineComponent({
           this.permissions = response.data.data
         })
         .catch((error) => {
-          console.error(error)
           toast.error(error.response.data.message)
         })
     }

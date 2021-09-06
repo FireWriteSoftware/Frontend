@@ -2,10 +2,10 @@
   <div>
     <form @submit.prevent="handleSubmit">
       <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">Create new Post</h2>
+        <h2 class="text-lg font-medium mr-auto">{{ $t('create_post.create_post') }}</h2>
         <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
           <button class="btn btn-primary shadow-md flex items-center" type="submit">
-            <SaveIcon class="w-5 h-5 mr-2"></SaveIcon>Save
+            <SaveIcon class="w-5 h-5 mr-2"></SaveIcon>{{ $t('utils.save') }}
           </button>
         </div>
       </div>
@@ -20,13 +20,13 @@
               <Tippy
                 id="properties-tab"
                 tag="a"
-                content="Customize the post properties"
+                :content="$t('messages.customize_post_properties')"
                 class="w-full sm:w-40 py-4 text-center flex justify-center items-center active"
                 role="tab"
                 aria-controls="properties"
                 aria-selected="true"
               >
-                <FileTextIcon class="w-4 h-4 mr-2" /> Properties
+                <FileTextIcon class="w-4 h-4 mr-2" />{{ $t('utils.properties') }}
               </Tippy>
             </div>
             <div class="post__content tab-content">
@@ -38,13 +38,13 @@
               >
                 <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5">
                   <div class="font-medium flex items-center border-b border-gray-200 dark:border-dark-5 pb-5">
-                    <ChevronDownIcon class="w-4 h-4 mr-2" /> Post settings
+                    <ChevronDownIcon class="w-4 h-4 mr-2" /> {{ $t('create_post.post_settings') }}
                   </div>
                   <div class="flex flex-col-reverse xl:flex-row flex-col">
                     <div class="flex-1 mt-6 xl:mt-0">
-                      <p class="mt-3">Post Title</p>
-                      <input type="text" :class="'form-control mt-2' + (this.validation_error?.title != null ? ' border-theme-6' : '')" placeholder="Title" v-model="this.post.title"/>
-                      <p class="mt-3">Post Content</p>
+                      <p class="mt-3">{{ $t('create_post.post_title') }}</p>
+                      <input type="text" :class="'form-control mt-2' + (this.validation_error?.title != null ? ' border-theme-6' : '')" :placeholder="$t('attributes.title')" v-model="this.post.title"/>
+                      <p class="mt-3">{{ $t('create_post.post_content') }}</p>
                       <!-- BEGIN: Standard Editor -->
                       <div class="col-span-12 lg:col-span-6">
                         <div id="standard-editor">
@@ -59,27 +59,6 @@
                       </div>
                       <!-- END: Standard Editor -->
                     </div>
-                    <div class="w-52 mx-auto xl:mr-0 xl:ml-6">
-                      <div class="border-2 border-dashed shadow-sm border-gray-200 dark:border-dark-5 rounded-md p-5">
-                        <div class="h-40 relative image-fit cursor-pointer zoom-in mx-auto">
-                          <img
-                            class="rounded-md"
-                            alt=""
-                            :src="this.post.thumbnail ?? require('@/assets/images/placeholder.png')"
-                          />
-                        </div>
-                        <div class="mx-auto cursor-pointer relative mt-5">
-                          <button type="button" class="btn btn-primary w-full">
-                            Change Thumbnail
-                          </button>
-                          <input
-                            type="file"
-                            class="w-full h-full top-0 left-0 absolute opacity-0"
-                            @change="changePicture"
-                          />
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -92,7 +71,7 @@
           <div class="intro-y box p-5">
             <!-- BEGIN: Post Info -->
             <div>
-              <label class="form-label">Created by</label>
+              <label class="form-label">{{ $t('attributes.created_by') }}</label>
               <div class="dropdown">
                 <div class="dropdown-toggle btn w-full btn-outline-secondary dark:bg-dark-2 dark:border-dark-2 flex items-center justify-start" role="button" aria-expanded="false">
                   <div class="w-6 h-6 image-fit mr-3">
@@ -104,7 +83,7 @@
               </div>
             </div>
             <div class="mt-4">
-              <label class="form-label">Title</label>
+              <label class="form-label">{{ $t('attributes.title') }}</label>
               <div class="dropdown">
                 <div class="dropdown-toggle btn w-full btn-outline-secondary dark:bg-dark-2 dark:border-dark-2 flex items-center justify-start" role="button" aria-expanded="false">
                   <div class="truncate">{{ this.post?.title?.substring(0,75) }}</div>
@@ -113,7 +92,7 @@
               </div>
             </div>
             <div class="mt-4">
-              <label class="form-label">Parent Category</label>
+              <label class="form-label">{{ $t('attributes.parent_category') }}</label>
               <div class="dropdown">
                 <TailSelect
                   v-model="this.post.category_id"
@@ -127,7 +106,7 @@
               </div>
             </div>
             <div class="mt-4">
-              <label class="form-label">Post tags</label>
+              <label class="form-label">{{ $t('create_post.post_tags') }}</label>
               <TailSelect
                 v-model="this.post.selected_tags"
                 multiple
@@ -147,7 +126,7 @@
             </div>
             <div v-show="this.validation_error !== null">
               <hr class="my-5">
-              <h2 class="text-lg font-medium mr-auto">The following errors have occurred</h2>
+              <h2 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h2>
               <ul class="list-disc mx-5">
                 <div class="text-theme-6 mt-2 mb-4">
                   <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -158,6 +137,25 @@
             </div>
           </div>
           <!-- END: Post Info -->
+          <!-- BEGIN: Thumbnail upload-->
+          <div class="intro-y box mt-5 w-full">
+            <img
+              class="rounded-md h-64 w-full object-cover"
+              alt=""
+              :src="this.post.thumbnail ?? require('@/assets/images/placeholder.png')"
+            />
+          </div>
+          <div class="mx-auto relative mt-2">
+            <button type="button" class="btn btn-primary w-full">
+              {{ $t('utils.change_thumbnail') }}
+            </button>
+            <input
+              type="file"
+              class="w-full h-full top-0 left-0 absolute opacity-0 cursor-pointer"
+              @change="changePicture"
+            />
+          </div>
+          <!-- END: Thumbnail upload-->
         </div>
         <!-- END: Post Sidebar -->
       </div>
@@ -195,8 +193,30 @@ import Font from '@ckeditor/ckeditor5-font/src/font'
 import Heading from '@ckeditor/ckeditor5-heading/src/heading'
 import HeadingButtonsUI from '@ckeditor/ckeditor5-heading/src/headingbuttonsui'
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight'
-
+import Table from '@ckeditor/ckeditor5-table/src/table'
+import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar'
+import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties'
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties'
+import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle'
+import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat'
+import SpecialCharacters from '@ckeditor/ckeditor5-special-characters/src/specialcharacters'
+import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/src/specialcharactersessentials'
+import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock'
 const toast = useToast()
+
+function SpecialCharactersElectric(editor) {
+  editor.plugins.get('SpecialCharacters').addItems('Electric', [
+    { title: 'Ohm', character: 'Ω' },
+    { title: 'Siemen', character: '℧' },
+    { title: 'micro', character: 'µ' },
+    { title: 'Phase angle', character: 'θ' },
+    { title: 'Angular frequency', character: 'ω' },
+    { title: 'Time constant', character: 'τ' },
+    { title: 'Watt-Hour', character: 'Wh' },
+    { title: 'Decible', character: 'dB' },
+    { title: 'Frequence', character: 'Hz' }
+  ])
+}
 
 export default defineComponent({
   data() {
@@ -248,7 +268,7 @@ export default defineComponent({
         tags: this.post.selected_tags
       })
         .then(response => {
-          toast.success('Post was created successfully!')
+          toast.success(response.data.message)
           loader.hide()
           if (this.post.category_id !== null) {
             this.$router.push({ name: 'categories.subcategory', params: { id: this.post.category_id } })
@@ -272,7 +292,7 @@ export default defineComponent({
         })
         .then((res) => {
           this.post.thumbnail = res.data.data.url
-          toast.success('Thumbnail successfully uploaded')
+          toast.success(res.data.message)
           this.createPost()
         })
         .catch((err) => {
@@ -329,7 +349,17 @@ export default defineComponent({
         CloudServicesPlugin,
         Heading,
         HeadingButtonsUI,
-        Highlight
+        Highlight,
+        Table,
+        TableToolbar,
+        TableProperties,
+        TableCellProperties,
+        ListStyle,
+        RemoveFormat,
+        SpecialCharacters,
+        SpecialCharactersEssentials,
+        SpecialCharactersElectric,
+        CodeBlock
       ],
       toolbar: {
         items: [
@@ -342,6 +372,8 @@ export default defineComponent({
           'underline',
           'strikethrough',
           'code',
+          'codeBlock',
+          'specialCharacters',
           'subscript',
           'superscript',
           'link',
@@ -352,14 +384,21 @@ export default defineComponent({
           'imageStyle:full',
           'imageStyle:side',
           '|',
-          'highlight'
+          'highlight',
+          'insertTable',
+          'bulletedList',
+          'numberedList',
+          'removeFormat'
         ]
       },
       simpleUpload: {
-        uploadUrl: 'storage/uploadEditor',
+        uploadUrl: process.env.VUE_APP_BASE_URL + 'storage/uploadEditor',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }
+      },
+      table: {
+        contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties', 'toggleTableCaption']
       }
     }
     const editorData = ref('<p>Content of the editor.</p>')
