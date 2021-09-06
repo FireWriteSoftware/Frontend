@@ -49,13 +49,13 @@
     <!-- END: Comments -->
     <!-- BEGIN: Load more comments button -->
     <div>
-      <Button
+      <button
         class="btn w-full bg-theme-1 hover:bg-theme-23 text-white p-2 rounded-lg"
         v-show="this.pagination?.next_page_url !== null"
         @click="loadComments(this.pagination.next_page_url + '&per_page=5')"
       >
         {{ $t('single_post.load_more') }} <LoadingIcon icon="oval" color="white" class="w-4 h-4 ml-2" v-show="this.loading_comments" />
-      </Button>
+      </button>
     </div>
     <!-- END: Load more comments button -->
   </div>
@@ -74,7 +74,8 @@ export default {
       user: {},
       new_comment: '',
       pagination: {},
-      comments: []
+      comments: [],
+      loading_comments: true
     }
   },
   props: ['post'],
