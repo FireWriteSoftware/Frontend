@@ -365,6 +365,7 @@
     "history": "Verlauf"
   },
   "navigation": {
+    "default": "Wiki",
     "categories": "Startseite",
     "author": {
       "title": "Autor",
