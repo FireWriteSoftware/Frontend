@@ -9,7 +9,7 @@ import utils from './utils'
 import './libs'
 import Toast, { POSITION, TYPE } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
-import axios from 'axios'
+// import axios from 'axios'
 import i18n from './i18n'
 
 // SASS Theme
@@ -49,30 +49,3 @@ const toastOptions = {
   position: POSITION.TOP_RIGHT
 }
 app.use(Toast, toastOptions)
-
-axios
-  .get(process.env.BASE_URL + 'static/config.json')
-  .then((response) => {
-    app.config.globalProperties.$config = response.data
-  })
-  .catch((err) => {
-    console.error(err)
-  })
-
-app.config.globalProperties.$writeConfig = () => {
-  const fs = require('fs')
-
-  try {
-    fs.writeFileSync(
-      process.env.BASE_URL + 'static/config.json',
-      JSON.stringify(app.config.globalProperties.$config),
-      'utf-8'
-    )
-
-    return true
-  } catch (e) {
-    console.error('Unable to save configuration')
-
-    return false
-  }
-}
