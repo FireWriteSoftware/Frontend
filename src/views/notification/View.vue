@@ -28,7 +28,7 @@
                       </div>
                       <div class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
                         <div class="font-medium text-center lg:text-left lg:mt-3">
-                          Contact Details
+                          {{ $t('utils.contact_details') }}
                         </div>
                         <div class="flex flex-col justify-center items-center lg:items-start mt-4">
                           <div class="truncate sm:whitespace-normal flex items-center">
@@ -38,7 +38,8 @@
                             <UserIcon class="w-4 h-4 mr-2"/>{{ this?.notification?.user?.pre_name }} {{ this?.notification?.user?.last_name }}
                           </div>
                           <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                            <HashIcon class="w-4 h-4 mr-2"/>User ID: {{ this?.notification?.user?.id }}
+                            <HashIcon class="w-4 h-4 mr-2"/>
+                            {{ $t('utils.user_id', { id: this?.notification?.user?.id }) }}
                           </div>
                         </div>
                       </div>
@@ -51,13 +52,12 @@
                           <div class="col-span-12 xxl:col-span-12 mb-4">
                             <div>
                               <label for="update-title-notification" class="form-label">
-                                Title
+                                {{ $t('attributes.title') }}
                               </label>
                               <input
                                 id="update-title-notification"
                                 type="text"
                                 :class="'form-control' + (this.validation_error?.title ? ' border-theme-6' : '')"
-                                placeholder="Enter Title"
                                 v-model="this.notification.title"
                                 disabled
                               />
@@ -69,12 +69,11 @@
                           <div class="col-span-12 xxl:col-span-12 mb-4">
                             <div>
                               <label for="update-title-notification" class="form-label">
-                                Content
+                                {{ $t('attributes.content') }}
                               </label>
                               <textarea
                                 id="update-content-notification"
                                 :class="'form-control' + (this.validation_error?.content ? ' border-theme-6' : '')"
-                                placeholder="Enter Content"
                                 rows="10"
                                 v-model="this.notification.content"
                                 disabled
@@ -97,9 +96,9 @@
                   <div class="mx-auto mt-5 w-80">
                     <img alt="" :src="require(`@/assets/images/not-found-illustration.svg`)"/>
                   </div>
-                  <div class="text-3xl mt-5">This item does not exist</div>
+                  <div class="text-3xl mt-5">{{ $t('messages.item_not_exists') }}</div>
                   <div class="text-gray-600 mt-2 mb-5">
-                    This item was deleted or moved to another page
+                    {{ $t('messages.item_not_exists_subtitle') }}
                   </div>
                 </div>
               </div>

@@ -1,37 +1,5 @@
 <template>
   <div>
-    <!-- BEGIN: Delete Modal -->
-    <div id="delete-account-modal" class="modal" tabindex="-1" aria-hidden="true" data-backdrop="static">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body p-0">
-            <div class="p-5 text-center">
-              <XCircleIcon
-                class="w-16 h-16 text-theme-6 mx-auto mt-3"
-              />
-              <div class="text-3xl mt-5">Are you sure?</div>
-              <div class="text-gray-600 mt-2">
-                Do you really want to delete this Account? <br/>
-                This process cannot be undone.
-              </div>
-            </div>
-            <div class="px-5 pb-8 text-center">
-              <button
-                type="button"
-                data-dismiss="modal"
-                class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1"
-              >
-                Cancel
-              </button>
-              <button type="button" class="btn btn-danger w-24" data-dismiss="modal">
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END: Delete Modal -->
     <!-- BEGIN: Create Modal -->
     <div id="create-account-modal" data-backdrop="static" class="modal" tabindex="-1" aria-hidden="true" v-show="modalState" @hide="modalState = false">
       <div class="modal-dialog">
@@ -40,38 +8,38 @@
             <!-- BEGIN: Modal Header -->
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Create a new Account
+                {{ $t('accounts.create_account') }}
               </h2>
             </div>
             <!-- END: Modal Header -->
             <!-- BEGIN: Modal Body -->
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="create-account-modal-username" class="form-label">Username</label>
-                <input id="create-account-modal-username" type="text" class="form-control" placeholder="Your Username" v-model="account.name"/>
+                <label for="create-account-modal-username" class="form-label">{{ $t('attributes.username') }}</label>
+                <input id="create-account-modal-username" type="text" class="form-control" v-model="account.name"/>
               </div>
               <div class="col-span-6">
-                <label for="create-account-modal-firstname" class="form-label">Firstname</label>
-                <input id="create-account-modal-firstname" type="text" class="form-control" placeholder="Your Firstname" v-model="account.pre_name"/>
+                <label for="create-account-modal-firstname" class="form-label">{{ $t('attributes.firstname') }}</label>
+                <input id="create-account-modal-firstname" type="text" class="form-control" v-model="account.pre_name"/>
               </div>
               <div class="col-span-6">
-                <label for="create-account-modal-lastname" class="form-label">Lastname</label>
-                <input id="create-account-modal-lastname" type="text" class="form-control" placeholder="Your Lastname" v-model="account.last_name"/>
+                <label for="create-account-modal-lastname" class="form-label">{{ $t('attributes.lastname') }}</label>
+                <input id="create-account-modal-lastname" type="text" class="form-control" v-model="account.last_name"/>
               </div>
               <div class="col-span-12">
-                <label for="create-account-modal-email" class="form-label">Email</label>
-                <input id="create-account-modal-email" type="text" class="form-control" placeholder="Your Email address" v-model="account.email"/>
+                <label for="create-account-modal-email" class="form-label">{{ $t('attributes.email') }}</label>
+                <input id="create-account-modal-email" type="text" class="form-control" v-model="account.email"/>
               </div>
               <div class="col-span-6">
-                <label for="create-account-modal-password" class="form-label">Password</label>
-                <input id="create-account-modal-password" type="password" class="form-control" placeholder="Your Password" v-model="account.password"/>
+                <label for="create-account-modal-password" class="form-label">{{ $t('attributes.password') }}</label>
+                <input id="create-account-modal-password" type="password" class="form-control" v-model="account.password"/>
               </div>
               <div class="col-span-6">
-                <label for="create-account-modal-password_confirmation" class="form-label">Password Confirmation</label>
-                <input id="create-account-modal-password_confirmation" type="password" class="form-control" placeholder="Your Password again" v-model="account.password_confirmation"/>
+                <label for="create-account-modal-password_confirmation" class="form-label">{{ $t('attributes.password_confirmation') }}</label>
+                <input id="create-account-modal-password_confirmation" type="password" class="form-control" v-model="account.password_confirmation"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -85,10 +53,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Create
+                {{ $t('utils.create') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -97,19 +65,19 @@
       </div>
     </div>
     <!-- END: Create Modal -->
-    <h2 class="intro-y text-lg font-medium mt-10">Accounts</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">{{ $t('accounts.overview') }}</h2>
     <div class="grid grid-cols-12 gap-6 mt-5">
       <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-        <a href="javascript:;" data-toggle="modal" data-target="#create-account-modal" class="btn btn-primary" @click="this.modalState = true">Create new Account</a>
+        <a href="javascript:;" data-toggle="modal" data-target="#create-account-modal" class="btn btn-primary" @click="this.modalState = true">{{ $t('accounts.add_account') }}</a>
         <div class="hidden md:block mx-auto text-gray-600">
-          Showing {{ this.pagination.showing_from }} to {{ this.pagination.showing_to }} of {{ this.pagination.total }} entries
+          {{ $t('utils.dataset_overview', { from: this.pagination.showing_from, to: this.pagination.showing_to, total: this.pagination.total }) }}
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <div class="w-56 relative text-gray-700 dark:text-gray-300">
             <input
               type="text"
               class="form-control w-56 box pr-10 placeholder-theme-13"
-              placeholder="Search..."
+              :placeholder="$t('utils.search')"
               v-model="this.search.account"
               @change="this.fetchAccounts(this.search.account ? 'users?search=' + this.search.account : 'users')"
             />
@@ -151,12 +119,12 @@
                   <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
                     <router-link :to="{ 'name': 'admin.accounts.informations', 'params': { 'id': account.id }}">
                       <a href="javascript:;" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                        <Edit2Icon class="w-4 h-4 mr-2"/> Edit
+                        <Edit2Icon class="w-4 h-4 mr-2"/> {{ $t('utils.edit') }}
                       </a>
                     </router-link>
                     <router-link :to="{ 'name': 'admin.accounts.bans', 'params': { 'id': account.id }}">
                       <a href="javascript:;" data-dismiss="dropdown" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                        <SlashIcon class="w-4 h-4 mr-2"/> Bans
+                        <SlashIcon class="w-4 h-4 mr-2"/> {{ $t('attributes.bans') }}
                       </a>
                     </router-link>
                   </div>
@@ -182,7 +150,7 @@
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+              <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
               <button class="flex items-center font-bold" @click="this.search.account ? fetchAccounts(pagination.next_page_url + '&search=' + this.search.account) : fetchAccounts(pagination.next_page_url)" :disabled="!pagination.next_page_url">
@@ -242,8 +210,7 @@ export default defineComponent({
           loader.hide()
           this.makePagination(response.data.meta, response.data.links)
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
           loader.hide()
         })
     },
@@ -275,22 +242,21 @@ export default defineComponent({
           password_confirmation: this.account.password_confirmation
         })
           .then(response => {
-            toast.success('Account successfully created')
+            toast.success(response.data.message)
             this.modalState = false
             loader.hide()
             this.fetchAccounts('users?page=' + this.pagination.current_page)
           })
           .catch(error => {
             this.validation_error = error.response.data.data.errors
-            console.log(error.response.data.data.errors)
             toast.error(error.response.data.message)
             loader.hide()
           })
       } else {
         this.account.password = ''
         this.account.password_confirmation = ''
-        toast.error('Please make sure that you specify a password that matches')
-        this.validation_error = { password: ['Please make sure that you specify a password that matches'] }
+        toast.error(this.$t('messages.passwords_matches'))
+        this.validation_error = { password: [this.$t('messages.passwords_matches')] }
       }
     }
   }

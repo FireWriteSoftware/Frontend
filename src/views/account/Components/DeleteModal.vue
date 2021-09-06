@@ -11,18 +11,17 @@
         <div class="modal-body p-0">
           <div class="p-5 text-center">
             <XCircleIcon class="w-16 h-16 text-theme-6 mx-auto mt-3" />
-            <div class="text-3xl mt-5">Are you sure?</div>
+            <div class="text-3xl mt-5">{{ $t('messages.you_sure') }}</div>
             <div class="text-gray-600 mt-2">
-              Do you really want to delete this Account? <br/>
-              This process cannot be undone.
+              {{ $t('accounts.delete_warning') }}
             </div>
           </div>
           <div class="px-5 pb-8 text-center">
             <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">
-              Cancel
+              {{ $t('utils.cancel') }}
             </button>
             <button type="button" data-dismiss="modal" @click="deleteUser" class="btn btn-danger w-24">
-              Delete
+              {{ $t('utils.delete') }}
             </button>
           </div>
         </div>
@@ -45,11 +44,10 @@ export default {
       axios.delete('users/' + this.$route.params.id)
         .then(response => {
           loader.hide()
-          toast.success('Account successfully deleted')
+          toast.success(response.data.message)
           this.$router.push({ name: 'admin.accounts' })
         })
         .catch(error => {
-          console.error(error.response)
           this.validation_error = error.response.data.data.errors
           toast.error(error.response.data.message)
           loader.hide()
