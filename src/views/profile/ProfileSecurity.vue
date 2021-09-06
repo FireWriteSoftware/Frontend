@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Change Password</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('profile.change_password') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -13,19 +13,18 @@
           <div
             class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5"
           >
-            <h2 class="font-medium text-base mr-auto">Change Password</h2>
+            <h2 class="font-medium text-base mr-auto">{{ $t('profile.change_password') }}</h2>
           </div>
           <div class="p-5">
             <form @submit.prevent="handleSubmit">
               <div class="mt-3">
                 <label for="change-password-form-1" class="form-label">
-                  Old Password
+                  {{ $t('profile.old_password') }}
                 </label>
                 <input
                   id="change-password-form-1"
                   type="password"
                   class="form-control"
-                  placeholder="Input old password"
                   v-model="old_password"
                 />
                 <div v-if="this.validation_error?.old_password != null" class="text-theme-6 mt-2 mb-4">
@@ -34,13 +33,12 @@
               </div>
               <div class="mt-3">
                 <label for="change-password-form-2" class="form-label">
-                  New Password
+                  {{ $t('profile.new_password') }}
                 </label>
                 <input
                   id="change-password-form-2"
                   type="password"
                   class="form-control"
-                  placeholder="Input new password"
                   v-model="password"
                 />
                 <div v-if="this.validation_error?.password != null" class="text-theme-6 mt-2 mb-4">
@@ -49,13 +47,12 @@
               </div>
               <div class="mt-3">
                 <label for="change-password-form-3" class="form-label">
-                  Confirm New Password
+                  {{ $t('profile.new_password_confirmation') }}
                 </label>
                 <input
                   id="change-password-form-3"
                   type="password"
                   class="form-control"
-                  placeholder="Input new password again"
                   v-model="password_confirmation"
                 />
                 <div v-if="this.validation_error?.password_confirmation != null" class="text-theme-6 mt-2 mb-4">
@@ -63,7 +60,7 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-primary mt-4">
-                Change Password
+                {{ $t('profile.change_password') }}
               </button>
             </form>
           </div>
@@ -126,8 +123,7 @@ export default defineComponent({
           this.user = response.data.data.user
           loader.hide()
         })
-        .catch(error => {
-          console.log(error)
+        .catch(() => {
           loader.hide()
         })
     }

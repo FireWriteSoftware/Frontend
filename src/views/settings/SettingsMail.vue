@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-12 gap-6 mt-8">
     <div class="col-span-12 lg:col-span-3 xxl:col-span-2">
-      <h2 class="intro-y text-lg font-medium mr-auto mt-2">Wiki Settings</h2>
+      <h2 class="intro-y text-lg font-medium mr-auto mt-2">{{ $t('settings.header') }}</h2>
       <Sidebar :title="this.details.name"></Sidebar>
     </div>
     <div class="col-span-12 lg:col-span-9 xxl:col-span-10">
@@ -10,10 +10,10 @@
           tag="a"
           href="javascript:;"
           class="tooltip btn px-2 box text-gray-700 dark:text-gray-300"
-          content="This is the mail wiki settings, here you can change connection settings to the mail server. Please be careful what you do, because these settings can damage your system!"
+          :content="$t('settings.informations_text')"
         >
           <span class="flex items-center justify-center">
-            <InfoIcon class="w-5 h-5 mr-2"/>Informations
+            <InfoIcon class="w-5 h-5 mr-2"/>{{ $t('settings.informations') }}
           </span>
         </Tippy>
       </div>
@@ -29,17 +29,17 @@
             <div class="modal-body p-0">
               <div class="p-5 text-center">
                 <AlertCircleIcon class="w-16 h-16 text-theme-6 mx-auto mt-3" />
-                <div class="text-3xl mt-5">Are you sure?</div>
+                <div class="text-3xl mt-5">{{ $t('messages.you_sure') }}</div>
                 <div class="text-gray-600 mt-2">
-                  Are you really sure you want to change the email connection <br>information, this can do a lot of damage!
+                  {{ $t('settings.change_email_connection') }}
                 </div>
               </div>
               <div class="px-5 pb-8 text-center">
                 <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-24 dark:border-dark-5 dark:text-gray-300 mr-1">
-                  Cancel
+                  {{ $t('utils.cancel') }}
                 </button>
                 <button type="button" data-dismiss="modal" @click="changeMail" class="btn btn-danger w-24">
-                  Submit
+                  {{ $t('utils.submit') }}
                 </button>
               </div>
             </div>
@@ -50,7 +50,7 @@
       <!-- BEGIN: Database Settings -->
       <div class="intro-y inbox box mt-5">
         <div class="p-5 flex flex-col-reverse sm:flex-row text-gray-600 border-b border-gray-200 dark:border-dark-1">
-          <h2 class="font-medium text-base mr-auto">Mail Settings</h2>
+          <h2 class="font-medium text-base mr-auto">{{ $t('settings.mail_settings') }}</h2>
         </div>
         <div class="overflow-x-auto sm:overflow-x-visible">
           <div class="intro-y p-5">
@@ -61,13 +61,12 @@
                     <div class="col-span-12 xxl:col-span-12">
                       <div class="mb-5">
                         <label for="update-mail-hostname" class="form-label">
-                          Hostname
+                          {{ $t('settings.hostname') }}
                         </label>
                         <input
                           id="update-mail-hostname"
                           type="text"
                           class="form-control"
-                          placeholder="Enter Hostname"
                           v-model="mail.hostname"
                         />
                       </div>
@@ -75,13 +74,12 @@
                     <div class="col-span-12 xxl:col-span-6 mb-5">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-encryption" class="form-label">
-                          Encryption
+                          {{ $t('settings.encryption') }}
                         </label>
                         <input
                           id="update-mail-encryption"
                           type="text"
                           class="form-control"
-                          placeholder="Enter Encryption"
                           v-model="mail.encryption"
                         />
                       </div>
@@ -89,13 +87,12 @@
                     <div class="col-span-12 xxl:col-span-6 mb-5">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-port" class="form-label">
-                          Port
+                          {{ $t('settings.port') }}
                         </label>
                         <input
                           id="update-mail-port"
                           type="number"
                           class="form-control"
-                          placeholder="Enter Port"
                           v-model="mail.port"
                         />
                       </div>
@@ -106,13 +103,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-username" class="form-label">
-                          Username
+                          {{ $t('attributes.username') }}
                         </label>
                         <input
                           id="update-mail-username"
                           type="text"
                           class="form-control"
-                          placeholder="Enter Username"
                           v-model="mail.username"
                         />
                       </div>
@@ -120,13 +116,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-password" class="form-label">
-                          Password
+                          {{ $t('attributes.password') }}
                         </label>
                         <input
                           id="update-mail-password"
                           type="password"
                           class="form-control"
-                          placeholder="Enter Password"
                           v-model="mail.password"
                         />
                       </div>
@@ -137,13 +132,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-from_name" class="form-label">
-                          Sender`s Name
+                          {{ $t('settings.senders_name') }}
                         </label>
                         <input
                           id="update-mail-from_name"
                           type="text"
                           class="form-control"
-                          placeholder="Enter sender`s name"
                           v-model="mail.from_name"
                         />
                       </div>
@@ -151,13 +145,12 @@
                     <div class="col-span-12 xxl:col-span-6">
                       <div class="mt-3 xxl:mt-0">
                         <label for="update-mail-from_address" class="form-label">
-                          Sender`s Email
+                          {{ $t('settings.senders_email') }}
                         </label>
                         <input
                           id="update-mail-from_address"
                           type="password"
                           class="form-control"
-                          placeholder="Enter sender`s email"
                           v-model="mail.from_address"
                         />
                       </div>
@@ -165,10 +158,7 @@
                   </div>
                   <div class="flex justify-end mt-4">
                     <a href="javascript:;" data-toggle="modal" data-target="#submit-mail-modal" class="btn btn-danger w-20 mr-auto">
-                      Save
-                    </a>
-                    <a href="javascript:;" class="btn btn-primary w-35">
-                      Send Testmail
+                      {{ $t('utils.save') }}
                     </a>
                   </div>
                 </div>
@@ -178,7 +168,7 @@
         </div>
         <div class="p-3 flex flex-col sm:flex-row items-center text-center sm:text-left text-gray-600">
           <div class="sm:ml-auto mt-5 sm:mt-0 dark:text-gray-300">
-            Please be aware of what you are doing here. These settings can cause a lot of damage!
+            {{ $t('settings.be_aware') }}
           </div>
         </div>
       </div>
@@ -217,9 +207,6 @@ export default defineComponent({
       validation_error: {}
     }
   },
-  mounted() {
-    console.log('Wikisettings')
-  },
   methods: {
     changeMail() {
       const loader = this.$loading.show()
@@ -233,8 +220,7 @@ export default defineComponent({
         from_name: this.from_name
       })
         .then(response => {
-          console.log(response)
-          toast.success('Connection successfully updated')
+          toast.success(response.data.message)
           loader.hide()
         })
         .catch(error => {

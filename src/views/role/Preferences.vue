@@ -1,22 +1,24 @@
 <template>
   <div>
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">Edit Role</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('roles.edit_role') }}</h2>
       <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
         <button type="button" @click="editRole" class="btn box text-gray-700 dark:text-gray-300 mr-2 flex items-center ml-auto sm:ml-0">
-          <SaveIcon class="w-4 h-4 mr-2"/> Save
+          <SaveIcon class="w-4 h-4 mr-2"/>
+          {{ $t('utils.save') }}
         </button>
         <div class="dropdown">
           <button
             class="dropdown-toggle btn btn-primary shadow-md flex items-center"
             aria-expanded="false"
           >
-            <SettingsIcon class="w-4 h-4 mr-2"></SettingsIcon> Settings <ChevronDownIcon class="w-4 h-4 ml-2" />
+            <SettingsIcon class="w-4 h-4 mr-2"></SettingsIcon>
+            {{ $t('utils.settings') }} <ChevronDownIcon class="w-4 h-4 ml-2" />
           </button>
           <div class="dropdown-menu w-40">
             <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
               <a href="#" @click="deleteRole" aria-expanded="false" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                <Trash2Icon class="w-4 h-4 mr-2"/> Delete Role
+                <Trash2Icon class="w-4 h-4 mr-2"/> {{ $t('utils.delete') }}
               </a>
             </div>
           </div>
@@ -33,19 +35,19 @@
           <!-- BEGIN: Role Title/Color -->
           <div class="grid lg:grid-cols-2 gap-6">
             <div>
-              <label for="form-role-name" class="form-label">Name</label>
-              <input id="form-role-name" type="text" class="form-control h-10" placeholder="Role Name" v-model="role.name"/>
+              <label for="form-role-name" class="form-label">{{ $t('attributes.name') }}</label>
+              <input id="form-role-name" type="text" class="form-control h-10" v-model="role.name"/>
             </div>
             <div>
-              <label for="form-role-color" class="form-label">Color</label>
-              <input id="form-role-color" type="color" class="form-control h-10" placeholder="Role Color" v-model="role.color"/>
+              <label for="form-role-color" class="form-label">{{ $t('attributes.color') }}</label>
+              <input id="form-role-color" type="color" class="form-control h-10" v-model="role.color"/>
             </div>
           </div>
           <!-- END: Role Title/Color -->
           <br>
           <!-- BEGIN: Role Description -->
           <div>
-            <label for="form-role-description" class="form-label">Description</label>
+            <label for="form-role-description" class="form-label">{{ $t('attributes.description') }}</label>
             <textarea autocomplete="false" tabindex="0" id="form-role-description" type="text" class="form-control" v-model="role.description"/>
           </div>
           <!-- END: Role Description -->
@@ -53,10 +55,10 @@
 
           <!-- BEGIN: Default role -->
           <div>
-            <label for="form-role-description" class="form-label">Default Role</label>
+            <label for="form-role-description" class="form-label">{{ $t('roles.default_role') }}</label>
             <div class="form-control">
               <div class="flex justify-between">
-                <p class="self-center">Is the role a default user role?</p>
+                <p class="self-center">{{ $t('roles.is_default_role') }}</p>
                 <p class="focus:text-indigo-800 focus:outline-none text-sm leading-normal cursor-pointer text-right self-justify-end">
                   <input class="form-check-switch self-center" type="checkbox" v-model="role.is_default" :checked="role.is_default">
                 </p>
@@ -103,7 +105,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.delete('roles/' + this.role.id)
         .then(response => {
-          toast.success('Role deleted successfully')
+          toast.success(response.data.message)
           loader.hide()
           this.$router.push({ name: 'admin.roles' })
         })
@@ -122,7 +124,7 @@ export default defineComponent({
         is_default: !!this.role.is_default
       })
         .then(response => {
-          toast.success('Role edited successfully')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchRole(this.role.id)
         })
@@ -136,7 +138,6 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.get('roles/' + id)
         .then(response => {
-          console.error(response)
           this.role = response.data.data
           loader.hide()
         })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="intro-y flex items-center mt-8">
-      <h2 class="text-lg font-medium mr-auto">User Account</h2>
+      <h2 class="text-lg font-medium mr-auto">{{ $t('accounts.bans') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
       <!-- BEGIN: Sidebar -->
@@ -28,7 +28,7 @@
             </div>
             <div class="mt-6 lg:mt-0 flex-1 dark:text-gray-300 px-5 border-l border-r border-gray-200 dark:border-dark-5 border-t lg:border-t-0 pt-5 lg:pt-0">
               <div class="font-medium text-center lg:text-left lg:mt-3">
-                User Details
+                {{ $t('utils.contact_details') }}
               </div>
               <div class="flex flex-col justify-center items-center lg:items-start mt-4">
                 <div class="truncate sm:whitespace-normal flex items-center">
@@ -38,7 +38,8 @@
                   <ShieldIcon class="w-4 h-4 mr-2"/>{{ this.user.role?.name }}
                 </div>
                 <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                  <HashIcon class="w-4 h-4 mr-2"/>User-ID: {{ this.user.id }}
+                  <HashIcon class="w-4 h-4 mr-2"/>
+                  {{ $t('utils.user_id', { id: this.user.id }) }}
                 </div>
               </div>
             </div>
@@ -47,19 +48,19 @@
                 <div class="font-medium text-theme-1 dark:text-theme-10 text-xl">
                   {{ this.banCount?.global }}
                 </div>
-                <div class="text-gray-600">Global Bans</div>
+                <div class="text-gray-600">{{ $t('bans.global_ban') }}</div>
               </div>
               <div class="text-center rounded-md w-40 py-3">
                 <div class="font-medium text-theme-1 dark:text-theme-10 text-xl">
                   {{ this.banCount?.comments }}
                 </div>
-                <div class="text-gray-600">Comment Bans</div>
+                <div class="text-gray-600">{{ $t('bans.comment_ban') }}</div>
               </div>
               <div class="text-center rounded-md w-40 py-3">
                 <div class="font-medium text-theme-1 dark:text-theme-10 text-xl">
                   {{ this.banCount?.posts }}
                 </div>
-                <div class="text-gray-600">Posting Bans</div>
+                <div class="text-gray-600">{{ $t('bans.posting_ban') }}</div>
               </div>
             </div>
           </div>
@@ -74,7 +75,8 @@
               aria-controls="settings"
               aria-selected="true"
             >
-              <SlidersIcon class="w-4 h-4 mr-2" /> Settings
+              <SlidersIcon class="w-4 h-4 mr-2" />
+              {{ $t('accounts.settings') }}
             </a>
             <a
               id="history-tab"
@@ -85,7 +87,8 @@
               role="tab"
               aria-selected="false"
             >
-              <ArchiveIcon class="w-4 h-4 mr-2" /> History
+              <ArchiveIcon class="w-4 h-4 mr-2" />
+              {{ $t('accounts.history') }}
             </a>
           </div>
         </div>
@@ -102,8 +105,9 @@
               <!-- BEGIN: Latest Uploads -->
               <div class="intro-y box col-span-12 lg:col-span-8">
                 <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-                  <h2 class="font-medium text-base mr-auto">Create Ban</h2>
-                  <button class="btn btn-primary btn-sm ml-auto" @click="createBan(this.ban)"><SendIcon class="w-4 h-4 mr-3"></SendIcon>Submit</button>
+                  <h2 class="font-medium text-base mr-auto">{{ $t('accounts.create_ban') }}</h2>
+                  <button class="btn btn-primary btn-sm ml-auto" @click="createBan(this.ban)"><SendIcon class="w-4 h-4 mr-3"></SendIcon>
+                    {{ $t('utils.submit') }}</button>
                 </div>
                 <div class="p-5">
                   <div class="flex flex-col-reverse xl:flex-row flex-col">
@@ -112,13 +116,12 @@
                         <div class="col-span-12 xxl:col-span-12 mb-4">
                           <div>
                             <label for="create-reason-ban" class="form-label">
-                              Reason
+                              {{ $t('attributes.reason') }}
                             </label>
                             <input
                               id="create-reason-ban"
                               type="text"
                               :class="'form-control' + (this.validation_error?.reason != null ? ' border-theme-6' : '')"
-                              placeholder="Enter ban reason"
                               v-model="ban.reason"
                             />
                             <div v-if="this.validation_error?.reason != null" class="text-theme-6 mt-2 mb-4">
@@ -129,12 +132,11 @@
                         <div class="col-span-12 xxl:col-span-12 mb-4">
                           <div>
                             <label for="create-description-ban" class="form-label">
-                              Description
+                              {{ $t('attributes.description') }}
                             </label>
                             <textarea
                               id="create-description-ban"
                               :class="'form-control' + (this.validation_error?.reason != null ? ' border-theme-6' : '')"
-                              placeholder="Enter a ban description"
                               v-model="ban.description"
                             />
                             <div v-if="this.validation_error?.description != null" class="text-theme-6 mt-2 mb-4">
@@ -145,7 +147,7 @@
                         <div class="col-span-12 xxl:col-span-6 mb-4">
                           <div>
                             <label for="create-date-ban" class="form-label">
-                              Unban Date
+                              {{ $t('attributes.unban_date') }}
                             </label>
                             <input
                               id="create-date-ban"
@@ -161,7 +163,7 @@
                         <div class="col-span-12 xxl:col-span-6 mb-4">
                           <div>
                             <label for="create-time-ban" class="form-label">
-                              Ban Time
+                              {{ $t('attributes.ban_time') }}
                             </label>
                             <input
                               id="create-time-ban"
@@ -177,7 +179,7 @@
                         <div class="col-span-12 xxl:col-span-6 mb-4">
                           <div>
                             <label for="update-type-ban" class="form-label">
-                              Ban type
+                              {{ $t('attributes.ban_type') }}
                             </label>
                             <TailSelect
                               id="update-type-ban"
@@ -187,9 +189,9 @@
                                 classNames: 'w-full'
                               }"
                             >
-                              <option value="0" :selected="ban.type === 0">Global Ban</option>
-                              <option value="1" :selected="ban.type === 1">Comment Ban</option>
-                              <option value="2" :selected="ban.type === 2">Posting Ban</option>
+                              <option value="0" :selected="ban.type === 0">{{ $t('bans.global_ban') }}</option>
+                              <option value="1" :selected="ban.type === 1">{{ $t('bans.comment_ban') }}</option>
+                              <option value="2" :selected="ban.type === 2">{{ $t('bans.posting_ban') }}</option>
                             </TailSelect>
                             <div v-if="this.validation_error?.type != null" class="text-theme-6 mt-2 mb-4">
                               {{ this.validation_error?.type[0] }}
@@ -199,7 +201,7 @@
                         <div class="col-span-12 xxl:col-span-3 mb-4">
                           <div>
                             <label for="create-target-ban" class="form-label">
-                              Target
+                              {{ $t('attributes.target') }}
                             </label>
                             <input
                               id="create-target-ban"
@@ -213,7 +215,7 @@
                         <div class="col-span-12 xxl:col-span-3 mb-4">
                           <div>
                             <label for="create-staff-ban" class="form-label">
-                              Staff
+                              {{ $t('attributes.staff') }}
                             </label>
                             <input
                               id="create-staff-ban"
@@ -231,7 +233,7 @@
               </div>
               <div class="intro-y box col-span-12 lg:col-span-4">
                 <div class="flex items-center p-3 border-b border-gray-200 dark:border-dark-5">
-                  <h2 class="font-medium text-base mr-auto">Current Ban</h2>
+                  <h2 class="font-medium text-base mr-auto">{{ $t('bans.current_ban_state') }}</h2>
                 </div>
                 <div class="p-5">
                   <div class="flex flex-col-reverse xl:flex-row flex-col">
@@ -240,30 +242,33 @@
                         <div class="col-span-12">
                           <div v-if="this.isBanned === false" class="p-5 text-center">
                             <CheckCircleIcon class="w-16 h-16 text-theme-9 mx-auto mt-3"/>
-                            <div class="text-3xl mt-5">Unbanned</div>
+                            <div class="text-3xl mt-5">{{ $t('bans.unbanned') }}</div>
                             <div class="text-gray-600 mt-2">
-                              This user is currently Unbanned!
+                              {{ $t('bans.unbanned_subtitle') }}
                             </div>
                           </div>
                           <div v-else class="p-5 text-center">
                             <XCircleIcon class="w-16 h-16 text-theme-6 mx-auto mt-3"/>
-                            <div class="text-3xl mt-5">Banned</div>
+                            <div class="text-3xl mt-5">{{ $t('bans.banned') }}</div>
                             <div class="text-gray-600 mt-2">
-                              This user is currently Banned!
+                              {{ $t('bans.banned_subtitle') }}
                               <hr class="mt-4">
                               <div class="mt-4 flex-1 dark:text-gray-300 px-5 pt-5 lg:pt-0">
                                 <div class="font-medium text-center lg:text-left lg:mt-3">
-                                  Most recent Ban:
+                                  {{ $t('bans.most_recent_ban') }}
                                 </div>
                                 <div class="flex flex-col justify-center items-center lg:items-start mt-4">
                                   <div class="truncate sm:whitespace-normal flex items-center">
-                                    <LockIcon class="w-4 h-4 mr-2"/>Type: {{ this.lastBan.type === 0 ? 'Global Ban' : this.lastBan.type === 1 ? 'Comment Ban' : 'Post Ban' }}
+                                    <LockIcon class="w-4 h-4 mr-2"/>
+                                    {{ $t('attributes.type') }}: {{ this.lastBan.type === 0 ? $t('bans.global_ban') : this.lastBan.type === 1 ? $t('bans.comment_ban') : $t('bans.posting_ban') }}
                                   </div>
                                   <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                                    <AlignLeftIcon class="w-4 h-4 mr-2"/>Reason: {{ this.lastBan.reason }}
+                                    <AlignLeftIcon class="w-4 h-4 mr-2"/>
+                                    {{ $t('attributes.reason') }}: {{ this.lastBan.reason }}
                                   </div>
                                   <div class="truncate sm:whitespace-normal flex items-center mt-3">
-                                    <ClockIcon class="w-4 h-4 mr-2"/>Until: {{ this.lastBan.ban_until }}
+                                    <ClockIcon class="w-4 h-4 mr-2"/>
+                                    {{ $t('attributes.until') }}: {{ this.lastBan.ban_until }}
                                   </div>
                                 </div>
                               </div>
@@ -288,9 +293,9 @@
                 <div class="box">
                   <div class="p-5 text-center">
                     <ArchiveIcon class="w-16 h-16 text-theme-1 mx-auto mt-5"/>
-                    <div class="text-3xl mt-5">No recent Bans</div>
+                    <div class="text-3xl mt-5">{{ $t('bans.no_recent_bans') }}</div>
                     <div class="text-gray-600 mt-2 mb-5">
-                      This user have no recent bans!
+                      {{ $t('bans.no_recent_bans_subtitle') }}
                     </div>
                   </div>
                 </div>
@@ -312,17 +317,17 @@
                     <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
                       <a href="" class="font-medium">{{ ban.reason }}</a>
                       <div class="text-gray-600 text-xs mt-0.5">
-                        {{ ban.staff?.name ? ban.staff?.name : 'Unknown' }}
+                        {{ ban.staff?.name ? ban.staff?.name : $t('attributes.unknown') }}
                       </div>
                     </div>
                     <div class="lg:ml-2 text-center mt-3 lg:mt-0">
-                      <small v-if="ban.active"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">Active</span></small>
-                      <small v-else><span class="px-2 py-1 rounded-full bg-theme-6 text-white mr-1">Closed</span></small>
+                      <small v-if="ban.active"><span class="px-2 py-1 rounded-full bg-theme-9 text-white mr-1">{{ $t('attributes.active') }}</span></small>
+                      <small v-else><span class="px-2 py-1 rounded-full bg-theme-6 text-white mr-1">{{ $t('attributes.closed') }}</span></small>
                     </div>
                     <div class="flex mt-4 lg:mt-0">
                       <router-link :to="{ name: 'admin.ban', params: { 'id': ban.id } }">
                         <button class="btn btn-outline-secondary py-1 px-2">
-                          View
+                          {{ $t('utils.view') }}
                         </button>
                       </router-link>
                     </div>
@@ -384,9 +389,8 @@ export default defineComponent({
           this.user_role = response.data.data.role.id
           loader.hide()
         })
-        .catch(error => {
+        .catch(() => {
           loader.hide()
-          console.error(error)
         })
     },
     fetchBanCount(id) {
@@ -411,8 +415,7 @@ export default defineComponent({
           loader.hide()
           this.fetchBanCount(id)
         })
-        .catch(error => {
-          console.error(error)
+        .catch(() => {
           loader.hide()
         })
     },
@@ -426,7 +429,7 @@ export default defineComponent({
       })
         .then(response => {
           loader.hide()
-          toast.success('Ban successfully created')
+          toast.success(response.data.message)
           this.fetchBans(this.$route.params.id)
         })
         .catch(error => {

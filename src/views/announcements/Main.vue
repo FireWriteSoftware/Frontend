@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="intro-y text-lg font-medium mt-10">Announcements</h2>
+    <h2 class="intro-y text-lg font-medium mt-10">{{ $t('pages.announcements') }}</h2>
     <!-- BEGIN: Create Announcement Modal -->
     <div id="create-announcement-modal" data-backdrop="static" class="modal" tabindex="-1" aria-hidden="true" v-show="modalState.create" @hide="modalState.create = false">
       <div class="modal-dialog">
@@ -8,20 +8,20 @@
           <div class="modal-content">
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Create a new Announcement
+                {{ $t('announcements.create_announcement') }}
               </h2>
             </div>
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="create-announcement-modal-name" class="form-label">Title</label>
-                <input id="create-announcement-modal-name" type="text" class="form-control" placeholder="Your Title" v-model="announcement.title"/>
+                <label for="create-announcement-modal-name" class="form-label">{{ $t('attributes.title') }}</label>
+                <input id="create-announcement-modal-name" type="text" class="form-control" v-model="announcement.title"/>
               </div>
               <div class="col-span-12">
-                <label for="create-announcement-modal-description" class="form-label">Description</label>
-                <textarea id="create-announcement-modal-description" class="form-control" placeholder="Your Content" v-model="announcement.description"/>
+                <label for="create-announcement-modal-description" class="form-label">{{ $t('attributes.description') }}</label>
+                <textarea id="create-announcement-modal-description" class="form-control" v-model="announcement.description"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -35,10 +35,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Create
+                {{ $t('utils.create') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
@@ -54,20 +54,20 @@
           <div class="modal-content">
             <div class="modal-header">
               <h2 class="font-medium text-base mr-auto">
-                Edit a Announcement
+                {{ $t('announcements.edit_announcement') }}
               </h2>
             </div>
             <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
               <div class="col-span-12">
-                <label for="edit-announcement-modal-name" class="form-label">Title</label>
-                <input id="edit-announcement-modal-name" type="text" class="form-control" placeholder="Your Title" v-model="edit_announcement.title"/>
+                <label for="edit-announcement-modal-name" class="form-label">{{ $t('attributes.title') }}</label>
+                <input id="edit-announcement-modal-name" type="text" class="form-control" v-model="edit_announcement.title"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-announcement-modal-description" class="form-label">Description</label>
-                <textarea id="edit-announcement-modal-description" class="form-control" placeholder="Your Content" v-model="edit_announcement.description"/>
+                <label for="edit-announcement-modal-description" class="form-label">{{ $t('attributes.content') }}</label>
+                <textarea id="edit-announcement-modal-description" class="form-control" v-model="edit_announcement.description"/>
               </div>
               <div class="col-span-12" v-show="this.validation_error !== null">
-                <h5 class="text-lg font-medium mr-auto">The following errors have occurred</h5>
+                <h5 class="text-lg font-medium mr-auto">{{ $t('messages.following_errors') }}</h5>
                 <ul class="list-disc mx-5">
                   <div class="text-theme-6 mt-2 mb-4">
                     <li v-for="error_message in this.validation_error" v-bind:key="error_message">
@@ -79,10 +79,10 @@
             </div>
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                Cancel
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                Save
+                {{ $t('utils.save') }}
               </button>
             </div>
           </div>
@@ -110,14 +110,14 @@
         </a>
 
         <div class="hidden md:block mx-auto text-gray-600">
-          Showing {{ this.pagination.showing_from }} to {{ this.pagination.showing_to }} of {{ this.pagination.total }} entries
+          {{ $t('utils.dataset_overview', { from: this.pagination.showing_from, to: this.pagination.showing_to, total: this.pagination.total }) }}
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
           <div class="w-56 relative text-gray-700 dark:text-gray-300">
             <input
               type="text"
               class="form-control w-56 box pr-10 placeholder-theme-13"
-              placeholder="Search..."
+              :placeholder="$t('utils.search')"
               v-model="this.search.announcement"
               @change="this.fetchAnnouncements(this.search.announcement ? 'announcements?search=' + this.search.announcement : 'announcements')"
             />
@@ -148,7 +148,7 @@
               <a class="text-theme-1 dark:text-theme-10 inline-block truncate">
                 {{ announce.user.role?.name }}
               </a>
-              <span class="mx-1">•</span> {{ announce.created_at }}
+              <span class="mx-1">•</span> {{ formatDate(announce.created_at) }}
             </div>
           </div>
           <div class="dropdown ml-3">
@@ -164,13 +164,15 @@
                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"
                    @click="this.edit_announcement = announce; modalState.edit = true"
                 >
-                  <EditIcon class="w-4 h-4 mr-2"/> Edit
+                  <EditIcon class="w-4 h-4 mr-2"/>
+                  {{ $t('utils.edit') }}
                 </a>
                 <a href="javascript:;"
                    @click="deleteAnnouncement(announce.id)"
                    data-dismiss="dropdown"
                    class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
-                  <Trash2Icon class="w-4 h-4 mr-2"/> Delete
+                  <Trash2Icon class="w-4 h-4 mr-2"/>
+                  {{ $t('utils.delete') }}
                 </a>
               </div>
             </div>
@@ -187,7 +189,7 @@
         <div class="px-5 pt-3 pb-5 border-t border-gray-200 dark:border-dark-5">
           <div class="w-full flex text-gray-600 text-xs sm:text-sm">
             <div class="mr-2">
-              Last update: <span class="font-medium">{{ announce.updated_at }}</span>
+              {{ $t('attributes.updated_at') }}: <span class="font-medium">{{ formatDate(announce.updated_at) }}</span>
             </div>
           </div>
         </div>
@@ -208,7 +210,7 @@
               </button>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
-              <a class="font-bold">Page {{ pagination.current_page }} / {{ pagination.last_page }}</a>
+              <a class="font-bold">{{ $t('utils.pagination', { first: pagination.current_page, last: pagination.last_page }) }}</a>
             </li>
             <li class="mx-1 px-3 py-2 bg-gray-200 dark:bg-dark-5 dark:hover:bg-dark-7 dark:text-gray-200 dark:hover:text-gray-600 text-gray-700 hover:bg-gray-700 hover:text-gray-200 rounded-lg">
               <button class="flex items-center font-bold" @click="this.search.announcement ? fetchAnnouncements(pagination.next_page_url + '&search=' + this.search.announcement) : fetchAnnouncements(pagination.next_page_url)" :disabled="!pagination.next_page_url">
@@ -232,6 +234,7 @@
 import { defineComponent } from 'vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification'
+import moment from 'moment'
 const toast = useToast()
 
 export default defineComponent({
@@ -239,17 +242,9 @@ export default defineComponent({
     return {
       pagination: {},
       announcements: [],
-      announcement: {
-        title: 'New Title',
-        description: 'New Description'
-      },
-      search: {
-        announcement: ''
-      },
-      edit_announcement: {
-        title: 'New Title',
-        description: 'New Description'
-      },
+      announcement: {},
+      search: {},
+      edit_announcement: {},
       validation_error: null,
       modalState: {
         create: false,
@@ -278,7 +273,7 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.delete('announcements/' + id)
         .then(response => {
-          toast.success('Announcement successfully deleted')
+          toast.success(response.data.message)
           loader.hide()
           this.fetchAnnouncements('announcements?page=' + this.pagination.current_page)
         })
@@ -295,7 +290,7 @@ export default defineComponent({
         description: announcement.description
       })
         .then(response => {
-          toast.success('Announcement added successfully')
+          toast.success(response.data.message)
           this.modalState.create = false
           loader.hide()
           this.fetchAnnouncements('announcements?page=' + this.pagination.current_page)
@@ -313,7 +308,7 @@ export default defineComponent({
         description: this.edit_announcement.description
       })
         .then(response => {
-          toast.success('Announcement updated successfully')
+          toast.success(response.data.message)
           this.modalState.edit = false
           loader.hide()
           this.fetchAnnouncements('announcements?page=' + this.pagination.current_page)
@@ -337,6 +332,9 @@ export default defineComponent({
         total: meta.total
       }
       this.pagination = pagination
+    },
+    formatDate(timeString) {
+      return moment(String(timeString)).format('MMM Do YYYY')
     }
   }
 })

@@ -8,10 +8,10 @@
           </div>
           <div class="mt-3">
             <div class="font-medium">
-              Warning!
+              {{ $t('utils.warning') }}
             </div>
             <div class="text-gray-600 mt-1">
-              Please select a notification to receive more information
+              {{ $t('notifications.select_notification') }}
             </div>
           </div>
         </div>
