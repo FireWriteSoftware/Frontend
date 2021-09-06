@@ -6,30 +6,17 @@
       <div class="text-base sm:text-lg font-medium">
         {{ $t('single_post.comments') }}
       </div>
-      <!-- BEGIN: Comment Tooltip -->
-      <div class="justify-end" v-show="!this.user.email_verified_at">
-        <TippyContent to="custom-tooltip-content">
-          <div class="items-center">
-            <div class="text-theme-6">
-              {{ $t('single_post.verify_email') }}
-            </div>
-          </div>
-        </TippyContent>
-      </div>
-      <!-- END: Comment Tooltip -->
       <form @submit.prevent="writeComment()">
         <div class="news__input relative mt-5">
-          <MessageCircleIcon class="w-5 h-5 absolute my-auto inset-y-0 ml-6 left-0 text-gray-600"/>
           <input
             type="text"
-            class="form-control border-transparent bg-gray-300 pl-16 py-6 placeholder-theme-13 resize-none"
-            :disabled="!this.user.email_verified_at"
+            class="form-control border-transparent bg-gray-300 py-6 placeholder-theme-13 resize-none"
             :placeholder="$t('single_post.post_comment')"
             v-model='new_comment'
           >
-          <Button type="submit" :name="!this.user.email_verified_at ? 'custom-tooltip-content' : 'write-comment'" :class="!this.user.email_verified_at ? 'tooltip' : ''">
+          <button type="submit">
             <SendIcon class="w-5 h-5 absolute my-auto inset-y-0 mr-6 right-0 text-gray-600"/>
-          </Button>
+          </button>
         </div>
       </form>
     </div>
@@ -90,6 +77,7 @@ export default {
       comments: []
     }
   },
+  props: ['post'],
   mounted() {
     this.user = JSON.parse(localStorage.getItem('user'))
     this.loadComments('posts/' + this.$route.params.id + '/comments?per_page=5')
@@ -105,9 +93,7 @@ export default {
           this.loading_comments = false
           this.makePagination(response.data.meta, response.data.links)
         })
-        .catch(error => {
-          console.error(error)
-        })
+        .catch()
     },
     makePagination(meta, links) {
       const pagination = {
@@ -124,16 +110,17 @@ export default {
       this.pagination = pagination
     },
     writeComment() {
-      if (this.user.email_verified_at && this.new_comment.length > 0) {
+      if (this.new_comment.length > 0) {
         axios.post('posts/' + this.$route.params.id + '/comments', {
           content: this.new_comment
         })
           .then(response => {
-            this.post.comments.push(response.data.data)
-            toast.success('Comment has successfully been posted.')
+            toast.success(response.data.message)
+            this.new_comment = ''
+            this.comments.push(response.data.data)
           })
           .catch(error => {
-            console.error(error)
+            toast.error(error.response.data.message)
           })
       }
     }

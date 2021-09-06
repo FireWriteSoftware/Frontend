@@ -393,7 +393,7 @@
     "pages": {
       "single_post": "View Post",
       "categories": "Categories",
-      "subcategories": "Subcategory",
+      "subcategory": "Subcategory",
       "search": "Search Page",
       "terms_of_service": "Terms of Service",
       "privacy_policy": "Privacy Policy",
