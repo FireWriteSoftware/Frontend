@@ -625,7 +625,7 @@ router.beforeEach(async (to, from, next) => {
     })
   }
 
-  document.title = toWithMeta.meta.title || process.env.BASE_URL
+  document.title = process.env.BASE_URL
 
   next()
 })
