@@ -38,7 +38,7 @@
                 <component :is="menu.icon" />
               </div>
               <div class="menu__title">
-                {{ menu.title }}
+                {{ $t(menu.title) }}
                 <div
                   v-if="menu.subMenu"
                   class="menu__sub-icon"
@@ -65,7 +65,7 @@
                       <component :is="subMenu.icon" />
                     </div>
                     <div class="menu__title">
-                      {{ subMenu.title }}
+                      {{ $t(subMenu.title) }}
                       <div
                         v-if="subMenu.subMenu"
                         class="menu__sub-icon"
@@ -94,7 +94,7 @@
                             <component :is="lastSubMenu.icon" />
                           </div>
                           <div class="menu__title">
-                            {{ lastSubMenu.title }}
+                            {{ $t(lastSubMenu.title) }}
                           </div>
                         </a>
                       </li>

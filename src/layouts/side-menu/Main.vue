@@ -48,7 +48,7 @@
                   <component :is="menu.icon" />
                 </div>
                 <div class="side-menu__title">
-                  {{ menu.title }}
+                  {{ $t(menu.title) }}
                   <div
                     v-if="menu.subMenu"
                     class="side-menu__sub-icon"
@@ -81,7 +81,7 @@
                         <component :is="subMenu.icon" />
                       </div>
                       <div class="side-menu__title">
-                        {{ subMenu.title }}
+                        {{ $t(subMenu.title) }}
                         <div
                           v-if="subMenu.subMenu"
                           class="side-menu__sub-icon"
@@ -118,7 +118,7 @@
                               <component :is="lastSubMenuKey.icon" />
                             </div>
                             <div class="side-menu__title">
-                              {{ lastSubMenu.title }}
+                              {{ $t(lastSubMenu.title) }}
                             </div>
                           </SideMenuTooltip>
                         </li>
