@@ -138,10 +138,10 @@
             <!-- BEGIN: Modal Footer -->
             <div class="modal-footer text-right">
               <button type="button" data-dismiss="modal" class="btn btn-outline-secondary w-20 mr-1">
-                {{ $t('attributes.cancel') }}
+                {{ $t('utils.cancel') }}
               </button>
               <button type="submit" class="btn btn-primary w-20">
-                {{ $t('attributes.save') }}
+                {{ $t('utils.save') }}
               </button>
             </div>
             <!-- END: Modal Footer -->
