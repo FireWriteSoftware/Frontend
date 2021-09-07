@@ -148,7 +148,10 @@
     "no_recent_notification": "Sie haben keine ungelesenen Benachrichtigungen!",
     "search_modal_no_result": "Es wurde nichts gefunden!",
     "select_other_query": "Bitte änderen Sie ihre Suchanfrage.",
-    "view_searchpage": "Suchmaschine anzeigen"
+    "view_searchpage": "Suchmaschine anzeigen",
+    "filter_posts": "Beiträge",
+    "filter_categories": "Kategorien",
+    "filter_authors": "Autoren"
   },
   "footer": {
     "copyright": "Urheberrecht",

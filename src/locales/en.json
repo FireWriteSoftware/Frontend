@@ -148,7 +148,10 @@
     "no_recent_notification": "No recent Notifications!",
     "search_modal_no_result": "Nothing found!",
     "select_other_query": "Please select another Keyword to search.",
-    "view_searchpage": "View Searchpage"
+    "filter_posts": "Posts",
+    "filter_categories": "Categories",
+    "filter_authors": "Authors"
+
   },
   "footer": {
     "copyright": "Copyright",
