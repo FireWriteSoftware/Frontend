@@ -80,6 +80,11 @@ const state = () => {
             title: 'navigation.administration.badges'
           },
           {
+            icon: 'LinkIcon',
+            pageName: 'admin.webhooks',
+            title: 'navigation.administration.webhooks'
+          },
+          {
             icon: 'UsersIcon',
             pageName: 'admin.accounts',
             title: 'navigation.administration.accounts'

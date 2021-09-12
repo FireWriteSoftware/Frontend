@@ -237,6 +237,14 @@
     "is_role_badge": "Ist es ein Rollenabzeichen?",
     "role_badge_subtitle": "Ein Rollenabzeichen ist mit einer Rolle verbunden"
   },
+  "webhooks": {
+    "link": "Link",
+    "overview": "Webhook Übersicht",
+    "add_webhook": "Neuen Webhook hinzufügen",
+    "create_webhook": "Erstelle ein neuen Webhook",
+    "edit_webhook": "Bearbeite ein Webhook",
+    "url": "URL"
+  },
   "accounts": {
     "create_account": "Erstelle ein neues Benutzerkonto",
     "add_account": "Neues Benutzerkonto hinzufügen",
@@ -388,6 +396,7 @@
       "roles": "Rollen",
       "permissions": "Berechtigungen",
       "badges": "Abzeichen",
+      "webhooks": "Webhooks",
       "accounts": "Benutzerkonten",
       "bans": "Sperren",
       "settings": "Einstellungen"
@@ -451,7 +460,8 @@
           "database": "Datenbank einstellungen",
           "mail": "Email einstellungen"
         },
-        "badges": "Abzeichen"
+        "badges": "Abzeichen",
+        "webhooks": "Webhooks"
       },
       "auth_pages": {
         "login": "Anmelden",

@@ -148,10 +148,10 @@
     "no_recent_notification": "No recent Notifications!",
     "search_modal_no_result": "Nothing found!",
     "select_other_query": "Please select another Keyword to search.",
+    "view_searchpage": "View Searchpage",
     "filter_posts": "Posts",
     "filter_categories": "Categories",
     "filter_authors": "Authors"
-
   },
   "footer": {
     "copyright": "Copyright",
@@ -236,6 +236,14 @@
     "edit_badge": "Edit a Badge",
     "is_role_badge": "Is role badge?",
     "role_badge_subtitle": "A role badge is conntected to a role"
+  },
+  "webhooks": {
+    "link": "Link",
+    "overview": "Webhook overview",
+    "add_webhook": "Add new Webhook",
+    "create_webhook": "Create a new Webhook",
+    "edit_webhook": "Edit a Webhook",
+    "url": "URL"
   },
   "bans": {
     "banned_by": "Banned by:",
@@ -389,6 +397,7 @@
       "roles": "Roles",
       "permissions": "Permissions",
       "badges": "Badges",
+      "webhooks": "Webhooks",
       "accounts": "Accounts",
       "bans": "Bans",
       "settings": "Settings"
@@ -436,6 +445,7 @@
         },
         "permissions": "Permissions",
         "bans": "Bans",
+        "webhooks": "Webhooks",
         "view_ban": "View Ban",
         "accounts": {
           "title": "Accounts",

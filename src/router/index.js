@@ -12,6 +12,7 @@ import Ban from '../views/ban/Main.vue'
 import Reports from '../views/reports/Main.vue'
 import Tags from '../views/tags/Main.vue'
 import Badges from '../views/badges/Main.vue'
+import Webhooks from '../views/webhooks/Main.vue'
 import PostAuthorization from '../views/post-authorization/Main.vue'
 import Announcements from '../views/announcements/Main.vue'
 import NotificationsLatest from '../views/notifications/Latest.vue'
@@ -368,6 +369,16 @@ const routes = [
         component: Badges,
         meta: {
           title: 'navigation.pages.administration.badges',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
+        path: 'webhooks',
+        name: 'admin.webhooks',
+        component: Webhooks,
+        meta: {
+          title: 'navigation.pages.administration.webhooks',
           auth: true,
           isAuth: false
         }
