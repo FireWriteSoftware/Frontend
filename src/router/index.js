@@ -48,6 +48,7 @@ import Search from '../views/search/Main'
 import TermsOfService from '../views/terms-of-service/Main'
 import PrivacyPolicy from '../views/privacy-policy/Main'
 import PostSingle from '../views/post/Main'
+import DocumentOverview from '../views/documents/Main'
 
 const routes = [
   {
