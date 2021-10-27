@@ -368,6 +368,7 @@
   "navigation": {
     "default": "Wiki",
     "categories": "Categories",
+    "documents": "Documents",
     "author": {
       "title": "Author",
       "create_post": "Create Post",
@@ -404,6 +405,7 @@
         "my_postings": "My Postings",
         "my_bookmarks": "My Bookmarks"
       },
+      "documents": "Documents",
       "moderation": {
         "title": "Moderation",
         "tags": "Tags",

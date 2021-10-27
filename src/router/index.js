@@ -92,6 +92,16 @@ const routes = [
         }
       },
       {
+        path: 'documents',
+        name: 'documents.overview',
+        component: DocumentOverview,
+        meta: {
+          title: 'navigation.pages.documents',
+          auth: true,
+          isAuth: false
+        }
+      },
+      {
         path: 'search',
         name: 'search',
         component: Search,
