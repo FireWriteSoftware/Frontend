@@ -154,11 +154,11 @@
     "filter_authors": "Autoren"
   },
   "footer": {
-    "copyright": "Urheberrecht",
+    "copyright": "Copyright",
     "rights_reserved": "Alle Rechte vorbehalten.",
     "help": "Hilfe",
     "privacy_policy": "Datenschutzbestimmungen",
-    "conditions": "Bedingungen",
+    "conditions": "AGB",
     "contact": "Kontakt"
   },
   "search_page": {
