@@ -17,8 +17,8 @@
     "post_settings": "Beitrag einstellungen",
     "post_title": "Titel",
     "post_content": "Inhalt",
-    "post_tags": "Beitrag Stichworte",
-    "edit_post_tags": "Beitrag Stichworte bearbeiten"
+    "post_tags": "Beitrag Tags",
+    "edit_post_tags": "Beitrag Tags bearbeiten"
   },
   "single_post": {
     "read_time": "{time} min. lesezeit",
@@ -172,10 +172,10 @@
     "returned_hits": "Ihre Suche ergab {count} treffer"
   },
   "tags": {
-    "overview": "Stichwort übersicht",
-    "add_tag": "Neues Stichwort",
-    "create_tag": "Erstelle ein neues Stichwort",
-    "edit_tag": "Bearbeite ein Stichwort"
+    "overview": "Tag übersicht",
+    "add_tag": "Neuer Tag",
+    "create_tag": "Erstelle ein neuer Tag",
+    "edit_tag": "Bearbeite ein Tag"
   },
   "announcements": {
     "create_announcement": "Erstelle eine neue Ankündigung",
@@ -271,7 +271,7 @@
     "slogan": "Kostenlos und OpenSource entwickelt von KRB-Development",
     "sign_in": "Anmeldung",
     "sign_in_subtitle": "Mit ein paar weiteren Klicks können Sie sich bei Ihrem Konto anmelden.",
-    "sign_up": "Regestrierung",
+    "sign_up": "Registrierung",
     "sign_up_subtitle": "Mit ein paar weiteren Klicks können Sie sich ein neues Konto anlegen.",
     "reset_password": "Passwort Zurücksetzen",
     "reset_password_subtitle": "Mit ein paar weiteren Klicks können Sie Ihr Kontopasswort zurücksetzen.",
@@ -385,7 +385,7 @@
     },
     "moderation" : {
       "title": "Moderation",
-      "tags": "Stichworte",
+      "tags": "Tags",
       "authorization": "Autorisierung",
       "announcements": "Ankündigungen",
       "reports": "Meldungen",
@@ -417,8 +417,8 @@
       },
       "moderation": {
         "title": "Moderation",
-        "tags": "Stichworte",
-        "announcements": "Anknüdigungen",
+        "tags": "Tags",
+        "announcements": "Ankündigungen",
         "reports": "Meldungen",
         "notifications": {
           "title": "Benachrichtigungen",
