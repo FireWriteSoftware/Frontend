@@ -57,7 +57,7 @@
                     <div class="font-medium">
                       {{ history?.title }}
                     </div>
-                    <div class="text-xs text-gray-500 ml-auto">{{ this.formatDate(history?.created_at) }}</div>
+                    <div class="text-xs text-gray-500 ml-auto">{{ formatDate(history?.created_at) }}</div>
                   </div>
                   <div class="text-gray-600 mt-1" v-html="history?.content"></div>
                 </div>
@@ -115,7 +115,7 @@
                 <div class="flex w-full items-center text-sm text-gray-300 font-medium">
                   <div class="flex-1 flex items-center">
                     <div class="flex text-gray-400 truncate text-xs">
-                      <span class="mx-1 self-center">{{ this.formatDate(this.post?.created_at) }} •</span>
+                      <span class="mx-1 self-center">{{ formatDate(post.created_at) }} •</span>
                       <router-link class="bg-theme-1 dark:bg-theme-1 text-white px-3 py-1 rounded-full" :to="{ name: 'categories.subcategory', params: { 'id': this.post?.parent?.id } }">
                         {{ this.post?.parent?.title }}
                       </router-link>
@@ -161,7 +161,7 @@
               </div>
             </div>
           </div>
-          <div class="intro-y text-justify leading-relaxed" v-html="this.post?.content"></div>
+          <div class="intro-y text-justify leading-relaxed overflow-x-auto" v-html="this.post?.content"></div>
           <!-- END: Blog Layout -->
         </div>
       </div>
@@ -257,7 +257,6 @@ export default defineComponent({
   },
   mounted() {
     this.testPagePermissions()
-    this.loadPost()
   },
   methods: {
     deletePost(id) {
@@ -386,6 +385,7 @@ export default defineComponent({
       })
         .then((response) => {
           this.permissions = response.data.data
+          this.loadPost()
         })
         .catch()
     },

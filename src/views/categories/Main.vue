@@ -74,7 +74,7 @@
                 :content="$t('categories.bookmark')"
                 v-on:click='this.addBookmark("category", category.id)'
               >
-                <BookmarkIcon class="w-5 h-5" />
+                <BookmarkIcon :class="[`w-5 h-5`, [category.is_bookmarked ? 'text-primary-1' : '']]" />
               </Tippy>
               <div class="mr-3 flex">
                 <FolderIcon class="mr-1 w-5 h-5"></FolderIcon><span class="font-medium">{{ $t('categories.category') }}</span>
@@ -153,7 +153,7 @@
                 content="$t('categories.bookmark')"
                 v-on:click='this.addBookmark("post", post.id)'
               >
-                <BookmarkIcon class="w-5 h-5" />
+                <BookmarkIcon :class="[`w-5 h-5`, [post.is_bookmarked ? 'text-primary-1' : '']]" />
               </Tippy>
               <div class="mr-3 flex">
                 <FileTextIcon class="mr-1 w-5 h-5"></FileTextIcon>
