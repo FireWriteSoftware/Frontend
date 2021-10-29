@@ -243,7 +243,8 @@
     "add_webhook": "Add new Webhook",
     "create_webhook": "Create a new Webhook",
     "edit_webhook": "Edit a Webhook",
-    "url": "URL"
+    "url": "URL",
+    "scopes": "Scopes"
   },
   "bans": {
     "banned_by": "Banned by:",
