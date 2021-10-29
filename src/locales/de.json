@@ -243,7 +243,8 @@
     "add_webhook": "Neuen Webhook hinzufügen",
     "create_webhook": "Erstelle ein neuen Webhook",
     "edit_webhook": "Bearbeite ein Webhook",
-    "url": "URL"
+    "url": "URL",
+    "scopes": "Bereiche"
   },
   "accounts": {
     "create_account": "Erstelle ein neues Benutzerkonto",
