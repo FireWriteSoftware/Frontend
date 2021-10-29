@@ -345,10 +345,7 @@ export default defineComponent({
   data() {
     return {
       badges: [],
-      pagination: {
-        links: {},
-        meta: {}
-      },
+      pagination: {},
       search: {
         badges: ''
       },
@@ -414,7 +411,7 @@ export default defineComponent({
         .then(response => {
           toast.success(response.data.message)
           this.modalState.create = false
-          this.fetchBadges('badges?page=' + this.pagination.meta.current_page)
+          this.fetchBadges('badges?page=' + this.pagination.current_page)
         })
         .catch(error => {
           this.validation_error = error.response.data.data.errors
@@ -436,7 +433,7 @@ export default defineComponent({
           toast.success(response.data.message)
           this.modalState.edit = false
           this.editModal = {}
-          this.fetchBadges('badges?page=' + this.pagination.meta.current_page)
+          this.fetchBadges('badges?page=' + this.pagination.current_page)
         })
         .catch(error => {
           this.validation_error = error.response.data.data.errors
@@ -447,7 +444,7 @@ export default defineComponent({
       axios.delete('badges/' + id)
         .then(response => {
           toast.success(response.data.message)
-          this.fetchBadges('badges?page=' + this.pagination.meta.current_page)
+          this.fetchBadges('badges?page=' + this.pagination.current_page)
         })
         .catch(error => {
           this.validation_error = error.response.data.data.errors

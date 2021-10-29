@@ -188,7 +188,7 @@
                               :disabled="parseInt(this.create_notification.type) !== 1"
                             />
                             <div v-if="parseInt(this.create_notification.type) !== 1" class="text-theme-6 mt-2 mb-4">
-                              {{ $t('notification.user_type_selected') }}
+                              {{ $t('notifications.user_type_selected') }}
                             </div>
                             <div v-if="this.validation_error?.icon" class="text-theme-6 mt-2 mb-4">
                               {{ this.validation_error?.type[0] }}
