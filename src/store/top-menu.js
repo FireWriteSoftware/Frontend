@@ -9,7 +9,7 @@ const state = () => {
       },
       {
         icon: 'FileIcon',
-        pageName: 'documents',
+        pageName: 'documents.overview',
         title: 'navigation.documents',
         permission: 'category_default' // TODO: Change Permission
       },
