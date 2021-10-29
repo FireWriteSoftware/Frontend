@@ -257,7 +257,6 @@ export default defineComponent({
   },
   mounted() {
     this.testPagePermissions()
-    this.loadPost()
   },
   methods: {
     deletePost(id) {
@@ -386,6 +385,7 @@ export default defineComponent({
       })
         .then((response) => {
           this.permissions = response.data.data
+          this.loadPost()
         })
         .catch()
     },
