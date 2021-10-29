@@ -148,14 +148,17 @@
     "no_recent_notification": "Sie haben keine ungelesenen Benachrichtigungen!",
     "search_modal_no_result": "Es wurde nichts gefunden!",
     "select_other_query": "Bitte änderen Sie ihre Suchanfrage.",
-    "view_searchpage": "Suchmaschine anzeigen"
+    "view_searchpage": "Suchmaschine anzeigen",
+    "filter_posts": "Beiträge",
+    "filter_categories": "Kategorien",
+    "filter_authors": "Autoren"
   },
   "footer": {
-    "copyright": "Urheberrecht",
+    "copyright": "Copyright",
     "rights_reserved": "Alle Rechte vorbehalten.",
     "help": "Hilfe",
     "privacy_policy": "Datenschutzbestimmungen",
-    "conditions": "Bedingungen",
+    "conditions": "AGB",
     "contact": "Kontakt"
   },
   "search_page": {
@@ -233,6 +236,14 @@
     "edit_badge": "Bearbeite ein Abzeichen",
     "is_role_badge": "Ist es ein Rollenabzeichen?",
     "role_badge_subtitle": "Ein Rollenabzeichen ist mit einer Rolle verbunden"
+  },
+  "webhooks": {
+    "link": "Link",
+    "overview": "Webhook Übersicht",
+    "add_webhook": "Neuen Webhook hinzufügen",
+    "create_webhook": "Erstelle ein neuen Webhook",
+    "edit_webhook": "Bearbeite ein Webhook",
+    "url": "URL"
   },
   "accounts": {
     "create_account": "Erstelle ein neues Benutzerkonto",
@@ -385,6 +396,7 @@
       "roles": "Rollen",
       "permissions": "Berechtigungen",
       "badges": "Abzeichen",
+      "webhooks": "Webhooks",
       "accounts": "Benutzerkonten",
       "bans": "Sperren",
       "settings": "Einstellungen"
@@ -392,7 +404,7 @@
     "pages": {
       "single_post": "Beitrag",
       "categories": "Kategorien",
-      "subcategories": "Subkategorien",
+      "subcategory": "Subkategorien",
       "search": "Suchmaschine",
       "terms_of_service": "Nutzungsbedingungen",
       "privacy_policy": "Datenschutz-Bestimmungen",
@@ -448,7 +460,8 @@
           "database": "Datenbank einstellungen",
           "mail": "Email einstellungen"
         },
-        "badges": "Abzeichen"
+        "badges": "Abzeichen",
+        "webhooks": "Webhooks"
       },
       "auth_pages": {
         "login": "Anmelden",
