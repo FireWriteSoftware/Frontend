@@ -181,7 +181,7 @@
                 <textarea id="edit-webhook-modal-description" class="form-control" v-model="editModal.url"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-webhook-modal-description" class="form-label">{{ $t('webhooks.url') }}</label>
+                <label for="edit-webhook-modal-description" class="form-label">{{ $t('webhooks.scopes') }}</label>
                 <TailSelect
                   v-model="this.editModal.scopes"
                   multiple
@@ -260,7 +260,7 @@
                 <textarea id="create-webhook-modal-description" class="form-control" v-model="createModal.url"/>
               </div>
               <div class="col-span-12">
-                <label for="edit-webhook-modal-description" class="form-label">{{ $t('webhooks.url') }}</label>
+                <label for="edit-webhook-modal-description" class="form-label">{{ $t('webhooks.scopes') }}</label>
                 <TailSelect
                   v-model="this.createModal.scopes"
                   multiple
