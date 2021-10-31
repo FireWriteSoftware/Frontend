@@ -118,7 +118,7 @@
               </div>
               <div v-show="has_parent">
                 <TailSelect
-                  v-model="this.category.parent_id"
+                  v-model="parent_id"
                   :options="{
                   search: true,
                   classNames: 'w-full'
@@ -155,14 +155,18 @@ import { useToast } from 'vue-toastification'
 const toast = useToast()
 
 export default defineComponent({
+  props: {
+    targetCategory: Number
+  },
   data() {
     return {
       category: {
         title: '',
         description: ''
       },
+      parent_id: this.$route.query.targetCategory ?? 0,
       validation_error: null,
-      has_parent: false,
+      has_parent: this.$route.query.targetCategory != null,
       user: {},
       categories: [],
       uploadFiles: null
@@ -187,7 +191,7 @@ export default defineComponent({
         title: this.category.title,
         description: this.category.description,
         thumbnail: this.category.thumbnail,
-        parent_id: this.has_parent ? this.category.parent_id : null
+        parent_id: this.parent_id
       })
         .then(response => {
           toast.success(response.data.message)
