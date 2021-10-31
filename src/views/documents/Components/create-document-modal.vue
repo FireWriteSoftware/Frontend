@@ -31,6 +31,47 @@
               />
             </div>
             <!-- END: Thumbnail upload-->
+            <!-- START: Document Category -->
+            <div class="col-span-12 py-3">
+              <div class="col-span-12 mb-2">
+                <label for="create-document-modal-parent_type" class="form-label">{{ $t('documents.parent_type') }}</label>
+                <TailSelect
+                  v-model="this.document.parent_type"
+                  :options="{
+                  search: true,
+                  classNames: 'w-full'
+                }"
+                  id='parent_type'
+                >
+                  <option :value="0">{{ $t('documents.parent_types.global') }}</option>
+                  <option :value="1">{{ $t('documents.parent_types.category') }}</option>
+                  <option :value="2">{{ $t('documents.parent_types.post') }}</option>
+                </TailSelect>
+              </div>
+              <div class="col-span-12" v-show='parseInt(document.parent_type) === 1'>
+                <TailSelect
+                  v-model="this.document.category_id"
+                  :options="{
+                  search: true,
+                  classNames: 'w-full'
+                }"
+                >
+                  <option :value="category.id" v-for="(category, index) in this.categories" :selected='index === 0' v-bind:key="category.id">{{ category.title }}</option>
+                </TailSelect>
+              </div>
+              <div class="col-span-12" v-show='parseInt(document.parent_type) === 2'>
+                <TailSelect
+                  v-model="this.document.post_id"
+                  :options="{
+                  search: true,
+                  classNames: 'w-full'
+                }"
+                >
+                  <option :value="post.id" v-for="(post, index) in this.posts" v-bind:key="post.id" :selected='index === 0'>{{ post.title }}</option>
+                </TailSelect>
+              </div>
+            </div>
+            <!-- END: Document Category -->
             <!-- START: Document Password -->
             <div class="col-span-12 py-3">
               <div class="col-span-12 mb-2">
@@ -129,10 +170,12 @@ const toast = useToast()
 
 export default {
   name: 'create-document',
+  props: ['posts', 'categories'],
   data() {
     return {
       document: {
         title: '',
+        parent_type: 0,
         category_id: null,
         post_id: null,
         file_name: '',
@@ -156,8 +199,10 @@ export default {
     upload_file() {
       const data = new FormData()
       this.document.title ? data.append('title', this.document.title) : null
-      this.document.post_id ? data.append('post_id', this.document.post_id) : null
-      this.document.category_id ? data.append('category_id', this.document.category_id) : null
+      parseInt(this.document.parent_type) === 2 && this.document.post_id !== null ? data.append('post_id', this.document.post_id) : null
+      parseInt(this.document.parent_type) === 2 ? data.append('is_post', 1) : null
+      parseInt(this.document.parent_type) === 1 && this.document.category_id !== null ? data.append('category_id', this.document.category_id) : null
+      parseInt(this.document.parent_type) === 1 ? data.append('is_category', 1) : null
       this.document.expires_at ? data.append('expires_at', this.document.expires_at) : null
       this.document.password ? data.append('password', this.document.password) : null
       this.document.max_downloads ? data.append('max_downloads', this.document.max_downloads) : null
@@ -173,7 +218,8 @@ export default {
           this.$emit('closeModal')
         })
         .catch(error => {
-          console.log(error)
+          console.log(error.response)
+          toast.error(error.response.data.message)
         })
     },
     limit_reached() {
