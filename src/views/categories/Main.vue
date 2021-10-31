@@ -302,7 +302,7 @@
                   <FolderIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_category') }}
                 </button>
               </router-link>
-              <router-link :to="{ name: 'moderation.posts.create' }" v-if="this.permissions?.posts_store">
+              <router-link :to="{ name: 'moderation.posts.create', query: {targetCategory: this.$route.params.id ?? 0} }" v-if="this.permissions?.posts_store">
                 <button class="intro-x w-full block text-center rounded-md py-3 btn btn-primary w-24 mr-1 mb-2 flex">
                   <EditIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_post') }}
                 </button>
