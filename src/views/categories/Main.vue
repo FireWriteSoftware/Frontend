@@ -297,7 +297,7 @@
               <h2 class="text-lg font-medium truncate mr-5">{{ $t('categories.author_tools') }}</h2>
             </div>
             <div class='mb-3'>
-              <router-link :to="{ name: 'moderation.categories.create' }" v-if="this.permissions?.categories_store">
+              <router-link :to="{ name: 'moderation.categories.create', query: {targetCategory: this.$route.params.id ?? 0} }" v-if="this.permissions?.categories_store">
                 <button class="intro-x w-full block text-center rounded-md py-3 btn btn-primary w-24 mr-1 mb-2 flex">
                   <FolderIcon class="w-4 h-4 mr-2" /> {{ $t('categories.create_category') }}
                 </button>
