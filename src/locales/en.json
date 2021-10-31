@@ -374,6 +374,7 @@
     "has_password_description": "Allows restricted access to the document",
     "has_expire_date": "Is this document time limited?",
     "has_expire_date_description": "Controls the access duration to the document",
+    "parent_type": "Parent type",
     "file_upload": {
       "drop_files": "Click here to upload.",
       "file_uploaded": "Successfully uploaded",
@@ -394,6 +395,11 @@
       "all": "All Files",
       "images": "Images",
       "documents": "Documents"
+    },
+    "parent_types": {
+      "global": "Global",
+      "post": "Post",
+      "category": "Category"
     },
     "document_manager": "Document Manager"
   },

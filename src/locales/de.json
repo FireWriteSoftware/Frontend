@@ -364,6 +364,44 @@
     "settings": "Einstellungen",
     "history": "Verlauf"
   },
+  "documents": {
+    "create_document": "Neues Dokument Hochladen",
+    "upload_new_document": "Dokument Hochladen",
+    "has_max_downloads": "Hat dieses Dokument ein download-limit?",
+    "has_max_downloads_description": "Stellt die maximale Download anzahl ein",
+    "has_password": "Ist dieses Dokument password geschützt?",
+    "has_password_description": "Erlaubt abgesicherten zugriff auf das Dokument",
+    "has_expire_date": "Ist dieses Dokument zeitlich begrenzt?",
+    "has_expire_date_description": "Beschränkt die verfügbarkeits dauer des Dokumentes",
+    "parent_type": "Unterordnung",
+    "file_upload": {
+      "drop_files": "Zum Hochladen hier klicken.",
+      "file_uploaded": "Erfolgreich hochgeladen",
+      "file_attached": "Datei erfolgreich angehangen",
+      "limit_reached": "Das Dateilimit wurde erreicht!"
+    },
+    "attributes": {
+      "title": "Dokument Titel",
+      "category": "Kategorie",
+      "post": "Beitrag",
+      "filename": "Datei Name",
+      "expires_at": "Verfügbar bis",
+      "password": "Dokument passwort",
+      "max_downloads": "Max. Downloads"
+    },
+    "utils": {
+      "upload": "Hochladen",
+      "all": "Alle Dateien",
+      "images": "Bilder",
+      "documents": "Dokumente"
+    },
+    "parent_types": {
+      "global": "Global",
+      "post": "Beitrag",
+      "category": "Kategorie"
+    },
+    "document_manager": "Dokumenten Übersicht"
+  },
   "navigation": {
     "default": "Wiki",
     "categories": "Startseite",
