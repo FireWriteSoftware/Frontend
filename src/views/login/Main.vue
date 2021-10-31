@@ -74,6 +74,7 @@
                     id="remember-me"
                     type="checkbox"
                     class="form-check-input border mr-2"
+                    v-model="remember_me"
                   />
                   <label class="cursor-pointer select-none" for="remember-me">
                     {{ $t('auth_pages.remember_me') }}
@@ -140,6 +141,7 @@ export default defineComponent({
     return {
       email: '',
       password: '',
+      remember_me: true,
       wiki_settings: {
         name: process.env.VUE_APP_NAME,
         logo: process.env.VUE_APP_LOGO
@@ -155,7 +157,8 @@ export default defineComponent({
       const loader = this.$loading.show()
 
       const data = {
-        password: this.password
+        password: this.password,
+        remember_me: this.remember_me
       }
 
       if (this.isMail()) {
