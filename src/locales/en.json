@@ -390,7 +390,10 @@
       "max_downloads": "Max. Downloads"
     },
     "utils": {
-      "upload": "Upload"
+      "upload": "Upload",
+      "all": "All Files",
+      "images": "Images",
+      "documents": "Documents"
     },
     "document_manager": "Document Manager"
   },
