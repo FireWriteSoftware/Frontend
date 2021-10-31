@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreateDocumentModal @uploadedDocument='this.fetchDocuments("documents")' @closeModal='this.modalState.create = false' v-show="modalState.create"></CreateDocumentModal>
+    <CreateDocumentModal :posts="this.posts" :categories='this.categories' @uploadedDocument='this.fetchDocuments("documents")' @closeModal='this.modalState.create = false' v-show="modalState.create"></CreateDocumentModal>
     <div class="grid grid-cols-12 gap-6 mt-8">
       <div class="col-span-12 lg:col-span-3 xxl:col-span-2">
         <h2 class="intro-y text-lg font-medium mr-auto mt-2">
@@ -157,6 +157,8 @@ export default {
         create: false
       },
       documents: [],
+      categories: [],
+      posts: [],
       search: {
         documents: ''
       },
@@ -166,6 +168,8 @@ export default {
   },
   mounted() {
     this.fetchDocuments('documents')
+    this.fetchPosts()
+    this.fetchCategories()
   },
   methods: {
     makePagination(meta, links) {
@@ -192,13 +196,11 @@ export default {
     deleteDocument(id) {
       axios.delete('documents/' + id)
         .then(response => {
-          console.log(response)
           toast.success(response.data.message)
           this.fetchDocuments('documents')
         })
         .catch(error => {
-          console.log(error)
-          toast.error(error)
+          toast.error(error.response.data.message)
         })
     },
     download(file) {
@@ -217,6 +219,20 @@ export default {
           link.click()
           document.body.removeChild(link)
         })
+    },
+    fetchCategories() {
+      axios.get('categories?paginate=0&load_depth=0')
+        .then(response => {
+          this.categories = response.data
+        })
+        .catch()
+    },
+    fetchPosts() {
+      axios.get('posts?paginate=0')
+        .then(response => {
+          this.posts = response.data
+        })
+        .catch()
     }
   }
 }
