@@ -224,7 +224,7 @@ export default defineComponent({
       post: {
         title: '',
         content: '',
-        category_id: null,
+        category_id: this.$route.query.targetCategory ?? null,
         selected_tags: []
       },
       validation_error: null,
