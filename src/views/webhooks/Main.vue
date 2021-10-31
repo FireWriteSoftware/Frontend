@@ -331,7 +331,8 @@ export default defineComponent({
         'posts_create',
         'posts_update',
         'categories_create',
-        'categories_update'
+        'categories_update',
+        'announcements'
       ],
       validation_error: null,
       modalState: {
