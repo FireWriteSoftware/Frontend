@@ -40,16 +40,16 @@
     "load_more": "Mehr laden"
   },
   "create_category": {
-    "create_category": "Neue Kategorie erstellen",
-    "update_category": "Kategorie bearbeiten",
-    "category_settings": "Kategorie einstellungen",
-    "category_title": "Kategorie titel",
-    "category_description": "Kategorie beschreibung",
+    "create_category": "Neue Kategorie Erstellen",
+    "update_category": "Kategorie Bearbeiten",
+    "category_settings": "Kategorie Einstellungen",
+    "category_title": "Kategorie Titel",
+    "category_description": "Kategorie Beschreibung",
     "has_parent_category": "Besitzt eine übergeordnete Kategorie"
   },
   "attributes": {
     "created_by": "Erstellt von",
-    "id": "Id",
+    "id": "ID",
     "title": "Titel",
     "name": "Name",
     "description": "Beschreibung",
@@ -63,7 +63,7 @@
     "content": "Inhalt",
     "color": "Farbe",
     "created_at": "Erstellt am",
-    "updated_at": "Letzte änderung",
+    "updated_at": "Letzte Änderung",
     "unauthorized": "Nicht autorisiert",
     "types": "Typen",
     "type": "Typ",
@@ -172,7 +172,7 @@
     "returned_hits": "Ihre Suche ergab {count} treffer"
   },
   "tags": {
-    "overview": "Tag übersicht",
+    "overview": "Tag Übersicht",
     "add_tag": "Neuer Tag",
     "create_tag": "Erstelle ein neuer Tag",
     "edit_tag": "Bearbeite ein Tag"
@@ -182,7 +182,7 @@
     "edit_announcement": "Bearbeite eine Ankündigung"
   },
   "reports": {
-    "overview": "Meldung übersicht",
+    "overview": "Meldung Übersicht",
     "reported_post": "Gemeldeter Beitrag: "
   },
   "notifications": {
@@ -200,12 +200,12 @@
     "subtitle": "Hier können Sie Benachrichtigungen anzeigen, bearbeiten und erstellen."
   },
   "roles": {
-    "overview": "Rollen übersicht",
+    "overview": "Rollen Übersicht",
     "add_role": "Neue Rolle hinzufügen",
     "create_role": "Erstelle eine neue Rolle",
     "edit_role": "Bearbeite eine Rolle",
-    "default_role": "Standart Rolle",
-    "is_default_role": "Ist diese Rolle eine standart Benutzer rolle?",
+    "default_role": "Standard Rolle",
+    "is_default_role": "Ist diese Rolle eine standard Benutzer rolle?",
     "preferences": "Einstellungen",
     "preferences_subtitle": "Hier können Sie allgemeine Einstellungen zu dieser Rolle vornehmen",
     "permissions": "Berechtigungen",
@@ -223,14 +223,14 @@
     "no_result": "Kein Suchergebnis gefunden, bitte versuchen Sie eine andere Suchanfrage"
   },
   "permissions": {
-    "overview": "Berechtigungs übersicht",
+    "overview": "Berechtigungs Übersicht",
     "add_permission": "Neue Berechtigung hinzufügen",
     "create_permission": "Erstelle eine neue Berechtigung",
     "edit_permission": "Bearbeite eine Berechtigung"
   },
   "badges": {
     "relation": "Beziehung",
-    "overview": "Abzeichen übersicht",
+    "overview": "Abzeichen Übersicht",
     "add_badge": "Neues Abzeichen hinzufügen",
     "create_badge": "Erstelle ein neues Abzeichen",
     "edit_badge": "Bearbeite ein Abzeichen",
@@ -246,11 +246,6 @@
     "url": "URL",
     "scopes": "Bereiche"
   },
-  "accounts": {
-    "create_account": "Erstelle ein neues Benutzerkonto",
-    "add_account": "Neues Benutzerkonto hinzufügen",
-    "overview": "Benutzerkonten übersicht"
-  },
   "bans": {
     "banned_by": "Gesperrt von:",
     "global_ban": "Globale Sperre",
@@ -259,7 +254,7 @@
     "view_ban": "Sperre anzeigen",
     "view_account": "Benutzerkonto anzeigen",
     "selected_ban": "Ausgewählte Sperre",
-    "overview": "Sperren übersicht",
+    "overview": "Sperren Übersicht",
     "banned": "Gesperrt",
     "banned_subtitle": "Dieser Benutzer ist aktuell gesperrt",
     "unbanned": "Nicht Gesperrt",
@@ -315,7 +310,7 @@
     "database_settings": "Datenbank Einstellungen",
     "mail_settings": "Email Einstellungen",
     "minimum_password_lenght": "Minimale passwort länge",
-    "default_role": "Standart Rolle",
+    "default_role": "Standard Rolle",
     "domain": "Domain",
     "contact_email": "Kontaktmail",
     "hostname": "Hostname",
@@ -341,6 +336,9 @@
     "change_email_conntection": "Sind Sie wirklich sicher, dass Sie die E-Mail-Verbindungsdaten ändern wollen, das kann viel Schaden anrichten!"
   },
   "accounts": {
+    "create_account": "Erstelle ein neues Benutzerkonto",
+    "add_account": "Neues Benutzerkonto hinzufügen",
+    "overview": "Benutzerkonten Übersicht",
     "user_account": "Benutzerkonto",
     "display_information": "Anzeigedaten",
     "account_informations": "Konto Informationen",
