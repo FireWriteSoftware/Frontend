@@ -170,12 +170,28 @@ const toast = useToast()
 
 export default {
   name: 'create-document',
-  props: ['posts', 'categories'],
+  props: {
+    posts: {
+      type: Array,
+      required: true
+    },
+    categories: {
+      type: Array,
+      required: true
+    },
+    preselectedParent: {
+      type: Number,
+      required: false,
+      default: () => {
+        return 0
+      }
+    }
+  },
   data() {
     return {
       document: {
         title: '',
-        parent_type: 0,
+        parent_type: this.preselectedParent,
         category_id: null,
         post_id: null,
         file_name: '',
