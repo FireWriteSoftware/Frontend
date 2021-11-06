@@ -9,18 +9,15 @@
         <!-- BEGIN: File Manager Menu -->
         <div class="intro-y box p-5 mt-6">
           <div class="mt-1">
-            <a href="" class="flex items-center px-3 py-2 rounded-md bg-theme-1 text-white font-medium">
+            <button @click='this.view_documents = this.documents' class="flex items-center px-3 py-2 rounded-md w-full focus:ring-0 focus:outline-none focus:bg-theme-1 focus:text-white focus:font-medium">
               <GridIcon class="w-4 h-4 mr-2" />
               {{ $t('documents.utils.all') }}
-            </a>
-            <a href="" class="flex items-center px-3 py-2 mt-2 rounded-md">
-              <ImageIcon class="w-4 h-4 mr-2" />
-              {{ $t('documents.utils.images') }}
-            </a>
-            <a href="" class="flex items-center px-3 py-2 mt-2 rounded-md">
-              <FileIcon class="w-4 h-4 mr-2" />
-              {{ $t('documents.utils.documents') }}
-            </a>
+            </button>
+            <button @click="this.view_documents = filter" class="flex items-center px-3 py-2 mt-2 rounded-md w-full focus:ring-0 focus:outline-none focus:bg-theme-1 focus:text-white focus:font-medium" v-for='(filter, index) in this.filters' v-bind:key='index'>
+              <FileIcon class="w-4 h-4 mr-2" v-if="index === 'application'"/>
+              <ImageIcon class="w-4 h-4 mr-2" v-if="index === 'image'"/>
+              {{ $t('documents.utils.types.' + index) }}
+            </button>
           </div>
         </div>
         <!-- END: File Manager Menu -->
@@ -50,7 +47,7 @@
         <!-- BEGIN: Directory & Files -->
         <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
           <div
-            v-for="document in documents"
+            v-for="document in view_documents"
             :key="document.id"
             class="intro-y col-span-6 sm:col-span-4 md:col-span-3 xxl:col-span-2"
           >
@@ -66,14 +63,14 @@
                 class="w-3/5 file__icon file__icon--directory mx-auto"
               ></a>
               <a
-                v-else-if="document.file_name.split('.')[1] === 'png' || document.file_name.split('.')[1] === 'svg' || document.file_name.split('.')[1] === 'jpg' || document.file_name.split('.')[1] === 'jpeg'"
+                v-else-if="document.file_name.split('.')[1] === 'png' || document.file_name.split('.')[1] === 'jpg' || document.file_name.split('.')[1] === 'jpeg'"
                 href=""
                 class="w-3/5 file__icon file__icon--image mx-auto"
               >
                 <div class="file__icon--image__preview image-fit">
                   <img
                     alt="Image Icon"
-                    :src="image_url + document.file_name"
+                    :src="image_url + '/' + document.file_name"
                   />
                 </div>
               </a>
@@ -83,10 +80,10 @@
                 </div>
               </a>
               <p class="block font-medium mt-4 text-center truncate">
-                {{ document.file_name.replace('/storage/', '') }}
+                {{ document.title }}.{{ document.file_name.split('.')[1] }}
               </p>
               <div class="text-gray-600 text-xs text-center mt-0.5">
-                FILE SIZE
+                {{ calculateSize(document.size) }}
               </div>
               <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
                 <a
@@ -98,6 +95,10 @@
                 </a>
                 <div class="dropdown-menu w-40">
                   <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
+                    <button data-dismiss="dropdown" @click="deleteDocument(document.id)" class="flex items-center w-full block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                      <DownloadIcon class="w-4 h-4 mr-2" />
+                      {{ $t('documents.utils.download') }}
+                    </button>
                     <button data-dismiss="dropdown" @click="deleteDocument(document.id)" class="flex items-center w-full block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                       <TrashIcon class="w-4 h-4 mr-2" />
                       {{ $t('utils.delete') }}
@@ -157,11 +158,13 @@ export default {
         create: false
       },
       documents: [],
+      view_documents: [],
       categories: [],
       posts: [],
       search: {
         documents: ''
       },
+      filters: {},
       pagination: {},
       image_url: process.env.VUE_APP_BASE_URL.slice(0, -5)
     }
@@ -187,10 +190,20 @@ export default {
       axios.get(link)
         .then(response => {
           this.documents = response.data.data
+          this.view_documents = response.data.data
+
+          for (const item in this.documents) {
+            const documentFilter = this.documents[item].mime_type.split('/')[0]
+            if (!Object.keys(this.filters).includes(documentFilter)) { this.filters[documentFilter] = [] }
+            this.filters[documentFilter].push(this.documents[item])
+          }
+          console.log(this.filters)
+
           this.makePagination(response.data.meta, response.data.links)
         })
         .catch(error => {
-          toast.error(error.response.data.message)
+          console.log(error)
+          // toast.error(error.response.data.message)
         })
     },
     deleteDocument(id) {
@@ -233,6 +246,15 @@ export default {
           this.posts = response.data
         })
         .catch()
+    },
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    calculateSize(bytes) {
+      const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
+      if (bytes === 0) return '0 Bytes'
+      const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
+      return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]
     }
   }
 }
