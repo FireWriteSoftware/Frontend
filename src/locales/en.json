@@ -398,9 +398,12 @@
     },
     "utils": {
       "upload": "Upload",
+      "download": "Download",
       "all": "All Files",
-      "images": "Images",
-      "documents": "Documents"
+      "types": {
+        "image": "Pictures",
+        "application": "Documents"
+      }
     },
     "parent_types": {
       "global": "Global",

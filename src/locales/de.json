@@ -397,9 +397,12 @@
     },
     "utils": {
       "upload": "Hochladen",
+      "download": "Herunterladen",
       "all": "Alle Dateien",
-      "images": "Bilder",
-      "documents": "Dokumente"
+      "types": {
+        "image": "Bilder",
+        "application": "Dokumente"
+      }
     },
     "parent_types": {
       "global": "Global",
