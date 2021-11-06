@@ -74,7 +74,7 @@
                   />
                 </div>
               </a>
-              <a v-else @click='download(document.file_name)' class="w-3/5 file__icon file__icon--file mx-auto">
+              <a v-else @click='download(document)' class="w-3/5 file__icon file__icon--file mx-auto">
                 <div class="file__icon__file-name">
                   {{ document.file_name.split('.')[1] }}
                 </div>
@@ -148,7 +148,10 @@
 import CreateDocumentModal from './Components/create-document-modal'
 import { useToast } from 'vue-toastification'
 import axios from 'axios'
+import mime from 'mime-types'
+
 const toast = useToast()
+
 export default {
   name: 'Main.vue',
   components: { CreateDocumentModal },
@@ -176,7 +179,7 @@ export default {
   },
   methods: {
     makePagination(meta, links) {
-      const pagination = {
+      this.pagination = {
         current_page: meta.current_page,
         last_page: meta.last_page,
         last_page_url: links.last,
@@ -184,7 +187,6 @@ export default {
         next_page_url: links.next,
         prev_page_url: links.prev
       }
-      this.pagination = pagination
     },
     fetchDocuments(link) {
       axios.get(link)
@@ -216,22 +218,21 @@ export default {
           toast.error(error.response.data.message)
         })
     },
-    download(file) {
-      axios({
-        url: file,
-        method: 'GET',
-        baseURL: process.env.VUE_APP_BASE_URL.slice(0, -5),
-        responseType: 'blob'
+    download(doc, password = null) {
+      axios.get(`${process.env.VUE_APP_BASE_URL}documents/${doc.id}/download${password ? '?password=' + password : ''}`, {
+        responseType: 'blob',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
       })
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]))
+        .then(response => {
+          const blob = new Blob([response.data], { type: doc.mime_type })
           const link = document.createElement('a')
-          link.href = url
-          link.setAttribute('download', 'image.jpg')
-          document.body.appendChild(link)
+          link.href = URL.createObjectURL(blob)
+          link.download = doc.title + '.' + mime.extension(doc.mime_type)
           link.click()
-          document.body.removeChild(link)
-        })
+          URL.revokeObjectURL(link.href)
+        }).catch(console.error)
     },
     fetchCategories() {
       axios.get('categories?paginate=0&load_depth=0')
