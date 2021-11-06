@@ -176,7 +176,7 @@ export default {
   },
   methods: {
     makePagination(meta, links) {
-      const pagination = {
+      this.pagination = {
         current_page: meta.current_page,
         last_page: meta.last_page,
         last_page_url: links.last,
@@ -184,7 +184,6 @@ export default {
         next_page_url: links.next,
         prev_page_url: links.prev
       }
-      this.pagination = pagination
     },
     fetchDocuments(link) {
       axios.get(link)
