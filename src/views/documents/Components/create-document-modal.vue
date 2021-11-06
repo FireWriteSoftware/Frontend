@@ -185,6 +185,13 @@ export default {
       default: () => {
         return 0
       }
+    },
+    preselectedPost: {
+      type: Number,
+      required: false,
+      default: () => {
+        return 0
+      }
     }
   },
   data() {
@@ -193,7 +200,7 @@ export default {
         title: '',
         parent_type: this.preselectedParent,
         category_id: null,
-        post_id: null,
+        post_id: this.preselectedPost,
         file_name: '',
         has_expire_date: false,
         expires_at: null,

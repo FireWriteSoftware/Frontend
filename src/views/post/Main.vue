@@ -217,7 +217,7 @@
         </div>
         <!-- END: Rating -->
 
-        <PostDocuments :documents='documents' v-if='documents'></PostDocuments>
+        <PostDocuments :documents='documents' :post="post.id"></PostDocuments>
         <PostComments :post="post"></PostComments>
       </div>
     </div>
