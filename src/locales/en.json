@@ -37,7 +37,13 @@
     "no_history": "No History",
     "no_recent_history": "This post has no recent History",
     "report_reason": "Please write a Report reason!",
-    "load_more": "Load more"
+    "load_more": "Load more",
+    "documents": {
+      "title": "Documents",
+      "password": "Password-protected",
+      "time": "Expires on: {expires_at}",
+      "limit": "{downloads} / {max_downloads} Downloads"
+    }
   },
   "create_category": {
     "create_category": "Create new Category",

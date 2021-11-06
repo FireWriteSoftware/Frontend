@@ -37,7 +37,13 @@
     "no_history": "Keine Versionsänderungen",
     "no_recent_history": "Dieser Beitrag hat keinen Versionsverlauf",
     "report_reason": "Bitte gebe einen Grund an!",
-    "load_more": "Mehr laden"
+    "load_more": "Mehr laden",
+    "documents": {
+      "title": "Dokumente",
+      "password": "Passwort geschützt",
+      "time": "Läuft ab am: {expires_at}",
+      "limit": "{downloads} / {max_downloads} Downloads"
+    }
   },
   "create_category": {
     "create_category": "Neue Kategorie erstellen",

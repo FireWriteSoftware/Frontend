@@ -217,6 +217,7 @@
         </div>
         <!-- END: Rating -->
 
+        <PostDocuments :documents='documents' v-if='documents'></PostDocuments>
         <PostComments :post="post"></PostComments>
       </div>
     </div>
@@ -229,11 +230,15 @@ import axios from 'axios'
 import { useToast } from 'vue-toastification'
 import moment from 'moment'
 import PostComments from './Components/PostComments'
+import PostDocuments from './Components/PostDocuments'
 
 const toast = useToast()
 
 export default defineComponent({
-  components: { PostComments },
+  components: {
+    PostComments,
+    PostDocuments
+  },
   data() {
     return {
       post: {
@@ -252,12 +257,14 @@ export default defineComponent({
         content: ''
       },
       user: {},
-      histories: []
+      histories: [],
+      documents: []
     }
   },
   mounted() {
     this.testPagePermissions()
     this.loadPost()
+    this.loadDocuments()
   },
   methods: {
     deletePost(id) {
@@ -371,6 +378,13 @@ export default defineComponent({
       axios.get('posts/' + this.$route.params.id + '/histories')
         .then(response => {
           this.histories = response.data.data
+        })
+        .catch()
+    },
+    loadDocuments() {
+      axios.get(`posts/${this.$route.params.id}/documents`)
+        .then(response => {
+          this.documents = response.data.data
         })
         .catch()
     },
