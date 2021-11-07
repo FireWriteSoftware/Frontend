@@ -58,6 +58,7 @@
     "highlight.js": "^10.6.0",
     "js-beautify": "^1.13.5",
     "litepicker": "^2.0.11",
+    "mime-types": "^2.1.33",
     "moment": "^2.29.1",
     "tabulator-tables": "^4.9.3",
     "tail.select": "^0.5.15",
