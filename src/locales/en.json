@@ -37,7 +37,13 @@
     "no_history": "No History",
     "no_recent_history": "This post has no recent History",
     "report_reason": "Please write a Report reason!",
-    "load_more": "Load more"
+    "load_more": "Load more",
+    "documents": {
+      "title": "Documents",
+      "password": "Password-protected",
+      "time": "Expires on: {expires_at}",
+      "limit": "{downloads} / {max_downloads} Downloads"
+    }
   },
   "create_category": {
     "create_category": "Create new Category",
@@ -377,9 +383,51 @@
     "settings": "Settings",
     "history": "History"
   },
+  "documents": {
+    "create_document": "Upload a new Document",
+    "upload_new_document": "Upload New Document",
+    "has_max_downloads": "Does this document have a download limit?",
+    "has_max_downloads_description": "Controls the download limit of the document",
+    "has_password": "Does this document have a password?",
+    "has_password_description": "Allows restricted access to the document",
+    "has_expire_date": "Is this document time limited?",
+    "has_expire_date_description": "Controls the access duration to the document",
+    "parent_type": "Parent type",
+    "file_upload": {
+      "drop_files": "Click here to upload.",
+      "file_uploaded": "Successfully uploaded",
+      "file_attached": "File was successfully attached",
+      "limit_reached": "The file limit has been reached!"
+    },
+    "attributes": {
+      "title": "Document title",
+      "category": "Category",
+      "post": "Post",
+      "filename": "File name",
+      "expires_at": "Expires at",
+      "password": "Document password",
+      "max_downloads": "Max. Downloads"
+    },
+    "utils": {
+      "upload": "Upload",
+      "download": "Download",
+      "all": "All Files",
+      "types": {
+        "image": "Pictures",
+        "application": "Documents"
+      }
+    },
+    "parent_types": {
+      "global": "Global",
+      "post": "Post",
+      "category": "Category"
+    },
+    "document_manager": "Document Manager"
+  },
   "navigation": {
     "default": "Wiki",
     "categories": "Categories",
+    "documents": "Documents",
     "author": {
       "title": "Author",
       "create_post": "Create Post",
@@ -417,6 +465,7 @@
         "my_postings": "My Postings",
         "my_bookmarks": "My Bookmarks"
       },
+      "documents": "Documents",
       "moderation": {
         "title": "Moderation",
         "tags": "Tags",

@@ -37,7 +37,13 @@
     "no_history": "Keine Versionsänderungen",
     "no_recent_history": "Dieser Beitrag hat keinen Versionsverlauf",
     "report_reason": "Bitte gebe einen Grund an!",
-    "load_more": "Mehr laden"
+    "load_more": "Mehr laden",
+    "documents": {
+      "title": "Dokumente",
+      "password": "Passwort geschützt",
+      "time": "Läuft ab am: {expires_at}",
+      "limit": "{downloads} / {max_downloads} Downloads"
+    }
   },
   "create_category": {
     "create_category": "Neue Kategorie Erstellen",
@@ -374,9 +380,51 @@
     "settings": "Einstellungen",
     "history": "Verlauf"
   },
+  "documents": {
+    "create_document": "Neues Dokument Hochladen",
+    "upload_new_document": "Dokument Hochladen",
+    "has_max_downloads": "Hat dieses Dokument ein download-limit?",
+    "has_max_downloads_description": "Stellt die maximale Download anzahl ein",
+    "has_password": "Ist dieses Dokument password geschützt?",
+    "has_password_description": "Erlaubt abgesicherten zugriff auf das Dokument",
+    "has_expire_date": "Ist dieses Dokument zeitlich begrenzt?",
+    "has_expire_date_description": "Beschränkt die verfügbarkeits dauer des Dokumentes",
+    "parent_type": "Unterordnung",
+    "file_upload": {
+      "drop_files": "Zum Hochladen hier klicken.",
+      "file_uploaded": "Erfolgreich hochgeladen",
+      "file_attached": "Datei erfolgreich angehangen",
+      "limit_reached": "Das Dateilimit wurde erreicht!"
+    },
+    "attributes": {
+      "title": "Dokument Titel",
+      "category": "Kategorie",
+      "post": "Beitrag",
+      "filename": "Datei Name",
+      "expires_at": "Verfügbar bis",
+      "password": "Dokument passwort",
+      "max_downloads": "Max. Downloads"
+    },
+    "utils": {
+      "upload": "Hochladen",
+      "download": "Herunterladen",
+      "all": "Alle Dateien",
+      "types": {
+        "image": "Bilder",
+        "application": "Dokumente"
+      }
+    },
+    "parent_types": {
+      "global": "Global",
+      "post": "Beitrag",
+      "category": "Kategorie"
+    },
+    "document_manager": "Dokumenten Übersicht"
+  },
   "navigation": {
     "default": "Wiki",
     "categories": "Startseite",
+    "documents": "Dokumente",
     "author": {
       "title": "Autor",
       "create_post": "Beitrag erstellen",
@@ -414,6 +462,7 @@
         "my_postings": "Meine Beiträge",
         "my_bookmarks": "Meine Lesezeichen"
       },
+      "documents": "Dokumente",
       "moderation": {
         "title": "Moderation",
         "tags": "Tags",
