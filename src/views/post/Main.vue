@@ -217,7 +217,7 @@
         </div>
         <!-- END: Rating -->
 
-        <PostDocuments :documents='documents' :post="post.id"></PostDocuments>
+        <PostDocuments :documents='documents' :post="post.id" :permissions='permissions' v-if='this.permissions?.documents_get_all || this.permissions?.documents_create'></PostDocuments>
         <PostComments :post="post"></PostComments>
       </div>
     </div>
@@ -264,7 +264,6 @@ export default defineComponent({
   mounted() {
     this.testPagePermissions()
     this.loadPost()
-    this.loadDocuments()
   },
   methods: {
     deletePost(id) {
@@ -294,6 +293,10 @@ export default defineComponent({
             loader.hide()
             this.loadBookmarks()
             this.loadHistory()
+
+            if (this.permissions?.documents_create || this.permissions?.documents_get_all) {
+              this.loadDocuments()
+            }
           } else {
             loader.hide()
             this.$router.push({ name: 'categories' })
@@ -385,6 +388,11 @@ export default defineComponent({
         .catch()
     },
     loadDocuments() {
+      if (this.permissions?.documents_get_all) {
+        this.documents = []
+        return
+      }
+
       axios.get(`posts/${this.$route.params.id}/documents`)
         .then(response => {
           this.documents = response.data.data
@@ -398,7 +406,10 @@ export default defineComponent({
           'posts_history_get_post',
           'posts_update',
           'posts_delete',
-          'posts_view_unapproved'
+          'posts_view_unapproved',
+          'documents_create',
+          'documents_get_all',
+          'documents_get_single'
         ]
       })
         .then((response) => {
