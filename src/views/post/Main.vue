@@ -285,7 +285,11 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.get('posts/' + this.$route.params.id)
         .then(response => {
-          if ((response.data.data.approved_at && response.data.data.approved_by) || this.permissions?.posts_view_unapproved) {
+          if (
+            (response.data.data.approved_at && response.data.data.approved_by) || // Is approved
+            this.permissions?.posts_view_unapproved || // Has Permission
+            response.data.data.user_id === localStorage.getItem('user')?.id // Is author
+          ) {
             this.post = response.data.data
             loader.hide()
             this.loadBookmarks()
