@@ -217,7 +217,7 @@
         </div>
         <!-- END: Rating -->
 
-        <PostDocuments :documents='documents' :post="post.id"></PostDocuments>
+        <PostDocuments :documents='documents' :post="post.id" :permissions='permissions' v-if='this.permissions?.documents_get_all || this.permissions?.documents_create'></PostDocuments>
         <PostComments :post="post"></PostComments>
       </div>
     </div>
@@ -264,7 +264,6 @@ export default defineComponent({
   mounted() {
     this.testPagePermissions()
     this.loadPost()
-    this.loadDocuments()
   },
   methods: {
     deletePost(id) {
@@ -285,11 +284,19 @@ export default defineComponent({
       const loader = this.$loading.show()
       axios.get('posts/' + this.$route.params.id)
         .then(response => {
-          if ((response.data.data.approved_at && response.data.data.approved_by) || this.permissions?.posts_view_unapproved) {
+          if (
+            (response.data.data.approved_at && response.data.data.approved_by) || // Is approved
+            this.permissions?.posts_view_unapproved || // Has Permission
+            response.data.data.user_id === localStorage.getItem('user')?.id // Is author
+          ) {
             this.post = response.data.data
             loader.hide()
             this.loadBookmarks()
             this.loadHistory()
+
+            if (this.permissions?.documents_create || this.permissions?.documents_get_all) {
+              this.loadDocuments()
+            }
           } else {
             loader.hide()
             this.$router.push({ name: 'categories' })
@@ -303,7 +310,7 @@ export default defineComponent({
         })
     },
     makePagination(meta, links) {
-      const pagination = {
+      this.pagination = {
         current_page: meta.current_page,
         last_page: meta.last_page,
         last_page_url: links.last,
@@ -314,7 +321,6 @@ export default defineComponent({
         showing_to: meta.to,
         total: meta.total
       }
-      this.pagination = pagination
     },
     loadBookmarks(id) {
       axios.get('posts/' + this.$route.params.id + '/bookmarks', {
@@ -382,6 +388,11 @@ export default defineComponent({
         .catch()
     },
     loadDocuments() {
+      if (this.permissions?.documents_get_all) {
+        this.documents = []
+        return
+      }
+
       axios.get(`posts/${this.$route.params.id}/documents`)
         .then(response => {
           this.documents = response.data.data
@@ -395,7 +406,10 @@ export default defineComponent({
           'posts_history_get_post',
           'posts_update',
           'posts_delete',
-          'posts_view_unapproved'
+          'posts_view_unapproved',
+          'documents_create',
+          'documents_get_all',
+          'documents_get_single'
         ]
       })
         .then((response) => {

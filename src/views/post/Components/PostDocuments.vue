@@ -9,7 +9,7 @@
         <div class="text-base sm:text-lg font-medium">
           {{ $t('single_post.documents.title') }}
         </div>
-        <a href="javascript:;" data-toggle="modal" data-target="#create-document-modal" class="w-9 h-9 rounded-full bg-theme-1 text-white flex justify-center items-center" @click='this.modalState = true'>
+        <a href="javascript:;" data-toggle="modal" data-target="#create-document-modal" class="w-9 h-9 rounded-full bg-theme-1 text-white flex justify-center items-center" @click='this.modalState = true' v-if='this.permissions?.documents_create'>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
           </svg>
@@ -18,7 +18,7 @@
       <div class="mb-6" v-for="document in this.documents" v-bind:key="document.id">
         <div class='flex items-center justify-between'>
           <div class="flex items-center">
-            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200" @click='downloadDoc(document)'>
+            <div class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200" v-if='permissions?.documents_get_single' @click='downloadDoc(document)'>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-theme-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
               </svg>
@@ -85,7 +85,7 @@ import CreateDocumentModal from '../../documents/Components/create-document-moda
 
 export default {
   name: 'PostComments',
-  props: ['documents', 'post'],
+  props: ['documents', 'post', 'permissions'],
   components: {
     CreateDocumentModal
   },
@@ -109,6 +109,8 @@ export default {
       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]
     },
     downloadDoc(doc, password = null) {
+      if (this.permissions?.documents_get_single) return
+
       if (doc.require_password && password === null) {
         this.docPassword = ''
         doc.download_password = !doc.download_password
