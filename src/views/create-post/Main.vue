@@ -270,9 +270,7 @@ export default defineComponent({
         .then(response => {
           toast.success(response.data.message)
           loader.hide()
-          if (this.post.category_id !== null) {
-            this.$router.push({ name: 'categories.subcategory', params: { id: this.post.category_id } })
-          }
+          this.$router.push({ name: 'posts.view', params: { id: response.data.data.id } })
         })
         .catch(error => {
           this.validation_error = error.response?.data?.data?.errors
