@@ -307,7 +307,7 @@ export default defineComponent({
         })
     },
     makePagination(meta, links) {
-      const pagination = {
+      this.pagination = {
         current_page: meta.current_page,
         last_page: meta.last_page,
         last_page_url: links.last,
@@ -318,7 +318,6 @@ export default defineComponent({
         showing_to: meta.to,
         total: meta.total
       }
-      this.pagination = pagination
     },
     loadBookmarks(id) {
       axios.get('posts/' + this.$route.params.id + '/bookmarks', {
