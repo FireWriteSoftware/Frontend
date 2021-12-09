@@ -389,15 +389,15 @@ export default defineComponent({
     },
     loadDocuments() {
       if (this.permissions?.documents_get_all) {
-        console.log("no perms");
+        console.log('no perms')
         this.documents = []
         return
       }
 
       axios.get(`posts/${this.$route.params.id}/documents`)
         .then(response => {
-          console.log("loaded");
-          console.log(response.data);
+          console.log('loaded')
+          console.log(response.data)
           this.documents = response.data.data
         })
         .catch(e => {
