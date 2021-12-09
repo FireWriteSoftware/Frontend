@@ -11,7 +11,7 @@ const state = () => {
         icon: 'FileIcon',
         pageName: 'documents.overview',
         title: 'navigation.documents',
-        permission: 'category_default' // TODO: Change Permission
+        permission: 'category_documents' // TODO: Change Permission
       },
       {
         icon: 'Edit3Icon',
