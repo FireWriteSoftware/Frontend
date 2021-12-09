@@ -397,7 +397,9 @@ export default defineComponent({
         .then(response => {
           this.documents = response.data.data
         })
-        .catch()
+        .catch(e => {
+          console.log(e.response)
+        })
     },
     testPagePermissions() {
       axios.post('permissions/test', {
