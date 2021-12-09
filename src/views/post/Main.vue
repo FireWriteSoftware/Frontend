@@ -395,7 +395,6 @@ export default defineComponent({
 
       axios.get(`posts/${this.$route.params.id}/documents`)
         .then(response => {
-
           this.documents = response.data.data
         })
         .catch()
