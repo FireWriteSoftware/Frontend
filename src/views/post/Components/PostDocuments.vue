@@ -109,7 +109,7 @@ export default {
       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]
     },
     downloadDoc(doc, password = null) {
-      if (this.permissions?.documents_get_single) return
+      if (!this.permissions?.documents_get_single) return
 
       if (doc.require_password && password === null) {
         this.docPassword = ''
