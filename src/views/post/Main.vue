@@ -388,21 +388,17 @@ export default defineComponent({
         .catch()
     },
     loadDocuments() {
-      if (this.permissions?.documents_get_all) {
-        console.log('no perms')
+      if (!this.permissions?.documents_get_all) {
         this.documents = []
         return
       }
 
       axios.get(`posts/${this.$route.params.id}/documents`)
         .then(response => {
-          console.log('loaded')
-          console.log(response.data)
+
           this.documents = response.data.data
         })
-        .catch(e => {
-          console.log(e.response)
-        })
+        .catch()
     },
     testPagePermissions() {
       axios.post('permissions/test', {
