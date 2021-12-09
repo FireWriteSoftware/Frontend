@@ -294,6 +294,8 @@ export default defineComponent({
             this.loadBookmarks()
             this.loadHistory()
 
+            console.log(this.permissions?.documents_create)
+            console.log(this.permissions?.documents_get_all)
             if (this.permissions?.documents_create || this.permissions?.documents_get_all) {
               this.loadDocuments()
             }
