@@ -622,13 +622,16 @@ router.beforeEach(async (to, from, next) => {
   let isLoggedIn = false
 
   axios.defaults.headers.common['Content-Type'] = 'application/json'
-  axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('token')
   axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 
-  try {
-    const response = await axios.get('auth/user')
-    isLoggedIn = response.data.success
-  } catch (error) { }
+  if (!localStorage.getItem('token')) {
+    try {
+      const response = await axios.get('auth/user')
+      isLoggedIn = response.data.success
+    } catch (error) { }
+
+    axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('token')
+  }
 
   if (toWithMeta.meta?.auth && !isLoggedIn) {
     next({
