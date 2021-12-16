@@ -624,7 +624,7 @@ router.beforeEach(async (to, from, next) => {
   axios.defaults.headers.common['Content-Type'] = 'application/json'
   axios.defaults.baseURL = process.env.VUE_APP_BASE_URL
 
-  if (!localStorage.getItem('token')) {
+  if (localStorage.getItem('token') != null) {
     try {
       const response = await axios.get('auth/user')
       isLoggedIn = response.data.success
