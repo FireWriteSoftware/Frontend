@@ -497,7 +497,7 @@ export default defineComponent({
         .catch()
     },
     loadBookmarks() {
-      axios.get('users/' + this.user.id + '/bookmarks')
+      axios.get('user/bookmarks')
         .then(response => {
           this.user.bookmarks = response.data.data
         })
