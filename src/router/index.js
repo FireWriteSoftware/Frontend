@@ -58,7 +58,7 @@ const routes = [
     name: 'TopMenu',
     meta: {
       title: 'navigation.default',
-      auth: true,
+      auth: false,
       isAuth: false
     },
     children: [
@@ -68,7 +68,7 @@ const routes = [
         component: Categories,
         meta: {
           title: 'navigation.pages.categories',
-          auth: true,
+          auth: false,
           isAuth: false
         }
       },
@@ -78,7 +78,7 @@ const routes = [
         component: Categories,
         meta: {
           title: 'navigation.pages.subcategory',
-          auth: true,
+          auth: false,
           isAuth: false
         }
       },
@@ -88,7 +88,7 @@ const routes = [
         component: PostSingle,
         meta: {
           title: 'navigation.pages.single_post',
-          auth: true,
+          auth: false,
           isAuth: false
         }
       },
@@ -98,7 +98,7 @@ const routes = [
         component: DocumentOverview,
         meta: {
           title: 'navigation.pages.documents',
-          auth: true,
+          auth: false,
           isAuth: false
         }
       },
@@ -108,7 +108,7 @@ const routes = [
         component: Search,
         meta: {
           title: 'navigation.pages.search',
-          auth: true,
+          auth: false,
           isAuth: false
         }
       },
@@ -613,7 +613,7 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { left: 0, top: 0 }
+    return savedPosition || { x: 0, y: 0 }
   }
 })
 
