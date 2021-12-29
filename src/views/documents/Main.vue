@@ -1,28 +1,9 @@
 <template>
   <div>
     <CreateDocumentModal :posts="this.posts" :categories='this.categories' @uploadedDocument='this.fetchDocuments("documents")' @closeModal='this.modalState.create = false' v-show="modalState.create"></CreateDocumentModal>
+    <PasswordDocumentModal @closeModal='this.modalState.password = false' :document="this.selected_download_document" :permissions='permissions' v-show="modalState.password"></PasswordDocumentModal>
     <div class="grid grid-cols-12 gap-6 mt-8">
-      <div class="col-span-12 lg:col-span-3 xxl:col-span-2">
-        <h2 class="intro-y text-lg font-medium mr-auto mt-2">
-          {{ $t('documents.document_manager') }}
-        </h2>
-        <!-- BEGIN: File Manager Menu -->
-        <div class="intro-y box p-5 mt-6">
-          <div class="mt-1">
-            <button @click='this.view_documents = this.documents' class="flex items-center px-3 py-2 rounded-md w-full focus:ring-0 focus:outline-none focus:bg-theme-1 focus:text-white focus:font-medium">
-              <GridIcon class="w-4 h-4 mr-2" />
-              {{ $t('documents.utils.all') }}
-            </button>
-            <button @click="this.view_documents = filter" class="flex items-center px-3 py-2 mt-2 rounded-md w-full focus:ring-0 focus:outline-none focus:bg-theme-1 focus:text-white focus:font-medium" v-for='(filter, index) in this.filters' v-bind:key='index'>
-              <FileIcon class="w-4 h-4 mr-2" v-if="index === 'application'"/>
-              <ImageIcon class="w-4 h-4 mr-2" v-if="index === 'image'"/>
-              {{ $t('documents.utils.types.' + index) }}
-            </button>
-          </div>
-        </div>
-        <!-- END: File Manager Menu -->
-      </div>
-      <div class="col-span-12 lg:col-span-9 xxl:col-span-10">
+      <div class="col-span-12">
         <!-- BEGIN: File Manager Filter -->
         <div class="intro-y flex flex-col-reverse sm:flex-row items-center">
           <div class="w-full sm:w-auto relative mr-auto mt-3 sm:mt-0">
@@ -37,6 +18,9 @@
               @change="this.fetchDocuments(this.search.documents ? 'documents?search=' + this.search.documents : 'documents')"
             />
           </div>
+          <h2 class="intro-y text-lg font-medium mr-auto mt-2">
+            {{ $t('documents.document_manager') }}
+          </h2>
           <div class="w-full sm:w-auto flex">
             <a data-toggle="modal" data-target="#create-document-modal" class="btn btn-primary shadow-md" @click="this.modalState.create = true">
               {{ $t('documents.upload_new_document') }}
@@ -74,7 +58,7 @@
                   />
                 </div>
               </a>
-              <a v-else @click='download(document)' class="w-3/5 file__icon file__icon--file mx-auto">
+              <a v-else @click='downloadDoc(document)' class="w-3/5 file__icon file__icon--file mx-auto">
                 <div class="file__icon__file-name">
                   {{ document.file_name.split('.')[1] }}
                 </div>
@@ -95,7 +79,11 @@
                 </a>
                 <div class="dropdown-menu w-40">
                   <div class="dropdown-menu__content box dark:bg-dark-1 p-2">
-                    <button data-dismiss="dropdown" @click="deleteDocument(document.id)" class="flex items-center w-full block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
+                    <a v-if='document.require_password === true' @click='this.selected_download_document = document; this.modalState.password = true' data-toggle="modal" data-target="#password-document-modal" class="flex items-center w-full block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md cursor-pointer">
+                      <DownloadIcon class="w-4 h-4 mr-2" />
+                      {{ $t('documents.utils.download') }}
+                    </a>
+                    <button v-else data-dismiss="dropdown" @click="downloadDoc(document)" class="flex items-center w-full block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">
                       <DownloadIcon class="w-4 h-4 mr-2" />
                       {{ $t('documents.utils.download') }}
                     </button>
@@ -149,12 +137,13 @@ import CreateDocumentModal from './Components/create-document-modal'
 import { useToast } from 'vue-toastification'
 import axios from 'axios'
 import mime from 'mime-types'
+import PasswordDocumentModal from './Components/password-document-modal'
 
 const toast = useToast()
 
 export default {
   name: 'Main.vue',
-  components: { CreateDocumentModal },
+  components: { PasswordDocumentModal, CreateDocumentModal },
   data() {
     return {
       modalState: {
@@ -169,10 +158,13 @@ export default {
       },
       filters: {},
       pagination: {},
-      image_url: process.env.VUE_APP_BASE_URL.slice(0, -5)
+      permissions: [],
+      image_url: process.env.VUE_APP_BASE_URL.slice(0, -5),
+      selected_download_document: {}
     }
   },
   mounted() {
+    this.testPagePermissions()
     this.fetchDocuments('documents')
     this.fetchPosts()
     this.fetchCategories()
@@ -199,7 +191,6 @@ export default {
             if (!Object.keys(this.filters).includes(documentFilter)) { this.filters[documentFilter] = [] }
             this.filters[documentFilter].push(this.documents[item])
           }
-          console.log(this.filters)
 
           this.makePagination(response.data.meta, response.data.links)
         })
@@ -217,22 +208,6 @@ export default {
         .catch(error => {
           toast.error(error.response.data.message)
         })
-    },
-    download(doc, password = null) {
-      axios.get(`${process.env.VUE_APP_BASE_URL}documents/${doc.id}/download${password ? '?password=' + password : ''}`, {
-        responseType: 'blob',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      })
-        .then(response => {
-          const blob = new Blob([response.data], { type: doc.mime_type })
-          const link = document.createElement('a')
-          link.href = URL.createObjectURL(blob)
-          link.download = doc.title + '.' + mime.extension(doc.mime_type)
-          link.click()
-          URL.revokeObjectURL(link.href)
-        }).catch(console.error)
     },
     fetchCategories() {
       axios.get('categories?paginate=0&load_depth=0')
@@ -256,6 +231,44 @@ export default {
       if (bytes === 0) return '0 Bytes'
       const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)))
       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i]
+    },
+    testPagePermissions() {
+      axios.post('permissions/test', {
+        permissions: [
+          'documents_create',
+          'documents_get_all',
+          'documents_get_single'
+        ]
+      })
+        .then((response) => {
+          this.permissions = response.data.data
+          this.loadPost()
+        })
+        .catch()
+    },
+    downloadDoc(doc, password = null) {
+      if (!this.permissions?.documents_get_single) return
+
+      if (doc.require_password && password === null) {
+        this.docPassword = ''
+        doc.download_password = !doc.download_password
+        return
+      }
+
+      axios.get(`${process.env.VUE_APP_BASE_URL}documents/${doc.id}/download${password ? '?password=' + password : ''}`, {
+        responseType: 'blob',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      })
+        .then(response => {
+          const blob = new Blob([response.data], { type: doc.mime_type })
+          const link = document.createElement('a')
+          link.href = URL.createObjectURL(blob)
+          link.download = doc.title + '.' + mime.extension(doc.mime_type)
+          link.click()
+          URL.revokeObjectURL(link.href)
+        }).catch(console.error)
     }
   }
 }

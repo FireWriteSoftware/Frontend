@@ -396,6 +396,8 @@
       "file_attached": "Datei erfolgreich angehangen",
       "limit_reached": "Das Dateilimit wurde erreicht!"
     },
+    "enter_password_title": "Das Dokument benötigt ein Passwort",
+    "enter_document_password": "Passwort eingeben:",
     "attributes": {
       "title": "Dokument Titel",
       "category": "Kategorie",

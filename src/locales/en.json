@@ -399,6 +399,8 @@
       "file_attached": "File was successfully attached",
       "limit_reached": "The file limit has been reached!"
     },
+    "enter_password_title": "The document requires a password",
+    "enter_document_password": "Enter password:",
     "attributes": {
       "title": "Document title",
       "category": "Category",
