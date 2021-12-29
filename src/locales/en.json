@@ -43,7 +43,8 @@
       "password": "Password-protected",
       "time": "Expires on: {expires_at}",
       "limit": "{downloads} / {max_downloads} Downloads"
-    }
+    },
+    "expired": "This post has not been updated for a long time and might be outdated!"
   },
   "create_category": {
     "create_category": "Create new Category",
