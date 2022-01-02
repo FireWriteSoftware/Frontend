@@ -272,7 +272,7 @@
     "no_recent_bans_subtitle": "This user have no recent bans!"
   },
   "auth_pages": {
-    "header": "Welcome to the {name} Wiki...",
+    "header": "Welcome to the {name}...",
     "slogan": "Free of charge and opensource developed by KRB-Development",
     "sign_in": "Sign in",
     "sign_in_subtitle": "A few more clicks to sign in to your Account.",

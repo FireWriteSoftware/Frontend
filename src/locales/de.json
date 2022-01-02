@@ -270,7 +270,7 @@
     "most_recent_ban": "Letzte Sperre:"
   },
   "auth_pages": {
-    "header": "Willkommen im {name} Wiki...",
+    "header": "Willkommen im {name}...",
     "slogan": "Kostenlos und OpenSource entwickelt von KRB-Development",
     "sign_in": "Anmeldung",
     "sign_in_subtitle": "Mit ein paar weiteren Klicks können Sie sich bei Ihrem Konto anmelden.",

@@ -100,8 +100,8 @@
   .fc-button-primary:not(:disabled):active,
   .fc-button-primary:not(:disabled).fc-button-active {
     color: #ffffff !important;
-    border-color: rgba(28, 63, 170, var(--tw-bg-opacity)) !important;
-    background-color: rgba(28, 63, 170, var(--tw-bg-opacity)) !important;
+    border-color: rgba(170, 28, 28, var(--tw-bg-opacity)) !important;
+    background-color: rgba(170, 28, 28, var(--tw-bg-opacity)) !important;
   }
   .fc-list-day-cushion {
     --tw-bg-opacity: 1;
@@ -116,7 +116,7 @@
   }
   .fc-list-event-dot {
     --tw-border-opacity: 1;
-    border-color: rgba(28, 63, 170, var(--tw-border-opacity)) !important;
+    border-color: rgba(170, 28, 28, var(--tw-border-opacity)) !important;
   }
   .fc-v-event {
     @apply border-theme-1 bg-theme-1 dark:shadow-none dark:border-dark-1 dark:bg-dark-1;
@@ -139,8 +139,8 @@
     }
     .fc-button-primary:not(:disabled):active,
     .fc-button-primary:not(:disabled).fc-button-active {
-      border-color: rgba(28, 63, 170, var(--tw-bg-opacity)) !important;
-      background-color: rgba(28, 63, 170, var(--tw-bg-opacity)) !important;
+      border-color: rgba(170, 28, 28, var(--tw-bg-opacity)) !important;
+      background-color: rgba(170, 28, 28, var(--tw-bg-opacity)) !important;
     }
     .fc-day-today {
       @apply bg-dark-1;

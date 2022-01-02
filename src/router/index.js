@@ -117,7 +117,7 @@ const routes = [
         name: 'tos',
         component: TermsOfService,
         meta: {
-          title: 'navigation.pages.tos',
+          title: 'navigation.pages.terms_of_service',
           auth: false,
           isAuth: false
         }
